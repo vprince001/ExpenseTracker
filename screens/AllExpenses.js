@@ -1,9 +1,9 @@
-import { View, StyleSheet } from 'react-native'
+import ExpensesOutput from '../components/ExpensesOutput/ExpensesOutput'
 
-import ExpensesList from '../components/ExpensesOutput/ExpenseList'
+import { EXPENSES } from '../util/data'
 
 const AllExpenses = () => {
-  return <ExpensesList />
+  return <ExpensesOutput expenses={EXPENSES} />
 }
 
 export default AllExpenses
