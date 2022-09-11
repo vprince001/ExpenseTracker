@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
 import ExpensesList from './ExpenseList'
 import ExpensesSummary from './ExpensesSummary'
@@ -7,7 +7,7 @@ const ExpensesOutput = ({ expenses }) => {
   return (
     <View style={styles.container}>
       <ExpensesSummary expenses={expenses} />
-      <ExpensesList />
+      <ExpensesList expenses={expenses} />
     </View>
   )
 }
