@@ -31,6 +31,13 @@ const AddExpense = () => {
       {showCalendar && (
         <DateTimePicker value={new Date()} onChange={() => {}} />
       )}
+      <View>
+        <Pressable>
+          <View>
+            <Text>Add</Text>
+          </View>
+        </Pressable>
+      </View>
     </View>
   )
 }
