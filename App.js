@@ -2,15 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { View, Text } from 'react-native';
 
-const HomeScreen = () => {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Screen</Text>
-    </View>
-  );
-};
+import HomeScreen from './screens/Expenses';
 
 const Stack = createNativeStackNavigator();
 
