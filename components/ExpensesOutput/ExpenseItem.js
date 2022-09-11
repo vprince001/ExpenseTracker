@@ -4,8 +4,8 @@ const ExpenseItem = ({ description, amount }) => {
   return (
     <>
       <View style={styles.expenseItem}>
-        <Text style={styles.description}>{description}</Text>
-        <Text style={styles.amount}>{amount}</Text>
+        <Text style={styles.text}>{description}</Text>
+        <Text style={styles.text}>{amount}</Text>
       </View>
       <View style={styles.seperator} />
     </>
@@ -20,11 +20,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  description: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  amount: {
+  text: {
     fontSize: 16,
     fontWeight: 'bold',
   },
