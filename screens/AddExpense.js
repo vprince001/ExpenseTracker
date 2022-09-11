@@ -1,26 +1,37 @@
 import { useState } from 'react'
-import { View, Text, TextInput, Pressable } from 'react-native'
+import { View, Text, Pressable } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 
 import DateTimePicker from '@react-native-community/datetimepicker'
+import Input from '../components/UI/Input'
 
 const AddExpense = () => {
   const [showCalendar, setShowCalendar] = useState(false)
+  const [description, setDescription] = useState('')
+  const [amount, setAmount] = useState('')
 
+  const descriptionHandler = (description) => setDescription(description)
+  const amountHandler = (amount) => setAmount(amount)
   const calendarVisibilityHandler = () => setShowCalendar(true)
 
   return (
     <View>
-      <Text>Add Expense</Text>
+      <Input
+        label="Description"
+        textInputConfig={{
+          onChangeText: descriptionHandler,
+          value: description,
+        }}
+      />
       <View>
-        <Text>Description</Text>
-        <TextInput />
-      </View>
-      <View>
-        <View>
-          <Text>Amount</Text>
-          <TextInput keyboardType="decimal" />
-        </View>
+        <Input
+          label="Amount"
+          textInputConfig={{
+            onChangeText: amountHandler,
+            value: amount,
+            keyboardType: 'decimal-pad',
+          }}
+        />
         <Pressable onPress={calendarVisibilityHandler}>
           <View>
             <Ionicons name="calendar" size={36} />
