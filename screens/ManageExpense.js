@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useLayoutEffect, useState } from 'react'
 import { View, Text, Pressable, StyleSheet } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 
@@ -6,7 +6,16 @@ import DateTimePicker from '@react-native-community/datetimepicker'
 import Input from '../components/UI/Input'
 import IconButton from '../components/UI/IconButton'
 
-const AddExpense = () => {
+const ManageExpense = ({ route, navigation }) => {
+  const editedExpenseId = route.params?.expenseId
+  const isEditing = !!editedExpenseId
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: isEditing ? 'Edit Expense' : 'Add Expense',
+    })
+  }, [navigation, isEditing])
+
   const [showCalendar, setShowCalendar] = useState(false)
   const [description, setDescription] = useState('')
   const [amount, setAmount] = useState('')
@@ -71,7 +80,7 @@ const AddExpense = () => {
   )
 }
 
-export default AddExpense
+export default ManageExpense
 
 const styles = StyleSheet.create({
   amountNCalendarView: {

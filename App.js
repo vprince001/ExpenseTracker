@@ -6,7 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import AllExpenses from './screens/AllExpenses'
-import AddExpense from './screens/AddExpense'
+import ManageExpense from './screens/ManageExpense'
 
 import IconButton from './components/UI/IconButton'
 
@@ -21,7 +21,7 @@ const ExpensesOverview = () => {
           <IconButton
             icon="add"
             size={36}
-            onPress={() => navigation.navigate('AddExpense')}
+            onPress={() => navigation.navigate('ManageExpense')}
           />
         ),
       })}
@@ -53,8 +53,8 @@ const App = () => {
             options={{ headerShown: false }}
           />
           <Stack.Screen
-            name="AddExpense"
-            component={AddExpense}
+            name="ManageExpense"
+            component={ManageExpense}
             options={{ presentation: 'modal' }}
           />
         </Stack.Navigator>
