@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons'
 
 import DateTimePicker from '@react-native-community/datetimepicker'
 import Input from '../components/UI/Input'
+import IconButton from '../components/UI/IconButton'
 
 const AddExpense = () => {
   const [showCalendar, setShowCalendar] = useState(false)
@@ -42,7 +43,11 @@ const AddExpense = () => {
         />
         <Pressable onPress={calendarVisibilityHandler}>
           <View style={styles.calendarView}>
-            <Ionicons name="calendar" size={36} />
+            <IconButton
+              icon="calendar"
+              size={36}
+              onPress={calendarVisibilityHandler}
+            />
             <Text>{date.toISOString().slice(0, 10)}</Text>
           </View>
         </Pressable>

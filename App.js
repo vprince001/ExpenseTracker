@@ -8,6 +8,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import AllExpenses from './screens/AllExpenses'
 import AddExpense from './screens/AddExpense'
 
+import IconButton from './components/UI/IconButton'
+
 const Stack = createNativeStackNavigator()
 const BottomTabs = createBottomTabNavigator()
 
@@ -16,12 +18,10 @@ const ExpensesOverview = () => {
     <BottomTabs.Navigator
       screenOptions={({ navigation }) => ({
         headerRight: () => (
-          <Ionicons
-            name="add"
+          <IconButton
+            icon="add"
             size={36}
-            onPress={() => {
-              navigation.navigate('AddExpense')
-            }}
+            onPress={() => navigation.navigate('AddExpense')}
           />
         ),
       })}
