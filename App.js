@@ -6,13 +6,26 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import AllExpenses from './screens/AllExpenses'
+import AddExpense from './screens/AddExpense'
 
 const Stack = createNativeStackNavigator()
 const BottomTabs = createBottomTabNavigator()
 
 const ExpensesOverview = () => {
   return (
-    <BottomTabs.Navigator>
+    <BottomTabs.Navigator
+      screenOptions={({ navigation }) => ({
+        headerRight: () => (
+          <Ionicons
+            name="add"
+            size={36}
+            onPress={() => {
+              navigation.navigate('AddExpense')
+            }}
+          />
+        ),
+      })}
+    >
       <BottomTabs.Screen
         name="AllExpenses"
         component={AllExpenses}
@@ -38,6 +51,11 @@ const App = () => {
             name="ExpensesOverview"
             component={ExpensesOverview}
             options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="AddExpense"
+            component={AddExpense}
+            options={{ presentation: 'modal' }}
           />
         </Stack.Navigator>
       </NavigationContainer>
