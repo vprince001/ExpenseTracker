@@ -1,10 +1,8 @@
 import { useLayoutEffect, useState } from 'react'
-import { View, Text, Pressable, StyleSheet } from 'react-native'
-import { Ionicons } from '@expo/vector-icons'
-
-import DateTimePicker from '@react-native-community/datetimepicker'
-import Input from '../components/UI/Input'
+import { View, StyleSheet } from 'react-native'
 import IconButton from '../components/UI/IconButton'
+
+import ExpenseForm from '../components/ManageExpense/ExpenseForm'
 
 const ManageExpense = ({ route, navigation }) => {
   const editedExpenseId = route.params?.expenseId
@@ -16,66 +14,30 @@ const ManageExpense = ({ route, navigation }) => {
     })
   }, [navigation, isEditing])
 
-  const [showCalendar, setShowCalendar] = useState(false)
-  const [description, setDescription] = useState('')
-  const [amount, setAmount] = useState('')
-  const [category, setCategory] = useState('')
-  const [date, setDate] = useState(new Date())
-
-  const descriptionHandler = (description) => setDescription(description)
-  const amountHandler = (amount) => setAmount(amount)
-  const categoryHandler = (category) => setCategory(category)
-  const dateHandler = (event, date) => {
-    setDate(date)
-    setShowCalendar(false)
+  const confirmHandler = () => {
+    navigation.goBack()
   }
-  const calendarVisibilityHandler = () => setShowCalendar(true)
+
+  const cancelHandler = () => {
+    navigation.goBack()
+  }
+
+  const deleteExpenseHandler = () => {
+    navigation.goBack()
+  }
 
   return (
-    <View>
-      <Input
-        label="Description"
-        textInputConfig={{
-          onChangeText: descriptionHandler,
-          value: description,
-        }}
+    <View style={styles.container}>
+      <ExpenseForm
+        submitButtonLabel={isEditing ? 'Update' : 'Add'}
+        onSubmit={confirmHandler}
+        onCancel={cancelHandler}
       />
-      <View style={styles.amountNCalendarView}>
-        <Input
-          label="Amount"
-          style={styles.amountInput}
-          textInputConfig={{
-            onChangeText: amountHandler,
-            value: amount,
-            keyboardType: 'decimal-pad',
-          }}
-        />
-        <Pressable onPress={calendarVisibilityHandler}>
-          <View style={styles.calendarView}>
-            <IconButton
-              icon="calendar"
-              size={36}
-              onPress={calendarVisibilityHandler}
-            />
-            <Text>{date.toISOString().slice(0, 10)}</Text>
-          </View>
-        </Pressable>
-      </View>
-      {showCalendar && <DateTimePicker value={date} onChange={dateHandler} />}
-      <Input
-        label="Category"
-        textInputConfig={{
-          onChangeText: categoryHandler,
-          value: category,
-        }}
-      />
-      <View>
-        <Pressable onPress={() => {}}>
-          <View>
-            <Text>Add</Text>
-          </View>
-        </Pressable>
-      </View>
+      {isEditing && (
+        <View style={styles.deleteContainer}>
+          <IconButton icon="trash" size={36} onPress={deleteExpenseHandler} />
+        </View>
+      )}
     </View>
   )
 }
@@ -83,17 +45,15 @@ const ManageExpense = ({ route, navigation }) => {
 export default ManageExpense
 
 const styles = StyleSheet.create({
-  amountNCalendarView: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  amountInput: {
+  container: {
     flex: 1,
+    padding: 24,
   },
-  calendarView: {
-    flex: 1,
-    flexDirection: 'row',
+  deleteContainer: {
+    marginTop: 16,
+    paddingTop: 8,
+    borderTopWidth: 2,
+    borderTopColor: 'black',
     alignItems: 'center',
-    justifyContent: 'center',
   },
 })
