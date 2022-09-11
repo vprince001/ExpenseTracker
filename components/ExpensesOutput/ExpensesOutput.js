@@ -1,18 +1,12 @@
 import { StyleSheet, View, Text } from 'react-native'
 
 import ExpensesList from './ExpenseList'
+import ExpensesSummary from './ExpensesSummary'
 
 const ExpensesOutput = ({ expenses }) => {
-  const expensesSum = expenses.reduce((sum, expense) => {
-    return sum + expense.amount
-  }, 0)
-
   return (
     <View style={styles.container}>
-      <View>
-        <Text>Total Spends</Text>
-        <Text>{expensesSum.toFixed(2)}</Text>
-      </View>
+      <ExpensesSummary expenses={expenses} />
       <ExpensesList />
     </View>
   )
