@@ -1,22 +1,9 @@
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native'
 
-import ExpensesList from '../components/ExpenseList';
+import ExpensesList from '../components/ExpensesOutput/ExpenseList'
 
 const AllExpenses = () => {
-  return (
-    <View style={styles.container}>
-      <ExpensesList />
-    </View>
-  );
-};
+  return <ExpensesList />
+}
 
-export default AllExpenses;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 32,
-  },
-});
+export default AllExpenses

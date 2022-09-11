@@ -1,16 +1,16 @@
-import { StatusBar } from 'expo-status-bar';
-import { Ionicons } from '@expo/vector-icons';
+import { StatusBar } from 'expo-status-bar'
+import { Ionicons } from '@expo/vector-icons'
 
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
-import AllExpenses from './screens/AllExpenses';
+import AllExpenses from './screens/AllExpenses'
 
-const Stack = createNativeStackNavigator();
-const BottomTabs = createBottomTabNavigator();
+const Stack = createNativeStackNavigator()
+const BottomTabs = createBottomTabNavigator()
 
-function ExpensesOverview() {
+const ExpensesOverview = () => {
   return (
     <BottomTabs.Navigator>
       <BottomTabs.Screen
@@ -25,7 +25,7 @@ function ExpensesOverview() {
         }}
       />
     </BottomTabs.Navigator>
-  );
+  )
 }
 
 const App = () => {
@@ -42,7 +42,7 @@ const App = () => {
         </Stack.Navigator>
       </NavigationContainer>
     </>
-  );
-};
+  )
+}
 
-export default App;
+export default App
