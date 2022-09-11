@@ -5,7 +5,7 @@ const ExpenseItem = ({ description, amount }) => {
     <>
       <View style={styles.expenseItem}>
         <Text style={styles.text}>{description}</Text>
-        <Text style={styles.text}>{amount}</Text>
+        <Text style={styles.text}>{amount.toFixed(2)}</Text>
       </View>
       <View style={styles.seperator} />
     </>
