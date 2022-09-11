@@ -17,10 +17,11 @@ const styles = StyleSheet.create({
     marginVertical: 8,
   },
   label: {
-    fontSize: 12,
+    fontSize: 18,
     marginBottom: 4,
   },
   input: {
+    backgroundColor: 'grey',
     padding: 6,
     borderRadius: 6,
     fontSize: 18,
