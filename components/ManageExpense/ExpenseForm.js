@@ -4,6 +4,7 @@ import { View, Text, Pressable, StyleSheet } from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import Input from '../UI/Input'
 import IconButton from '../UI/IconButton'
+import Button from '../UI/Button'
 
 const ExpenseForm = ({ submitButtonLabel, onSubmit, onCancel }) => {
   const [showCalendar, setShowCalendar] = useState(false)
@@ -60,11 +61,9 @@ const ExpenseForm = ({ submitButtonLabel, onSubmit, onCancel }) => {
         }}
       />
       <View>
-        <Pressable onPress={() => {}}>
-          <View>
-            <Text>{submitButtonLabel}</Text>
-          </View>
-        </Pressable>
+        <Button style={styles.button} onPress={() => {}}>
+          {submitButtonLabel}
+        </Button>
       </View>
     </View>
   )
@@ -85,5 +84,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  button: {
+    minWidth: 120,
+    marginHorizontal: 8,
   },
 })
