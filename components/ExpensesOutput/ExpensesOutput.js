@@ -5,7 +5,7 @@ import ExpensesSummary from './ExpensesSummary'
 
 const ExpensesOutput = ({ expenses }) => {
   return (
-    <View style={styles.container}>
+    <View>
       <ExpensesSummary expenses={expenses} />
       <ExpensesList expenses={expenses} />
     </View>
@@ -13,18 +13,3 @@ const ExpensesOutput = ({ expenses }) => {
 }
 
 export default ExpensesOutput
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: 24,
-    paddingTop: 24,
-    paddingBottom: 0,
-  },
-  infoText: {
-    color: 'white',
-    fontSize: 16,
-    textAlign: 'center',
-    marginTop: 32,
-  },
-})
