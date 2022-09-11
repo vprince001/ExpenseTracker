@@ -1,4 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
+import { Ionicons } from '@expo/vector-icons';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -18,6 +19,9 @@ function ExpensesOverview() {
         options={{
           title: 'All Expenses',
           tabBarShowLabel: false,
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="list" color={color} size={size} />
+          ),
         }}
       />
     </BottomTabs.Navigator>
