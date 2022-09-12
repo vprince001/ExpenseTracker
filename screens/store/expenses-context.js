@@ -43,7 +43,7 @@ const ExpensesContextProvider = ({ children }) => {
   }
 
   const deleteExpense = (id) => {
-    dispatch({ type: 'DELETE', payload: id })
+    dispatch({ type: 'DELETE', payload: { id } })
   }
 
   const value = { expenses, addExpense, updateExpense, deleteExpense }
