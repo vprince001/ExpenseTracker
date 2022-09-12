@@ -5,9 +5,11 @@ import IconButton from '../components/UI/IconButton'
 import ExpenseForm from '../components/ManageExpense/ExpenseForm'
 import { ExpensesContext } from './store/expenses-context'
 import { GlobalStyles } from '../constants/styles'
-import { addExpense, updateExpense } from '../util/http'
+import { addExpense, deleteExpense, updateExpense } from '../util/http'
+import LoadingOverlay from '../components/UI/LoadingOverlay'
 
 const ManageExpense = ({ route, navigation }) => {
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const expensesCtx = useContext(ExpensesContext)
   const editedExpenseId = route.params?.expenseId
   const isEditing = !!editedExpenseId
@@ -23,6 +25,7 @@ const ManageExpense = ({ route, navigation }) => {
   }, [navigation, isEditing])
 
   const confirmHandler = async (expenseData) => {
+    setIsSubmitting(true)
     if (isEditing) {
       expensesCtx.updateExpense(editedExpenseId, expenseData)
       await updateExpense(editedExpenseId, expenseData)
@@ -30,12 +33,19 @@ const ManageExpense = ({ route, navigation }) => {
       const id = await addExpense(expenseData)
       expensesCtx.addExpense({ ...expenseData, id })
     }
+    setIsSubmitting(false)
     navigation.goBack()
   }
 
   const deleteExpenseHandler = () => {
+    setIsSubmitting(true)
+    deleteExpense(editedExpenseId)
     expensesCtx.deleteExpense(editedExpenseId)
     navigation.goBack()
+  }
+
+  if (isSubmitting) {
+    return <LoadingOverlay />
   }
 
   return (
