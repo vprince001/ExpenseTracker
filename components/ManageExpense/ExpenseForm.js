@@ -3,7 +3,6 @@ import { View, Text, Pressable, StyleSheet } from 'react-native'
 
 import DateTimePicker from '@react-native-community/datetimepicker'
 import Input from '../UI/Input'
-import IconButton from '../UI/IconButton'
 import Button from '../UI/Button'
 
 const ExpenseForm = ({ submitButtonLabel, onSubmit }) => {
@@ -39,6 +38,7 @@ const ExpenseForm = ({ submitButtonLabel, onSubmit }) => {
         textInputConfig={{
           onChangeText: descriptionHandler,
           value: description,
+          placeholder: 'Expense Name',
         }}
       />
       <View style={styles.amountNCalendarView}>
@@ -49,17 +49,19 @@ const ExpenseForm = ({ submitButtonLabel, onSubmit }) => {
             onChangeText: amountHandler,
             value: amount,
             keyboardType: 'decimal-pad',
+            placeholder: 'Expense Amount',
           }}
         />
         <Pressable onPress={calendarVisibilityHandler}>
-          <View style={styles.calendarView}>
-            <IconButton
-              icon="calendar"
-              size={36}
-              onPress={calendarVisibilityHandler}
-            />
-            <Text>{date.toISOString().slice(0, 10)}</Text>
-          </View>
+          <Input
+            label="Date"
+            style={styles.calendarDate}
+            textInputConfig={{
+              value: date,
+              placeholder: date.toISOString().slice(0, 10),
+              editable: false,
+            }}
+          />
         </Pressable>
       </View>
       {showCalendar && <DateTimePicker value={date} onChange={dateHandler} />}
@@ -68,12 +70,11 @@ const ExpenseForm = ({ submitButtonLabel, onSubmit }) => {
         textInputConfig={{
           onChangeText: categoryHandler,
           value: category,
+          placeholder: 'Expense Category',
         }}
       />
       <View>
-        <Button style={styles.button} onPress={submitHandler}>
-          {submitButtonLabel}
-        </Button>
+        <Button onPress={submitHandler}>{submitButtonLabel}</Button>
       </View>
     </View>
   )
@@ -93,10 +94,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
   },
-  button: {
-    minWidth: 120,
-    marginHorizontal: 8,
+  calendarDate: {
+    fontSize: 18,
   },
 })

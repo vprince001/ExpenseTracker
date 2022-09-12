@@ -1,4 +1,5 @@
 import { StyleSheet, View, Text } from 'react-native'
+import { GlobalStyles } from '../../constants/styles'
 
 const ExpensesSummary = ({ expenses }) => {
   const expensesSum = expenses.reduce((sum, expense) => {
@@ -21,13 +22,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    borderColor: 'black',
-    borderWidth: 1,
+    borderColor: GlobalStyles.colors.primary200,
+    borderWidth: 2,
     borderRadius: 5,
     margin: 8,
+    backgroundColor: GlobalStyles.colors.primary100,
   },
   text: {
     fontSize: 18,
     fontWeight: 'bold',
+    color: GlobalStyles.colors.primary300,
   },
 })

@@ -1,4 +1,5 @@
 import { View, Text, TextInput, StyleSheet } from 'react-native'
+import { GlobalStyles } from '../../constants/styles'
 
 function Input({ label, textInputConfig }) {
   return (
@@ -14,16 +15,17 @@ export default Input
 const styles = StyleSheet.create({
   inputContainer: {
     marginHorizontal: 4,
-    marginVertical: 8,
+    marginTop: 4,
+    marginBottom: 16,
   },
   label: {
     fontSize: 18,
-    marginBottom: 4,
+    marginBottom: 8,
   },
   input: {
-    backgroundColor: 'grey',
-    padding: 6,
-    borderRadius: 6,
+    backgroundColor: GlobalStyles.colors.gray100,
+    padding: 8,
+    borderRadius: 5,
     fontSize: 18,
   },
 })

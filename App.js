@@ -8,6 +8,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import AllExpenses from './screens/AllExpenses'
 import ManageExpense from './screens/ManageExpense'
 
+import { GlobalStyles } from './constants/styles'
 import IconButton from './components/UI/IconButton'
 import ExpensesContextProvider from './screens/store/expenses-context'
 
@@ -18,11 +19,15 @@ const ExpensesOverview = () => {
   return (
     <BottomTabs.Navigator
       screenOptions={({ navigation }) => ({
+        headerStyle: { backgroundColor: GlobalStyles.colors.clean },
+        tabBarStyle: { backgroundColor: GlobalStyles.colors.clean },
+        tabBarActiveTintColor: GlobalStyles.colors.primary300,
         headerRight: () => (
           <IconButton
             icon="add"
             size={36}
             onPress={() => navigation.navigate('ManageExpense')}
+            color={GlobalStyles.colors.primary300}
           />
         ),
       })}

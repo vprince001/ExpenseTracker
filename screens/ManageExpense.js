@@ -4,6 +4,7 @@ import IconButton from '../components/UI/IconButton'
 
 import ExpenseForm from '../components/ManageExpense/ExpenseForm'
 import { ExpensesContext } from './store/expenses-context'
+import { GlobalStyles } from '../constants/styles'
 
 const ManageExpense = ({ route, navigation }) => {
   const expensesCtx = useContext(ExpensesContext)
@@ -38,7 +39,12 @@ const ManageExpense = ({ route, navigation }) => {
       />
       {isEditing && (
         <View style={styles.deleteContainer}>
-          <IconButton icon="trash" size={36} onPress={deleteExpenseHandler} />
+          <IconButton
+            icon="trash"
+            size={36}
+            color={GlobalStyles.colors.error200}
+            onPress={deleteExpenseHandler}
+          />
         </View>
       )}
     </View>
@@ -50,7 +56,8 @@ export default ManageExpense
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 24,
+    padding: 16,
+    backgroundColor: GlobalStyles.colors.clean,
   },
   deleteContainer: {
     marginTop: 16,

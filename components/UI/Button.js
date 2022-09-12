@@ -1,4 +1,5 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { GlobalStyles } from '../../constants/styles'
 
 function Button({ children, onPress, style }) {
   return (
@@ -8,9 +9,7 @@ function Button({ children, onPress, style }) {
         style={({ pressed }) => pressed && styles.pressed}
       >
         <View style={styles.button}>
-          <Text style={styles.buttonText}>
-            {children}
-          </Text>
+          <Text style={styles.buttonText}>{children}</Text>
         </View>
       </Pressable>
     </View>
@@ -21,14 +20,21 @@ export default Button
 
 const styles = StyleSheet.create({
   button: {
-    borderRadius: 4,
+    borderRadius: 5,
     padding: 8,
+    backgroundColor: GlobalStyles.colors.primary300,
+    marginHorizontal: 4,
+    marginTop: 16,
+    paddingVertical: 8,
   },
   buttonText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: GlobalStyles.colors.clean,
     textAlign: 'center',
   },
   pressed: {
-    opacity: 0.35,
-    borderRadius: 4,
+    opacity: 0.5,
+    borderRadius: 5,
   },
 })
