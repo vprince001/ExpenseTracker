@@ -6,7 +6,7 @@ import Input from '../UI/Input'
 import IconButton from '../UI/IconButton'
 import Button from '../UI/Button'
 
-const ExpenseForm = ({ submitButtonLabel, onSubmit, onCancel }) => {
+const ExpenseForm = ({ submitButtonLabel, onSubmit }) => {
   const [showCalendar, setShowCalendar] = useState(false)
   const [description, setDescription] = useState('')
   const [amount, setAmount] = useState('')

@@ -20,10 +20,6 @@ const ManageExpense = ({ route, navigation }) => {
     navigation.goBack()
   }
 
-  const cancelHandler = () => {
-    navigation.goBack()
-  }
-
   const deleteExpenseHandler = () => {
     expensesCtx.deleteExpense(editedExpenseId)
     navigation.goBack()
@@ -34,7 +30,6 @@ const ManageExpense = ({ route, navigation }) => {
       <ExpenseForm
         submitButtonLabel={isEditing ? 'Update' : 'Add'}
         onSubmit={confirmHandler}
-        onCancel={cancelHandler}
       />
       {isEditing && (
         <View style={styles.deleteContainer}>
