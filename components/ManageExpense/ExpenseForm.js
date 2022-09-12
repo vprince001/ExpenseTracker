@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { View, Text, Pressable, StyleSheet } from 'react-native'
+import { View, Pressable, StyleSheet } from 'react-native'
 
 import DateTimePicker from '@react-native-community/datetimepicker'
 import Input from '../UI/Input'
@@ -8,25 +8,35 @@ import { getFormattedDate } from '../../util/date'
 
 const ExpenseForm = ({ submitButtonLabel, onSubmit }) => {
   const [showCalendar, setShowCalendar] = useState(false)
-  const [description, setDescription] = useState('')
-  const [amount, setAmount] = useState('')
-  const [category, setCategory] = useState('')
+  const [inputValues, setInputValues] = useState({
+    description: '',
+    amount: '',
+    category: '',
+  })
   const [date, setDate] = useState(new Date())
 
-  const descriptionHandler = (description) => setDescription(description)
-  const amountHandler = (amount) => setAmount(amount)
-  const categoryHandler = (category) => setCategory(category)
+  const inputChangedHandler = (inputIdentifier, enteredValue) => {
+    setInputValues((curInputValues) => {
+      return {
+        ...curInputValues,
+        [inputIdentifier]: enteredValue,
+      }
+    })
+  }
+
   const dateHandler = (event, date) => {
     setShowCalendar(false)
     setDate(date)
   }
+
   const calendarVisibilityHandler = () => setShowCalendar(true)
+
   const submitHandler = () => {
     const expenseData = {
-      description,
-      amount: +amount,
-      date: date.toISOString(),
-      category,
+      description: inputValues.description.trim(),
+      amount: +inputValues.amount,
+      date: new Date(date),
+      category: inputValues.category,
     }
 
     onSubmit(expenseData)
@@ -37,8 +47,8 @@ const ExpenseForm = ({ submitButtonLabel, onSubmit }) => {
       <Input
         label="Description"
         textInputConfig={{
-          onChangeText: descriptionHandler,
-          value: description,
+          onChangeText: inputChangedHandler.bind(this, 'description'),
+          value: inputValues.description,
           placeholder: 'Expense Name',
         }}
       />
@@ -47,8 +57,8 @@ const ExpenseForm = ({ submitButtonLabel, onSubmit }) => {
           label="Amount"
           style={styles.amountInput}
           textInputConfig={{
-            onChangeText: amountHandler,
-            value: amount,
+            onChangeText: inputChangedHandler.bind(this, 'amount'),
+            value: inputValues.amount,
             keyboardType: 'decimal-pad',
             placeholder: 'Expense Amount',
           }}
@@ -68,8 +78,8 @@ const ExpenseForm = ({ submitButtonLabel, onSubmit }) => {
       <Input
         label="Category"
         textInputConfig={{
-          onChangeText: categoryHandler,
-          value: category,
+          onChangeText: inputChangedHandler.bind(this, 'category'),
+          value: inputValues.category,
           placeholder: 'Expense Category',
         }}
       />
