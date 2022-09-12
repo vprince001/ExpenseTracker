@@ -38,6 +38,7 @@ const ExpensesOverview = () => {
         options={{
           title: 'All Expenses',
           tabBarShowLabel: false,
+          headerTitleAlign: 'center',
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="list" color={color} size={size} />
           ),
@@ -62,7 +63,7 @@ const App = () => {
             <Stack.Screen
               name="ManageExpense"
               component={ManageExpense}
-              options={{ presentation: 'modal' }}
+              options={{ presentation: 'modal', headerTitleAlign: 'center' }}
             />
           </Stack.Navigator>
         </NavigationContainer>

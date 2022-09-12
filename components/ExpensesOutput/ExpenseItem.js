@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet, Pressable } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
+import { GlobalStyles } from '../../constants/styles'
 
 const ExpenseItem = ({ id, description, amount }) => {
   const navigation = useNavigation()
@@ -41,7 +42,7 @@ const styles = StyleSheet.create({
   },
   seperator: {
     marginVertical: 4,
-    borderBottomColor: 'grey',
-    borderBottomWidth: 1,
+    borderBottomColor: GlobalStyles.colors.gray200,
+    borderBottomWidth: 2,
   },
 })

@@ -7,6 +7,7 @@ export const GlobalStyles = {
     error100: '#fcc4e4',
     error200: '#9b095c',
     gray100: '#f2f2f2',
-    gray200: '#999999',
+    gray200: '#efefef',
+    gray300: '#999999',
   },
 }
