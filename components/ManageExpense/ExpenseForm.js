@@ -6,14 +6,16 @@ import Input from '../UI/Input'
 import Button from '../UI/Button'
 import { getFormattedDate } from '../../util/date'
 
-const ExpenseForm = ({ submitButtonLabel, onSubmit }) => {
+const ExpenseForm = ({ submitButtonLabel, onSubmit, defaultValues }) => {
   const [showCalendar, setShowCalendar] = useState(false)
   const [inputValues, setInputValues] = useState({
-    description: '',
-    amount: '',
-    category: '',
+    description: defaultValues ? defaultValues.description : '',
+    amount: defaultValues ? defaultValues.amount.toString() : '',
+    category: defaultValues ? defaultValues.category : '',
   })
-  const [date, setDate] = useState(new Date())
+  const [date, setDate] = useState(
+    defaultValues ? new Date(defaultValues.date) : new Date()
+  )
 
   const inputChangedHandler = (inputIdentifier, enteredValue) => {
     setInputValues((curInputValues) => {
