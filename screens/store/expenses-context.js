@@ -19,9 +19,9 @@ const expensesReducer = (state, action) => {
         (expense) => expense.id === action.payload.id
       )
       const updatableExpense = state[updatableExpenseIndex]
-      const updatedItem = { ...updatableExpense, ...action.payload.data }
+      const updatedExpense = { ...updatableExpense, ...action.payload.data }
       const updatedExpenses = [...state]
-      updatedExpense[updatableExpenseIndex] = updatedItem
+      updatedExpenses[updatableExpenseIndex] = updatedExpense
       return updatedExpenses
 
     case 'DELETE':

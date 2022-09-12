@@ -16,7 +16,12 @@ const ManageExpense = ({ route, navigation }) => {
     })
   }, [navigation, isEditing])
 
-  const confirmHandler = () => {
+  const confirmHandler = (expenseData) => {
+    if (isEditing) {
+      expensesCtx.updateExpense(editedExpenseId, expenseData)
+    } else {
+      expensesCtx.addExpense()
+    }
     navigation.goBack()
   }
 

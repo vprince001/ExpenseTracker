@@ -21,6 +21,16 @@ const ExpenseForm = ({ submitButtonLabel, onSubmit }) => {
     setShowCalendar(false)
   }
   const calendarVisibilityHandler = () => setShowCalendar(true)
+  const submitHandler = () => {
+    const expenseData = {
+      description,
+      amount: +amount,
+      date: date.toISOString(),
+      category,
+    }
+
+    onSubmit(expenseData)
+  }
 
   return (
     <View>
@@ -61,7 +71,7 @@ const ExpenseForm = ({ submitButtonLabel, onSubmit }) => {
         }}
       />
       <View>
-        <Button style={styles.button} onPress={() => {}}>
+        <Button style={styles.button} onPress={submitHandler}>
           {submitButtonLabel}
         </Button>
       </View>
