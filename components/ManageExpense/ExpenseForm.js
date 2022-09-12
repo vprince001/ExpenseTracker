@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { View, Pressable, StyleSheet } from 'react-native'
+import { View, Pressable, StyleSheet, Text } from 'react-native'
 
 import DateTimePicker from '@react-native-community/datetimepicker'
 import Input from '../UI/Input'
@@ -8,20 +8,29 @@ import { getFormattedDate } from '../../util/date'
 
 const ExpenseForm = ({ submitButtonLabel, onSubmit, defaultValues }) => {
   const [showCalendar, setShowCalendar] = useState(false)
-  const [inputValues, setInputValues] = useState({
-    description: defaultValues ? defaultValues.description : '',
-    amount: defaultValues ? defaultValues.amount.toString() : '',
-    category: defaultValues ? defaultValues.category : '',
+  const [inputs, setInputs] = useState({
+    description: {
+      value: defaultValues ? defaultValues.description : '',
+      isValid: true,
+    },
+    amount: {
+      value: defaultValues ? defaultValues.amount.toString() : '',
+      isValid: true,
+    },
+    category: {
+      value: defaultValues ? defaultValues.category : '',
+      isValid: true,
+    },
   })
   const [date, setDate] = useState(
     defaultValues ? new Date(defaultValues.date) : new Date()
   )
 
   const inputChangedHandler = (inputIdentifier, enteredValue) => {
-    setInputValues((curInputValues) => {
+    setInputs((curInputs) => {
       return {
-        ...curInputValues,
-        [inputIdentifier]: enteredValue,
+        ...curInputs,
+        [inputIdentifier]: { value: enteredValue, isValid: true },
       }
     })
   }
@@ -35,14 +44,36 @@ const ExpenseForm = ({ submitButtonLabel, onSubmit, defaultValues }) => {
 
   const submitHandler = () => {
     const expenseData = {
-      description: inputValues.description.trim(),
-      amount: +inputValues.amount,
+      description: inputs.description.value.trim(),
+      amount: +inputs.amount.value,
       date: new Date(date),
-      category: inputValues.category,
+      category: inputs.category.value.trim(),
     }
 
+    const descriptionIsValid = expenseData.description.length > 0
+    const amountIsValid = !isNaN(expenseData.amount) && expenseData.amount > 0
+    const categoryIsValid = expenseData.category.length > 0
+
+    if (!descriptionIsValid || !amountIsValid || !categoryIsValid) {
+      setInputs((curInputs) => {
+        return {
+          description: {
+            value: curInputs.description.value,
+            isValid: descriptionIsValid,
+          },
+          amount: { value: curInputs.amount.value, isValid: amountIsValid },
+          category: { value: curInputs.category.value, isValid: categoryIsValid },
+        }
+      })
+      return
+    }
     onSubmit(expenseData)
   }
+
+  const formIsInvalid =
+    !inputs.description.isValid ||
+    !inputs.amount.isValid ||
+    !inputs.category.isValid
 
   return (
     <View>
@@ -50,7 +81,7 @@ const ExpenseForm = ({ submitButtonLabel, onSubmit, defaultValues }) => {
         label="Description"
         textInputConfig={{
           onChangeText: inputChangedHandler.bind(this, 'description'),
-          value: inputValues.description,
+          value: inputs.description.value,
           placeholder: 'Expense Name',
         }}
       />
@@ -60,7 +91,7 @@ const ExpenseForm = ({ submitButtonLabel, onSubmit, defaultValues }) => {
           style={styles.amountInput}
           textInputConfig={{
             onChangeText: inputChangedHandler.bind(this, 'amount'),
-            value: inputValues.amount,
+            value: inputs.amount.value,
             keyboardType: 'decimal-pad',
             placeholder: 'Expense Amount',
           }}
@@ -81,10 +112,13 @@ const ExpenseForm = ({ submitButtonLabel, onSubmit, defaultValues }) => {
         label="Category"
         textInputConfig={{
           onChangeText: inputChangedHandler.bind(this, 'category'),
-          value: inputValues.category,
+          value: inputs.category.value,
           placeholder: 'Expense Category',
         }}
       />
+      {formIsInvalid && (
+        <Text>Invalid input values - please check your entered data!</Text>
+      )}
       <View>
         <Button onPress={submitHandler}>{submitButtonLabel}</Button>
       </View>
