@@ -16,8 +16,8 @@ const ExpenseForm = ({ submitButtonLabel, onSubmit }) => {
   const amountHandler = (amount) => setAmount(amount)
   const categoryHandler = (category) => setCategory(category)
   const dateHandler = (event, date) => {
-    setDate(date)
     setShowCalendar(false)
+    setDate(date)
   }
   const calendarVisibilityHandler = () => setShowCalendar(true)
   const submitHandler = () => {
