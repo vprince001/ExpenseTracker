@@ -5,7 +5,7 @@ import IconButton from '../components/UI/IconButton'
 import ExpenseForm from '../components/ManageExpense/ExpenseForm'
 import { ExpensesContext } from './store/expenses-context'
 import { GlobalStyles } from '../constants/styles'
-import { storeExpense } from '../util/http'
+import { addExpense, updateExpense } from '../util/http'
 
 const ManageExpense = ({ route, navigation }) => {
   const expensesCtx = useContext(ExpensesContext)
@@ -25,8 +25,9 @@ const ManageExpense = ({ route, navigation }) => {
   const confirmHandler = async (expenseData) => {
     if (isEditing) {
       expensesCtx.updateExpense(editedExpenseId, expenseData)
+      await updateExpense(editedExpenseId, expenseData)
     } else {
-      const id = await storeExpense(expenseData)
+      const id = await addExpense(expenseData)
       expensesCtx.addExpense({ ...expenseData, id })
     }
     navigation.goBack()
