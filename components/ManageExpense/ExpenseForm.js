@@ -4,6 +4,7 @@ import { View, Text, Pressable, StyleSheet } from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import Input from '../UI/Input'
 import Button from '../UI/Button'
+import { getFormattedDate } from '../../util/date'
 
 const ExpenseForm = ({ submitButtonLabel, onSubmit }) => {
   const [showCalendar, setShowCalendar] = useState(false)
@@ -57,8 +58,7 @@ const ExpenseForm = ({ submitButtonLabel, onSubmit }) => {
             label="Date"
             style={styles.calendarDate}
             textInputConfig={{
-              value: date,
-              placeholder: date.toISOString().slice(0, 10),
+              placeholder: getFormattedDate(date),
               editable: false,
             }}
           />
