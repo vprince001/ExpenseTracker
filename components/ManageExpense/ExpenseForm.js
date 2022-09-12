@@ -5,6 +5,7 @@ import DateTimePicker from '@react-native-community/datetimepicker'
 import Input from '../UI/Input'
 import Button from '../UI/Button'
 import { getFormattedDate } from '../../util/date'
+import { GlobalStyles } from '../../constants/styles'
 
 const ExpenseForm = ({ submitButtonLabel, onSubmit, defaultValues }) => {
   const [showCalendar, setShowCalendar] = useState(false)
@@ -62,7 +63,10 @@ const ExpenseForm = ({ submitButtonLabel, onSubmit, defaultValues }) => {
             isValid: descriptionIsValid,
           },
           amount: { value: curInputs.amount.value, isValid: amountIsValid },
-          category: { value: curInputs.category.value, isValid: categoryIsValid },
+          category: {
+            value: curInputs.category.value,
+            isValid: categoryIsValid,
+          },
         }
       })
       return
@@ -70,15 +74,11 @@ const ExpenseForm = ({ submitButtonLabel, onSubmit, defaultValues }) => {
     onSubmit(expenseData)
   }
 
-  const formIsInvalid =
-    !inputs.description.isValid ||
-    !inputs.amount.isValid ||
-    !inputs.category.isValid
-
   return (
     <View>
       <Input
         label="Description"
+        invalid={!inputs.description.isValid}
         textInputConfig={{
           onChangeText: inputChangedHandler.bind(this, 'description'),
           value: inputs.description.value,
@@ -89,6 +89,7 @@ const ExpenseForm = ({ submitButtonLabel, onSubmit, defaultValues }) => {
         <Input
           label="Amount"
           style={styles.amountInput}
+          invalid={!inputs.amount.isValid}
           textInputConfig={{
             onChangeText: inputChangedHandler.bind(this, 'amount'),
             value: inputs.amount.value,
@@ -110,15 +111,13 @@ const ExpenseForm = ({ submitButtonLabel, onSubmit, defaultValues }) => {
       {showCalendar && <DateTimePicker value={date} onChange={dateHandler} />}
       <Input
         label="Category"
+        invalid={!inputs.category.isValid}
         textInputConfig={{
           onChangeText: inputChangedHandler.bind(this, 'category'),
           value: inputs.category.value,
           placeholder: 'Expense Category',
         }}
       />
-      {formIsInvalid && (
-        <Text>Invalid input values - please check your entered data!</Text>
-      )}
       <View>
         <Button onPress={submitHandler}>{submitButtonLabel}</Button>
       </View>
@@ -143,5 +142,9 @@ const styles = StyleSheet.create({
   },
   calendarDate: {
     fontSize: 18,
+  },
+  errorText: {
+    textAlign: 'center',
+    color: GlobalStyles.colors.error200,
   },
 })

@@ -1,11 +1,11 @@
 import { View, Text, TextInput, StyleSheet } from 'react-native'
 import { GlobalStyles } from '../../constants/styles'
 
-function Input({ label, textInputConfig }) {
+function Input({ label, invalid, textInputConfig }) {
   return (
     <View style={styles.inputContainer}>
-      <Text style={styles.label}>{label}</Text>
-      <TextInput style={styles.input} {...textInputConfig} />
+      <Text style={[styles.label, invalid && styles.invalidLabel]}>{label}</Text>
+      <TextInput style={[styles.input, invalid && styles.invalidInput]} {...textInputConfig} />
     </View>
   )
 }
@@ -28,4 +28,10 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     fontSize: 18,
   },
+  invalidLabel: {
+    color: GlobalStyles.colors.error200
+  },
+  invalidInput: {
+    backgroundColor: GlobalStyles.colors.error100
+  }
 })
