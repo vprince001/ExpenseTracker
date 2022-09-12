@@ -1,10 +1,9 @@
 import { createContext, useReducer } from 'react'
 
-import { EXPENSES } from '../../util/data'
-
 export const ExpensesContext = createContext({
   expenses: [],
   addExpense: ({ description, amount, category, date }) => {},
+  setExpenses: (expenses) => {},
   updateExpense: (id, { description, amount, category, date }) => {},
   deleteExpense: (id) => {},
 })
@@ -14,6 +13,10 @@ const expensesReducer = (state, action) => {
     case 'ADD':
       const id = new Date().toString() + Math.random().toString()
       return [{ ...action.payload, id }, ...state]
+
+    case 'SET':
+      return action.payload
+
     case 'UPDATE':
       const updatableExpenseIndex = state.findIndex(
         (expense) => expense.id === action.payload.id
@@ -32,10 +35,14 @@ const expensesReducer = (state, action) => {
 }
 
 const ExpensesContextProvider = ({ children }) => {
-  const [expenses, dispatch] = useReducer(expensesReducer, EXPENSES)
+  const [expensesState, dispatch] = useReducer(expensesReducer, [])
 
   const addExpense = (expenseData) => {
     dispatch({ type: 'ADD', payload: expenseData })
+  }
+
+  const setExpenses = (expenses) => {
+    dispatch({ type: 'SET', payload: expenses })
   }
 
   const updateExpense = (id, expenseData) => {
@@ -46,7 +53,13 @@ const ExpensesContextProvider = ({ children }) => {
     dispatch({ type: 'DELETE', payload: { id } })
   }
 
-  const value = { expenses, addExpense, updateExpense, deleteExpense }
+  const value = {
+    expenses: expensesState,
+    addExpense,
+    setExpenses,
+    updateExpense,
+    deleteExpense,
+  }
 
   return (
     <ExpensesContext.Provider value={value}>
