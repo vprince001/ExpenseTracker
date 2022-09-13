@@ -1,11 +1,14 @@
 import { useState } from 'react'
 import { View, Pressable, StyleSheet, Text } from 'react-native'
-
 import DateTimePicker from '@react-native-community/datetimepicker'
+
 import Input from '../UI/Input'
 import Button from '../UI/Button'
+import CategoryChoice from '../CategoriesOutput/CategoryChoice'
+
 import { getFormattedDate } from '../../util/date'
 import { GlobalStyles } from '../../constants/styles'
+import { CATEGORIES } from '../../constants/categories'
 
 const ExpenseForm = ({ submitButtonLabel, onSubmit, defaultValues }) => {
   const [showCalendar, setShowCalendar] = useState(false)
@@ -110,12 +113,21 @@ const ExpenseForm = ({ submitButtonLabel, onSubmit, defaultValues }) => {
       </View>
       {showCalendar && <DateTimePicker value={date} onChange={dateHandler} />}
       <Input
-        label="Category"
-        invalid={!inputs.category.isValid}
+        label="Selected Category"
         textInputConfig={{
-          onChangeText: inputChangedHandler.bind(this, 'category'),
-          value: inputs.category.value,
-          placeholder: 'Expense Category',
+          placeholder: inputs.category.value,
+        }}
+      />
+      <CategoryChoice
+        categories={CATEGORIES}
+        invalid={!inputs.category.isValid}
+        onSelect={(selectedCategory) => {
+          setInputs((curInputs) => {
+            return {
+              ...curInputs,
+              category: { value: selectedCategory, isValid: true },
+            }
+          })
         }}
       />
       <View>
