@@ -1,12 +1,13 @@
 import { View, Text, StyleSheet, Pressable } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { GlobalStyles } from '../../constants/styles'
+import { screenNames } from '../../constants/screens'
 
 const ExpenseItem = ({ id, description, amount }) => {
   const navigation = useNavigation()
 
   const expensePressHandler = () => {
-    navigation.navigate('ManageExpense', {
+    navigation.navigate(screenNames.manageExpenseScreen, {
       expenseId: id,
     })
   }

@@ -7,6 +7,7 @@ import AllExpenses from './screens/AllExpenses'
 import ManageExpense from './screens/ManageExpense'
 
 import ExpensesContextProvider from './screens/store/expenses-context'
+import { screenNames } from './constants/screens'
 
 const Stack = createNativeStackNavigator()
 
@@ -18,7 +19,7 @@ const App = () => {
         <NavigationContainer>
           <Stack.Navigator>
             <Stack.Screen
-              name="AllExpenses"
+              name={screenNames.allExpenseScreen}
               component={AllExpenses}
               options={{
                 title: 'Expenses',
@@ -26,7 +27,7 @@ const App = () => {
               }}
             />
             <Stack.Screen
-              name="ManageExpense"
+              name={screenNames.manageExpenseScreen}
               component={ManageExpense}
               options={{
                 presentation: 'modal',
