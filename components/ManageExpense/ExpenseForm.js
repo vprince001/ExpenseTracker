@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { View, Pressable, StyleSheet, Text } from 'react-native'
+import { View, Pressable, StyleSheet } from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker'
 
 import Input from '../UI/Input'
@@ -7,7 +7,6 @@ import Button from '../UI/Button'
 import CategoryChoice from '../CategoriesOutput/CategoryChoice'
 
 import { getFormattedDate } from '../../util/date'
-import { GlobalStyles } from '../../constants/styles'
 import { CATEGORIES } from '../../constants/categories'
 
 const ExpenseForm = ({ submitButtonLabel, onSubmit, defaultValues }) => {
@@ -154,9 +153,5 @@ const styles = StyleSheet.create({
   },
   calendarDate: {
     fontSize: 18,
-  },
-  errorText: {
-    textAlign: 'center',
-    color: GlobalStyles.colors.error200,
   },
 })
