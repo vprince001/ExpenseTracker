@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 
-import { ExpensesContext } from './store/expenses-context'
+import { ExpensesContext } from '../store/expenses-context'
 import ExpensesOutput from '../components/ExpensesOutput/ExpensesOutput'
 import { fetchExpenses } from '../util/http'
 import LoadingOverlay from '../components/UI/LoadingOverlay'

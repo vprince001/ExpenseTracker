@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native'
 import IconButton from '../components/UI/IconButton'
 
 import ExpenseForm from '../components/ManageExpense/ExpenseForm'
-import { ExpensesContext } from './store/expenses-context'
+import { ExpensesContext } from '../store/expenses-context'
 import { GlobalStyles } from '../constants/styles'
 import { addExpense, deleteExpense, updateExpense } from '../util/http'
 
