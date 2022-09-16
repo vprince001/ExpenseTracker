@@ -1,4 +1,4 @@
-export const screenNames = {
+export const ScreenNames = {
   allExpenseScreen: 'AllExpenses',
   manageExpenseScreen: 'ManageExpense',
 }

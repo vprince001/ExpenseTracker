@@ -7,7 +7,9 @@ import AllExpenses from './screens/AllExpenses'
 import ManageExpense from './screens/ManageExpense'
 
 import ExpensesContextProvider from './screens/store/expenses-context'
-import { screenNames } from './constants/screens'
+import { ScreenNames } from './constants/screens'
+import IconButton from './components/UI/IconButton'
+import { GlobalStyles } from './constants/styles'
 
 const Stack = createNativeStackNavigator()
 
@@ -19,15 +21,29 @@ const App = () => {
         <NavigationContainer>
           <Stack.Navigator>
             <Stack.Screen
-              name={screenNames.allExpenseScreen}
+              name={ScreenNames.allExpenseScreen}
               component={AllExpenses}
-              options={{
-                title: 'Expenses',
-                headerTitleAlign: 'center',
+              options={({ navigation }) => {
+                return {
+                  title: 'Expenses',
+                  headerTitleAlign: 'center',
+                  headerRight: () => {
+                    return (
+                      <IconButton
+                        icon={'add'}
+                        size={36}
+                        color={GlobalStyles.colors.primary300}
+                        onPress={() => {
+                          navigation.navigate(ScreenNames.manageExpenseScreen)
+                        }}
+                      />
+                    )
+                  },
+                }
               }}
             />
             <Stack.Screen
-              name={screenNames.manageExpenseScreen}
+              name={ScreenNames.manageExpenseScreen}
               component={ManageExpense}
               options={{
                 presentation: 'modal',
