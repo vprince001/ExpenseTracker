@@ -28,7 +28,7 @@ const AllExpenses = () => {
   }, [])
 
   if (error && !isFetching) {
-    return <ErrorOverlay message={error}/>
+    return <ErrorOverlay message={error} />
   }
 
   if (isFetching) {
