@@ -1,6 +1,6 @@
 import { SectionList, StyleSheet, Text } from 'react-native'
 import ExpenseItem from './ExpenseItem'
-import { getDateSectionExpenses } from '../../util/utils'
+import { getDateExpenseLookup, getDateSectionExpenses, sortDescending } from '../../util/expenses'
 
 const renderExpenseItem = (itemData) => {
   return <ExpenseItem {...itemData.item} />
@@ -11,10 +11,12 @@ const SectionHeader = ({ section: { title } }) => {
 }
 
 const ExpensesList = ({ expenses }) => {
-  const deteSectionExpenses = getDateSectionExpenses(expenses)
+  const dateExpenseLookup = getDateExpenseLookup(expenses)
+  const dateSectionExpenses = getDateSectionExpenses(dateExpenseLookup)
+  const sortedDateSectionExpenses = sortDescending(dateSectionExpenses)
   return (
     <SectionList
-      sections={deteSectionExpenses}
+      sections={sortedDateSectionExpenses}
       keyExtractor={(item) => item.id}
       renderItem={renderExpenseItem}
       renderSectionHeader={SectionHeader}
