@@ -14,7 +14,8 @@ const categoriesReducer = (state, action) => {
       return [{ ...action.payload }, ...state]
 
     case 'SET':
-      return action.payload
+      const inverted = action.payload.reverse()
+      return inverted
 
     case 'UPDATE':
       const updatableCategoryIndex = state.findIndex(
