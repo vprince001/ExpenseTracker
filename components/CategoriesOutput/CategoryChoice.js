@@ -13,7 +13,7 @@ const CategoryChoice = ({ categories, currentCategory, onSelect, invalid }) => {
           return (
             <ChoiceItem
               key={listItem.id}
-              name={listItem.name}
+              name={listItem.description}
               currentItem={currentCategory}
               onSelect={onSelect}
               invalid={invalid}

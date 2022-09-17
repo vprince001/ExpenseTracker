@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { View, Pressable, StyleSheet } from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker'
@@ -7,12 +7,13 @@ import Input from '../UI/Input'
 import IconButton from '../UI/IconButton'
 import CategoryChoice from '../CategoriesOutput/CategoryChoice'
 
+import { CategoriesContext } from '../../store/categories-context'
 import { getFormattedDate } from '../../util/date'
-import { CATEGORIES } from '../../constants/categories'
 import { GlobalStyles } from '../../constants/styles'
 
 const ExpenseForm = ({ onSubmit, defaultValues }) => {
   const navigation = useNavigation()
+  const categoriesCtx = useContext(CategoriesContext)
   const [showCalendar, setShowCalendar] = useState(false)
   const [inputs, setInputs] = useState({
     description: {
@@ -128,7 +129,7 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
       </View>
       {showCalendar && <DateTimePicker value={date} onChange={dateHandler} />}
       <CategoryChoice
-        categories={CATEGORIES}
+        categories={categoriesCtx.categories}
         invalid={!inputs.category.isValid}
         onSelect={(currentCategory) => {
           setInputs((curInputs) => {
