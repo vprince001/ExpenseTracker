@@ -1,21 +1,6 @@
-import { StyleSheet, View, Text, Pressable } from 'react-native'
+import { StyleSheet, View, Text } from 'react-native'
+import ChoiceItem from '../UI/ChoiceItem'
 import { GlobalStyles } from '../../constants/styles'
-
-const ChoiceItem = ({ name, currentItem, onSelect, invalid }) => {
-  return (
-    <Pressable onPress={() => onSelect(name)}>
-      <View
-        style={[
-          styles.itemView,
-          name === currentItem && styles.selectedItem,
-          invalid && styles.invalidItem,
-        ]}
-      >
-        <Text style={styles.item}>{name}</Text>
-      </View>
-    </Pressable>
-  )
-}
 
 const CategoryChoice = ({ categories, currentCategory, onSelect, invalid }) => {
   return (
@@ -53,22 +38,5 @@ const styles = StyleSheet.create({
   },
   invalidLabel: {
     color: GlobalStyles.colors.error200,
-  },
-  itemView: {
-    margin: 4,
-    borderRadius: 20,
-    backgroundColor: GlobalStyles.colors.gray200,
-  },
-  item: {
-    paddingTop: 8,
-    paddingBottom: 8,
-    paddingLeft: 12,
-    paddingRight: 12,
-  },
-  selectedItem: {
-    backgroundColor: GlobalStyles.colors.primary300,
-  },
-  invalidItem: {
-    backgroundColor: GlobalStyles.colors.error100,
   },
 })
