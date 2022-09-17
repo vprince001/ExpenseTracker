@@ -1,14 +1,15 @@
 import { useContext, useLayoutEffect, useState } from 'react'
 import { View, StyleSheet } from 'react-native'
+
 import IconButton from '../components/UI/IconButton'
-
-import ExpenseForm from '../components/ManageExpense/ExpenseForm'
-import { ExpensesContext } from '../store/expenses-context'
-import { GlobalStyles } from '../constants/styles'
-import { addExpense, deleteExpense, updateExpense } from '../util/http'
-
 import LoadingOverlay from '../components/UI/LoadingOverlay'
 import ErrorOverlay from '../components/UI/ErrorOverlay'
+import ExpenseForm from '../components/ManageExpense/ExpenseForm'
+
+import { ExpensesContext } from '../store/expenses-context'
+import { addExpense, deleteExpense, updateExpense } from '../util/http'
+import { GlobalStyles } from '../constants/styles'
+
 
 const ManageExpense = ({ route, navigation }) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -68,7 +69,6 @@ const ManageExpense = ({ route, navigation }) => {
   return (
     <View style={styles.container}>
       <ExpenseForm
-        submitButtonLabel={isEditing ? 'Update' : 'Add'}
         onSubmit={confirmHandler}
         defaultValues={selectedExpense}
       />

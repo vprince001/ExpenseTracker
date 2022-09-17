@@ -1,15 +1,18 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useNavigation } from '@react-navigation/native'
 import { View, Pressable, StyleSheet } from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker'
 
 import Input from '../UI/Input'
-import Button from '../UI/Button'
+import IconButton from '../UI/IconButton'
 import CategoryChoice from '../CategoriesOutput/CategoryChoice'
 
 import { getFormattedDate } from '../../util/date'
 import { CATEGORIES } from '../../constants/categories'
+import { GlobalStyles } from '../../constants/styles'
 
-const ExpenseForm = ({ submitButtonLabel, onSubmit, defaultValues }) => {
+const ExpenseForm = ({ onSubmit, defaultValues }) => {
+  const navigation = useNavigation()
   const [showCalendar, setShowCalendar] = useState(false)
   const [inputs, setInputs] = useState({
     description: {
@@ -76,6 +79,19 @@ const ExpenseForm = ({ submitButtonLabel, onSubmit, defaultValues }) => {
     onSubmit(expenseData)
   }
 
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <IconButton
+          icon={'md-checkmark'}
+          size={36}
+          color={GlobalStyles.colors.primary300}
+          onPress={submitHandler}
+        />
+      ),
+    })
+  })
+
   return (
     <View>
       <Input
@@ -129,9 +145,6 @@ const ExpenseForm = ({ submitButtonLabel, onSubmit, defaultValues }) => {
           })
         }}
       />
-      <View>
-        <Button onPress={submitHandler}>{submitButtonLabel}</Button>
-      </View>
     </View>
   )
 }
