@@ -1,20 +1,21 @@
 import { StatusBar } from 'expo-status-bar'
+import { Ionicons } from '@expo/vector-icons'
 
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
-import ExpensesContextProvider from './store/expenses-context'
-import CategoriesContextProvider from './store/categories-context'
-
-import AllExpenses from './screens/AllExpenses'
-import AllCategories from './screens/AllCategories'
+import IconButton from './components/UI/IconButton'
 import ManageExpense from './screens/ManageExpense'
 import ManageCategory from './screens/ManageCategory'
-import IconButton from './components/UI/IconButton'
+import AllExpenses from './screens/AllExpenses'
+import AllCategories from './screens/AllCategories'
 
+import ExpensesContextProvider from './store/expenses-context'
+import CategoriesContextProvider from './store/categories-context'
 import { ScreenNames } from './constants/screens'
 import { GlobalStyles } from './constants/styles'
+
 
 const ExpensesStack = createNativeStackNavigator()
 const CategoriesStack = createNativeStackNavigator()
@@ -97,14 +98,32 @@ const App = () => {
       <ExpensesContextProvider>
         <CategoriesContextProvider>
           <NavigationContainer>
-            <Tab.Navigator screenOptions={{ headerShown: false }}>
+            <Tab.Navigator
+              screenOptions={{
+                headerShown: false,
+                tabBarShowLabel: false,
+                tabBarActiveTintColor: GlobalStyles.colors.primary300,
+              }}
+            >
               <Tab.Screen
                 name={ScreenNames.expenseBottomScreen}
                 component={ExpensesStackScreen}
+                options={{
+                  tabBarIcon: ({ color, size }) => {
+                    return (
+                      <Ionicons name="wallet" size={size} color={color} />
+                    )
+                  },
+                }}
               />
               <Tab.Screen
                 name={ScreenNames.categoryBottomScreen}
                 component={CategoriesStackScreen}
+                options={{
+                  tabBarIcon: ({ color, size }) => (
+                    <Ionicons name="list" size={size} color={color} />
+                  ),
+                }}
               />
             </Tab.Navigator>
           </NavigationContainer>
