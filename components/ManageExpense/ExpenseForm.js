@@ -127,12 +127,6 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
         </Pressable>
       </View>
       {showCalendar && <DateTimePicker value={date} onChange={dateHandler} />}
-      <Input
-        label="Selected Category"
-        textInputConfig={{
-          placeholder: inputs.category.value,
-        }}
-      />
       <CategoryChoice
         categories={CATEGORIES}
         invalid={!inputs.category.isValid}
