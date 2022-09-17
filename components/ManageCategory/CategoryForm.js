@@ -1,10 +1,14 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useNavigation } from '@react-navigation/native'
 import { View } from 'react-native'
 
 import Input from '../UI/Input'
-import Button from '../UI/Button'
+import IconButton from '../UI/IconButton'
 
-const CategoryForm = ({ submitButtonLabel, onSubmit, defaultValues }) => {
+import { GlobalStyles } from '../../constants/styles'
+
+const CategoryForm = ({ onSubmit, defaultValues }) => {
+  const navigation = useNavigation()
   const [inputs, setInputs] = useState({
     description: {
       value: defaultValues ? defaultValues.description : '',
@@ -42,6 +46,19 @@ const CategoryForm = ({ submitButtonLabel, onSubmit, defaultValues }) => {
     onSubmit(categoryData)
   }
 
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <IconButton
+          icon={'md-checkmark'}
+          size={36}
+          color={GlobalStyles.colors.primary300}
+          onPress={submitHandler}
+        />
+      ),
+    })
+  })
+
   return (
     <View>
       <Input
@@ -53,9 +70,6 @@ const CategoryForm = ({ submitButtonLabel, onSubmit, defaultValues }) => {
           placeholder: 'Category Name',
         }}
       />
-      <View>
-        <Button onPress={submitHandler}>{submitButtonLabel}</Button>
-      </View>
     </View>
   )
 }

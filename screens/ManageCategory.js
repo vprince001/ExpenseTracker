@@ -1,14 +1,14 @@
 import { useContext, useLayoutEffect, useState } from 'react'
 import { View, StyleSheet } from 'react-native'
+
 import IconButton from '../components/UI/IconButton'
-
-import CategoryForm from '../components/ManageCategory/CategoryForm'
-import { GlobalStyles } from '../constants/styles'
-import { addCategory, updateCategory, deleteCategory } from '../util/http'
-
 import LoadingOverlay from '../components/UI/LoadingOverlay'
 import ErrorOverlay from '../components/UI/ErrorOverlay'
+import CategoryForm from '../components/ManageCategory/CategoryForm'
+
 import { CategoriesContext } from '../store/categories-context'
+import { addCategory, updateCategory, deleteCategory } from '../util/http'
+import { GlobalStyles } from '../constants/styles'
 
 const ManageExpense = ({ route, navigation }) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -68,7 +68,6 @@ const ManageExpense = ({ route, navigation }) => {
   return (
     <View style={styles.container}>
       <CategoryForm
-        submitButtonLabel={isEditing ? 'Update' : 'Add'}
         onSubmit={confirmHandler}
         defaultValues={selectedCategory}
       />
