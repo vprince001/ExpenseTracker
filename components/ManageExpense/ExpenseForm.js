@@ -136,14 +136,15 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
       <CategoryChoice
         categories={CATEGORIES}
         invalid={!inputs.category.isValid}
-        onSelect={(selectedCategory) => {
+        onSelect={(currentCategory) => {
           setInputs((curInputs) => {
             return {
               ...curInputs,
-              category: { value: selectedCategory, isValid: true },
+              category: { value: currentCategory, isValid: true },
             }
           })
         }}
+        currentCategory={inputs.category.value}
       />
     </View>
   )

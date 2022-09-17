@@ -1,17 +1,18 @@
 import { StyleSheet, View, Text, Pressable } from 'react-native'
 import { GlobalStyles } from '../../constants/styles'
 
-const ChoiceItem = ({ name, onSelect }) => {
+const ChoiceItem = ({ name, currentItem, onSelect }) => {
+  const isSelected = name === currentItem
   return (
     <Pressable onPress={() => onSelect(name)}>
-      <View style={styles.itemView}>
+      <View style={[styles.itemView, isSelected && styles.selectedItem]}>
         <Text style={styles.item}>{name}</Text>
       </View>
     </Pressable>
   )
 }
 
-const CategoryChoice = ({ categories, invalid, onSelect }) => {
+const CategoryChoice = ({ categories, currentCategory, onSelect, invalid }) => {
   return (
     <>
       <Text style={[styles.label, invalid && styles.invalidLabel]}>
@@ -23,6 +24,7 @@ const CategoryChoice = ({ categories, invalid, onSelect }) => {
             <ChoiceItem
               key={listItem.id}
               name={listItem.name}
+              currentItem={currentCategory}
               onSelect={onSelect}
             />
           )
