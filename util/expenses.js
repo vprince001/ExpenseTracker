@@ -10,9 +10,12 @@ export const getDateExpenseLookup = (expenses) => {
 
 export const sortDescending = (sectionListData) => {
   const sortedSectionListData = sectionListData.sort((a, b) => {
-    const firstTitle = parseInt(a.title.substring(0, 2))
-    const secondTitle = parseInt(b.title.substring(0, 2))
-    return secondTitle - firstTitle
+    const startingIndexOfA = a.title.indexOf(',') - 2
+    const startingIndexOfB = a.title.indexOf(',') - 2
+
+    const firstTitleDate = parseInt(a.title.substring(startingIndexOfA, startingIndexOfA + 2))
+    const secondTitleDate = parseInt(b.title.substring(startingIndexOfB, startingIndexOfB + 2))
+    return secondTitleDate - firstTitleDate
   })
   return sortedSectionListData
 }
