@@ -12,6 +12,7 @@ const MonthChoice = ({ months, currentMonth, onSelect, invalid }) => {
         {months.map((listItem) => {
           return (
             <ChoiceItem
+              key={listItem}
               name={listItem}
               currentItem={currentMonth}
               onSelect={onSelect}
