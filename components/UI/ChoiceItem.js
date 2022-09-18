@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
     paddingLeft: 12,
     paddingRight: 12,
-    fontSize: 18,
+    fontSize: 15,
   },
   selectedItem: {
     backgroundColor: GlobalStyles.colors.primary300,

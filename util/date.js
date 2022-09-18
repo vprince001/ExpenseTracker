@@ -21,3 +21,9 @@ export const getFormattedDate = (date) => {
 
   return `${monthName} ${day}, ${date.getFullYear()}`
 }
+
+export const getShortMonthName = (date) => {
+  const monthNumber = new Date(date).getMonth()
+  const monthName = MonthNames[monthNumber]
+  return monthName.substring(0, 3)
+}

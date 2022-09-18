@@ -1,4 +1,12 @@
-import { getFormattedDate } from './date'
+import { getFormattedDate, getShortMonthName } from './date'
+
+export const getMonthExpenseLookup = (expenses) => {
+  return expenses.reduce((prevExpense, currExpense) => {
+    const shortMonthName = getShortMonthName(currExpense.date)
+    const existingItems = prevExpense[shortMonthName] ? prevExpense[shortMonthName] : []
+    return { ...prevExpense, [shortMonthName]: [...existingItems, currExpense] }
+  }, {})
+}
 
 export const getDateExpenseLookup = (expenses) => {
   return expenses.reduce((prevExpense, currExpense) => {
