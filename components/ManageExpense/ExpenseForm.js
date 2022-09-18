@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { View, Pressable, StyleSheet } from 'react-native'
+import { View, Pressable, StyleSheet, Keyboard } from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker'
 
 import Input from '../UI/Input'
@@ -45,9 +45,13 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
   const dateHandler = (event, date) => {
     setShowCalendar(false)
     setDate(date)
+    Keyboard.dismiss()
   }
 
-  const calendarVisibilityHandler = () => setShowCalendar(true)
+  const calendarVisibilityHandler = () => {
+    setShowCalendar(true)
+    Keyboard.dismiss()
+  }
 
   const submitHandler = () => {
     const expenseData = {
@@ -139,6 +143,7 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
               category: { value: currentCategory, isValid: true },
             }
           })
+          Keyboard.dismiss()
         }}
       />
     </View>
