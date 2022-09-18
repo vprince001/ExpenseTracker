@@ -34,11 +34,14 @@ const styles = StyleSheet.create({
   },
   expenseItem: {
     padding: 12,
+    paddingTop: 8,
+    paddingBottom: 8,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   text: {
     fontSize: 16,
+    fontWeight: '500'
   },
   seperator: {
     marginVertical: 4,
