@@ -1,9 +1,9 @@
 import { View, Text, TextInput, StyleSheet } from 'react-native'
 import { GlobalStyles } from '../../constants/styles'
 
-function Input({ label, invalid, textInputConfig }) {
+function Input({ label, invalid, inputDirection, textInputConfig }) {
   return (
-    <View style={styles.inputContainer}>
+    <View style={[styles.inputContainer, inputDirection === 'row' && styles.rowInput]}>
       <Text style={[styles.label, invalid && styles.invalidLabel]}>{label}</Text>
       <TextInput style={[styles.input, invalid && styles.invalidInput]} {...textInputConfig} />
     </View>
@@ -17,6 +17,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 4,
     marginTop: 4,
     marginBottom: 16,
+  },
+  rowInput: {
+    flex: 1
   },
   label: {
     fontSize: 18,

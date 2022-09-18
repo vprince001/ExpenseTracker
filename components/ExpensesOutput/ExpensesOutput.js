@@ -18,6 +18,6 @@ export default ExpensesOutput
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: GlobalStyles.colors.clean,
+    backgroundColor: GlobalStyles.colors.white,
   },
 })

@@ -16,6 +16,6 @@ export default CategoriesOutput
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: GlobalStyles.colors.clean,
+    backgroundColor: GlobalStyles.colors.white,
   },
 })

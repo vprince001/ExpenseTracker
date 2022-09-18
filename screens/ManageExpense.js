@@ -92,13 +92,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: GlobalStyles.colors.clean,
+    backgroundColor: GlobalStyles.colors.white,
   },
   deleteContainer: {
     marginTop: 16,
     paddingTop: 8,
     borderTopWidth: 2,
-    borderTopColor: 'black',
+    borderTopColor: GlobalStyles.colors.black,
     alignItems: 'center',
   },
 })

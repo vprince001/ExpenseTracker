@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: GlobalStyles.colors.clean,
+    color: GlobalStyles.colors.white,
     textAlign: 'center',
   },
   pressed: {

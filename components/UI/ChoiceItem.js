@@ -2,16 +2,17 @@ import { Pressable, View, Text, StyleSheet} from 'react-native'
 import { GlobalStyles } from '../../constants/styles'
 
 const ChoiceItem = ({ name, currentItem, onSelect, invalid }) => {
+  const isSelected = name === currentItem
   return (
     <Pressable onPress={() => onSelect(name)}>
       <View
         style={[
           styles.container,
-          name === currentItem && styles.selectedItem,
+          isSelected && styles.selectedItem,
           invalid && styles.invalidItem,
         ]}
       >
-        <Text style={styles.item}>{name}</Text>
+        <Text style={[styles.item, isSelected && styles.selectedItemText]}>{name}</Text>
       </View>
     </Pressable>
   )
@@ -30,9 +31,14 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
     paddingLeft: 12,
     paddingRight: 12,
+    fontSize: 18,
   },
   selectedItem: {
     backgroundColor: GlobalStyles.colors.primary300,
+  },
+  selectedItemText: {
+    color: GlobalStyles.colors.white,
+    fontWeight: '500',
   },
   invalidItem: {
     backgroundColor: GlobalStyles.colors.error100,

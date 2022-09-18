@@ -107,22 +107,22 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
       <View style={styles.amountNCalendarView}>
         <Input
           label="Amount"
-          style={styles.amountInput}
           invalid={!inputs.amount.isValid}
+          inputDirection='row'
           textInputConfig={{
             onChangeText: inputChangedHandler.bind(this, 'amount'),
             value: inputs.amount.value,
             keyboardType: 'decimal-pad',
-            placeholder: 'Expense Amount',
+            placeholder: '0.00',
           }}
         />
         <Pressable onPress={calendarVisibilityHandler}>
           <Input
             label="Date"
-            style={styles.calendarDate}
             textInputConfig={{
-              placeholder: getFormattedDate(date),
+              value: getFormattedDate(date),
               editable: false,
+              color: GlobalStyles.colors.black,
             }}
           />
         </Pressable>
@@ -151,16 +151,5 @@ const styles = StyleSheet.create({
   amountNCalendarView: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-  },
-  amountInput: {
-    flex: 1,
-  },
-  calendarView: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  calendarDate: {
-    fontSize: 18,
   },
 })
