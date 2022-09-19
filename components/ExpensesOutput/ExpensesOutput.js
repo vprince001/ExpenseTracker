@@ -7,7 +7,7 @@ import ExpensesSummary from './ExpensesSummary'
 
 import { UserContext } from '../../store/user-context'
 import { getMonthExpenseLookup } from '../../util/expenses'
-import { addUserData } from '../../util/http'
+import { addUserData, updateUserData } from '../../util/http'
 import { sortShortMonthNames } from '../../util/date'
 import { GlobalStyles } from '../../constants/styles'
 
@@ -31,6 +31,9 @@ const ExpensesOutput = ({ expenses }) => {
       if (!userCtx.userData.selectedMonth) {
         const id = await addUserData({ selectedMonth })
         userCtx.addUserData({ id, selectedMonth })
+      } else {
+        userCtx.updateUserData({ selectedMonth })
+        await updateUserData(userCtx.userData.id, {selectedMonth})
       }
     } catch (error) {}
   }

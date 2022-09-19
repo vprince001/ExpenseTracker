@@ -84,3 +84,7 @@ export const fetchUserData = async () => {
 
   return userData
 }
+
+export const updateUserData = (id, userData) => {
+  return axios.put(DB_BASE_URL + `/userData/${id}.json`, userData)
+}
