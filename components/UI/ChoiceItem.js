@@ -1,7 +1,7 @@
-import { Pressable, View, Text, StyleSheet} from 'react-native'
+import { Pressable, View, Text, StyleSheet } from 'react-native'
 import { GlobalStyles } from '../../constants/styles'
 
-const ChoiceItem = ({ name, currentItem, onSelect, invalid }) => {
+const ChoiceItem = ({ name, currentItem, onSelect, invalid, style }) => {
   const isSelected = name === currentItem
   return (
     <Pressable onPress={() => onSelect(name)}>
@@ -12,7 +12,15 @@ const ChoiceItem = ({ name, currentItem, onSelect, invalid }) => {
           invalid && styles.invalidItem,
         ]}
       >
-        <Text style={[styles.item, isSelected && styles.selectedItemText]}>{name}</Text>
+        <Text
+          style={[
+            styles.item,
+            style && { ...style },
+            isSelected && styles.selectedItemText,
+          ]}
+        >
+          {name}
+        </Text>
       </View>
     </Pressable>
   )

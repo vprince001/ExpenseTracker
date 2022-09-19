@@ -17,6 +17,7 @@ const CategoryChoice = ({ categories, currentCategory, onSelect, invalid }) => {
               currentItem={currentCategory}
               onSelect={onSelect}
               invalid={invalid}
+              style={{ fontSize: 18 }}
             />
           )
         })}
