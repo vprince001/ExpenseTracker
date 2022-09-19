@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 
 import { GlobalStyles } from '../../constants/styles'
@@ -7,7 +8,9 @@ import MonthChoice from '../CategoriesOutput/MonthChoice'
 import ExpensesList from './ExpenseList'
 import ExpensesSummary from './ExpensesSummary'
 
-const ExpensesOutput = ({ expenses, selectedMonth, onMonthSelection }) => {
+const ExpensesOutput = ({ expenses }) => {
+  const [selectedMonth, setSelectedMonth] = useState('')
+
   let filteredExpenses = expenses
   const monthExpenseLookup = getMonthExpenseLookup(expenses)
   if (selectedMonth) {
@@ -16,12 +19,16 @@ const ExpensesOutput = ({ expenses, selectedMonth, onMonthSelection }) => {
 
   const shortMonthNames = Object.keys(monthExpenseLookup)
 
+  const monthSelectionHandler = (selectedMonth) => {
+    setSelectedMonth(selectedMonth)
+  }
+
   return (
     <View style={styles.container}>
       <MonthChoice
         months={sortShortMonthNames(shortMonthNames)}
         currentMonth={selectedMonth}
-        onSelect={(currentMonth) => onMonthSelection(currentMonth)}
+        onSelect={monthSelectionHandler}
       />
       <ExpensesSummary expenses={filteredExpenses} />
       <ExpensesList expenses={filteredExpenses} />

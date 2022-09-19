@@ -14,7 +14,6 @@ const AllExpenses = () => {
 
   const [isFetching, setIsFetching] = useState(true)
   const [error, setError] = useState()
-  const [selectedMonth, setSelectedMonth] = useState('')
 
   useEffect(() => {
     const getExpenses = async () => {
@@ -41,13 +40,7 @@ const AllExpenses = () => {
     return <LoadingOverlay />
   }
 
-  return (
-    <ExpensesOutput
-      expenses={expensesCtx.expenses}
-      selectedMonth={selectedMonth}
-      onMonthSelection={setSelectedMonth}
-    />
-  )
+  return <ExpensesOutput expenses={expensesCtx.expenses} />
 }
 
 export default AllExpenses
