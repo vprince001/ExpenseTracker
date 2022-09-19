@@ -72,3 +72,10 @@ export const addUserData = async (userData) => {
   const userId = response.data.name
   return userId
 }
+
+export const fetchUserData = async () => {
+  const response = await axios.get(DB_BASE_URL + '/userData.json')
+
+  const key = Object.keys(response.data)[0]
+  return response.data[key]
+}

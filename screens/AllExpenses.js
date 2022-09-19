@@ -6,7 +6,8 @@ import ExpensesOutput from '../components/ExpensesOutput/ExpensesOutput'
 
 import { ExpensesContext } from '../store/expenses-context'
 import { CategoriesContext } from '../store/categories-context'
-import { fetchExpenses, fetchCategories } from '../util/http'
+
+import { fetchExpenses, fetchCategories, fetchUserData } from '../util/http'
 
 const AllExpenses = () => {
   const expensesCtx = useContext(ExpensesContext)
@@ -23,6 +24,7 @@ const AllExpenses = () => {
         expensesCtx.setExpenses(expenses)
         const categories = await fetchCategories()
         categoriesCtx.setCategories(categories)
+        await fetchUserData()
       } catch (error) {
         setError('Could not fetch data!')
       }
