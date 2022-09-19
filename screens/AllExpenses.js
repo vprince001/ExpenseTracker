@@ -4,6 +4,7 @@ import LoadingOverlay from '../components/UI/LoadingOverlay'
 import ErrorOverlay from '../components/UI/ErrorOverlay'
 import ExpensesOutput from '../components/ExpensesOutput/ExpensesOutput'
 
+import { UserContext } from '../store/user-context'
 import { ExpensesContext } from '../store/expenses-context'
 import { CategoriesContext } from '../store/categories-context'
 
@@ -12,6 +13,7 @@ import { fetchExpenses, fetchCategories, fetchUserData } from '../util/http'
 const AllExpenses = () => {
   const expensesCtx = useContext(ExpensesContext)
   const categoriesCtx = useContext(CategoriesContext)
+  const userCtx = useContext(UserContext)
 
   const [isFetching, setIsFetching] = useState(true)
   const [error, setError] = useState()
@@ -24,7 +26,8 @@ const AllExpenses = () => {
         expensesCtx.setExpenses(expenses)
         const categories = await fetchCategories()
         categoriesCtx.setCategories(categories)
-        await fetchUserData()
+        const userData = await fetchUserData()
+        userCtx.setUserData(userData)
       } catch (error) {
         setError('Could not fetch data!')
       }
