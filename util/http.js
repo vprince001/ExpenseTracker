@@ -66,3 +66,9 @@ export const updateCategory = (id, categoryData) => {
 export const deleteCategory = (id) => {
   return axios.delete(DB_BASE_URL + `/categories/${id}.json`)
 }
+
+export const addUserData = async (userData) => {
+  const response = await axios.post(DB_BASE_URL + '/userData.json', userData)
+  const userId = response.data.name
+  return userId
+}

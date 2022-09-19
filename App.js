@@ -11,11 +11,11 @@ import ManageCategory from './screens/ManageCategory'
 import AllExpenses from './screens/AllExpenses'
 import AllCategories from './screens/AllCategories'
 
+import UserContextProvider from './store/user-context'
 import ExpensesContextProvider from './store/expenses-context'
 import CategoriesContextProvider from './store/categories-context'
 import { ScreenNames } from './constants/screens'
 import { GlobalStyles } from './constants/styles'
-
 
 const ExpensesStack = createNativeStackNavigator()
 const CategoriesStack = createNativeStackNavigator()
@@ -95,40 +95,42 @@ const App = () => {
   return (
     <>
       <StatusBar style="dark" />
-      <ExpensesContextProvider>
-        <CategoriesContextProvider>
-          <NavigationContainer>
-            <Tab.Navigator
-              screenOptions={{
-                headerShown: false,
-                tabBarShowLabel: false,
-                tabBarActiveTintColor: GlobalStyles.colors.primary300,
-              }}
-            >
-              <Tab.Screen
-                name={ScreenNames.expenseBottomScreen}
-                component={ExpensesStackScreen}
-                options={{
-                  tabBarIcon: ({ color, size }) => {
-                    return (
-                      <Ionicons name="wallet" size={size} color={color} />
-                    )
-                  },
+      <UserContextProvider>
+        <ExpensesContextProvider>
+          <CategoriesContextProvider>
+            <NavigationContainer>
+              <Tab.Navigator
+                screenOptions={{
+                  headerShown: false,
+                  tabBarShowLabel: false,
+                  tabBarActiveTintColor: GlobalStyles.colors.primary300,
                 }}
-              />
-              <Tab.Screen
-                name={ScreenNames.categoryBottomScreen}
-                component={CategoriesStackScreen}
-                options={{
-                  tabBarIcon: ({ color, size }) => (
-                    <Ionicons name="list" size={size} color={color} />
-                  ),
-                }}
-              />
-            </Tab.Navigator>
-          </NavigationContainer>
-        </CategoriesContextProvider>
-      </ExpensesContextProvider>
+              >
+                <Tab.Screen
+                  name={ScreenNames.expenseBottomScreen}
+                  component={ExpensesStackScreen}
+                  options={{
+                    tabBarIcon: ({ color, size }) => {
+                      return (
+                        <Ionicons name="wallet" size={size} color={color} />
+                      )
+                    },
+                  }}
+                />
+                <Tab.Screen
+                  name={ScreenNames.categoryBottomScreen}
+                  component={CategoriesStackScreen}
+                  options={{
+                    tabBarIcon: ({ color, size }) => (
+                      <Ionicons name="list" size={size} color={color} />
+                    ),
+                  }}
+                />
+              </Tab.Navigator>
+            </NavigationContainer>
+          </CategoriesContextProvider>
+        </ExpensesContextProvider>
+      </UserContextProvider>
     </>
   )
 }

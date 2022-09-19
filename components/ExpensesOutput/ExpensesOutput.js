@@ -1,26 +1,36 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 
-import { GlobalStyles } from '../../constants/styles'
-import { sortShortMonthNames } from '../../util/date'
-import { getMonthExpenseLookup } from '../../util/expenses'
 import MonthChoice from '../CategoriesOutput/MonthChoice'
 import ExpensesList from './ExpenseList'
 import ExpensesSummary from './ExpensesSummary'
 
+import { UserContext } from '../../store/user-context'
+import { getMonthExpenseLookup } from '../../util/expenses'
+import { addUserData } from '../../util/http'
+import { sortShortMonthNames } from '../../util/date'
+import { GlobalStyles } from '../../constants/styles'
+
 const ExpensesOutput = ({ expenses }) => {
+  const userCtx = useContext(UserContext)
   const [selectedMonth, setSelectedMonth] = useState('')
 
   let filteredExpenses = expenses
   const monthExpenseLookup = getMonthExpenseLookup(expenses)
   if (selectedMonth) {
-    filteredExpenses = monthExpenseLookup[selectedMonth] ? monthExpenseLookup[selectedMonth] : expenses
+    filteredExpenses = monthExpenseLookup[selectedMonth]
+      ? monthExpenseLookup[selectedMonth]
+      : expenses
   }
 
   const shortMonthNames = Object.keys(monthExpenseLookup)
 
-  const monthSelectionHandler = (selectedMonth) => {
-    setSelectedMonth(selectedMonth)
+  const monthSelectionHandler = async (selectedMonth) => {
+    try {
+      setSelectedMonth(selectedMonth)
+      const id = await addUserData({ selectedMonth })
+      userCtx.addUserData({ selectedMonth, id })
+    } catch (error) {}
   }
 
   return (
