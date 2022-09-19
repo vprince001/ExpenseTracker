@@ -8,10 +8,11 @@ import ExpensesList from './ExpenseList'
 import ExpensesSummary from './ExpensesSummary'
 
 const ExpensesOutput = ({ expenses, selectedMonth, onMonthSelection }) => {
+  let filteredExpenses = expenses
   const monthExpenseLookup = getMonthExpenseLookup(expenses)
-  const filteredExpenses = selectedMonth
-    ? monthExpenseLookup[selectedMonth]
-    : expenses
+  if (selectedMonth) {
+    filteredExpenses = monthExpenseLookup[selectedMonth] ? monthExpenseLookup[selectedMonth] : expenses
+  }
 
   const shortMonthNames = Object.keys(monthExpenseLookup)
 
