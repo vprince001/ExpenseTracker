@@ -1,14 +1,29 @@
 import { StyleSheet, View } from 'react-native'
 
 import { GlobalStyles } from '../../constants/styles'
+import { sortShortMonthNames } from '../../util/date'
+import { getMonthExpenseLookup } from '../../util/expenses'
+import MonthChoice from '../CategoriesOutput/MonthChoice'
 import ExpensesList from './ExpenseList'
 import ExpensesSummary from './ExpensesSummary'
 
-const ExpensesOutput = ({ expenses }) => {
+const ExpensesOutput = ({ expenses, selectedMonth, onMonthSelection }) => {
+  const monthExpenseLookup = getMonthExpenseLookup(expenses)
+  const filteredExpenses = selectedMonth
+    ? monthExpenseLookup[selectedMonth]
+    : expenses
+
+  const shortMonthNames = Object.keys(monthExpenseLookup)
+
   return (
     <View style={styles.container}>
-      <ExpensesSummary expenses={expenses} />
-      <ExpensesList expenses={expenses} />
+      <MonthChoice
+        months={sortShortMonthNames(shortMonthNames)}
+        currentMonth={selectedMonth}
+        onSelect={(currentMonth) => onMonthSelection(currentMonth)}
+      />
+      <ExpensesSummary expenses={filteredExpenses} />
+      <ExpensesList expenses={filteredExpenses} />
     </View>
   )
 }

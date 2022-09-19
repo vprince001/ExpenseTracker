@@ -1,11 +1,10 @@
 import { StyleSheet, View, Text } from 'react-native'
 import ChoiceItem from '../UI/ChoiceItem'
-import { GlobalStyles } from '../../constants/styles'
 
-const MonthChoice = ({ months, currentMonth, onSelect, invalid }) => {
+const MonthChoice = ({ months, currentMonth, onSelect }) => {
   return (
     <View style={styles.container}>
-      <Text style={[styles.label, invalid && styles.invalidLabel]}>
+      <Text style={[styles.label]}>
         Select a Month
       </Text>
       <View style={styles.choiceContainer}>
@@ -16,7 +15,6 @@ const MonthChoice = ({ months, currentMonth, onSelect, invalid }) => {
               name={listItem}
               currentItem={currentMonth}
               onSelect={onSelect}
-              invalid={invalid}
             />
           )
         })}
@@ -39,8 +37,5 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 18,
     margin: 8,
-  },
-  invalidLabel: {
-    color: GlobalStyles.colors.error200,
   },
 })
