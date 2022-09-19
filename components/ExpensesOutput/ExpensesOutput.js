@@ -30,7 +30,7 @@ const ExpensesOutput = ({ expenses }) => {
       setSelectedMonth(selectedMonth)
       if (!userCtx.userData.selectedMonth) {
         const id = await addUserData({ selectedMonth })
-        userCtx.addUserData({ selectedMonth, id })
+        userCtx.addUserData({ id, selectedMonth })
       }
     } catch (error) {}
   }
