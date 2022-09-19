@@ -2,13 +2,14 @@ import { useContext, useEffect, useState } from 'react'
 
 import LoadingOverlay from '../components/UI/LoadingOverlay'
 import ErrorOverlay from '../components/UI/ErrorOverlay'
+import MonthChoice from '../components/CategoriesOutput/MonthChoice'
 import ExpensesOutput from '../components/ExpensesOutput/ExpensesOutput'
 
 import { ExpensesContext } from '../store/expenses-context'
 import { CategoriesContext } from '../store/categories-context'
 import { fetchExpenses, fetchCategories } from '../util/http'
-import MonthChoice from '../components/CategoriesOutput/MonthChoice'
 import { getMonthExpenseLookup } from '../util/expenses'
+import { sortShortMonthNames } from '../util/date'
 
 const AllExpenses = () => {
   const expensesCtx = useContext(ExpensesContext)
@@ -47,11 +48,12 @@ const AllExpenses = () => {
   }
 
   const monthExpenseLookup = getMonthExpenseLookup(expensesCtx.expenses)
+  const shortMonthNames = Object.keys(monthExpenseLookup)
 
   return (
     <>
       <MonthChoice
-        months={Object.keys(monthExpenseLookup)}
+        months={sortShortMonthNames(shortMonthNames)}
         currentMonth={selectedMonth}
         onSelect={(currentMonth) => {
           setSelectedMonth(currentMonth)
