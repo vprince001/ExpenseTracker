@@ -28,8 +28,10 @@ const ExpensesOutput = ({ expenses }) => {
   const monthSelectionHandler = async (selectedMonth) => {
     try {
       setSelectedMonth(selectedMonth)
-      const id = await addUserData({ selectedMonth })
-      userCtx.addUserData({ selectedMonth, id })
+      if (!userCtx.userData.selectedMonth) {
+        const id = await addUserData({ selectedMonth })
+        userCtx.addUserData({ selectedMonth, id })
+      }
     } catch (error) {}
   }
 
