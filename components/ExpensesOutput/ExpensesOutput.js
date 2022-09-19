@@ -13,7 +13,7 @@ import { GlobalStyles } from '../../constants/styles'
 
 const ExpensesOutput = ({ expenses }) => {
   const userCtx = useContext(UserContext)
-  const [selectedMonth, setSelectedMonth] = useState('')
+  const [selectedMonth, setSelectedMonth] = useState(userCtx.userData.selectedMonth)
 
   let filteredExpenses = expenses
   const monthExpenseLookup = getMonthExpenseLookup(expenses)

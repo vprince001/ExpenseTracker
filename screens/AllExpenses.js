@@ -27,9 +27,7 @@ const AllExpenses = () => {
         const categories = await fetchCategories()
         categoriesCtx.setCategories(categories)
         const userData = await fetchUserData()
-        if (!!userData) {
-          userCtx.setUserData(userData)
-        }
+        !!userData ? userCtx.setUserData(userData) : userCtx.setUserData('')
       } catch (error) {
         setError('Could not fetch data!')
       }
