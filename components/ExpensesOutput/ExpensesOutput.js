@@ -42,11 +42,13 @@ const ExpensesOutput = ({ expenses }) => {
 
   return (
     <View style={styles.container}>
-      <MonthChoice
-        months={sortShortMonthNames(shortMonthNames)}
-        currentMonth={selectedMonth}
-        onSelect={monthSelectionHandler}
-      />
+      {shortMonthNames.length > 1 ? (
+        <MonthChoice
+          months={sortShortMonthNames(shortMonthNames)}
+          currentMonth={selectedMonth}
+          onSelect={monthSelectionHandler}
+        />
+      ) : null}
       <ExpensesSummary expenses={filteredExpenses} />
       <ExpensesList expenses={filteredExpenses} />
     </View>
