@@ -2,6 +2,7 @@ import { useContext, useEffect } from 'react'
 import { StyleSheet, View } from 'react-native'
 
 import IconButton from '../components/UI/IconButton'
+import ExpensesSummary from '../components/ExpensesOutput/ExpensesSummary'
 import ExpensesList from '../components/ExpensesOutput/ExpenseList'
 
 import { UserContext } from '../store/user-context'
@@ -57,6 +58,7 @@ const CategoryExpenses = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
+      <ExpensesSummary expenses={categoryExpenses} />
       <ExpensesList expenses={categoryExpenses} />
     </View>
   )
