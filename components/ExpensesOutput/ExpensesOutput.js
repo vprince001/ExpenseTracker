@@ -9,7 +9,7 @@ import { UserContext } from '../../store/user-context'
 import { getMonthExpenseLookup } from '../../util/expenses'
 import { addUserData, updateUserData } from '../../util/http'
 import { sortShortMonthNames } from '../../util/date'
-import { GlobalStyles } from '../../constants/styles'
+import { GlobalStyles } from '../../constants'
 
 const ExpensesOutput = ({ expenses }) => {
   const userCtx = useContext(UserContext)

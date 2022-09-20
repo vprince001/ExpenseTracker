@@ -1,7 +1,6 @@
 import { StyleSheet, View } from 'react-native'
-
-import { GlobalStyles } from '../../constants/styles'
 import CategoryList from './CategoryList'
+import { GlobalStyles } from '../../constants'
 
 const CategoriesOutput = ({ categories }) => {
   return (

@@ -5,7 +5,7 @@ import { View } from 'react-native'
 import Input from '../UI/Input'
 import IconButton from '../UI/IconButton'
 
-import { GlobalStyles } from '../../constants/styles'
+import { GlobalStyles } from '../../constants'
 
 const CategoryForm = ({ onSubmit, defaultValues }) => {
   const navigation = useNavigation()

@@ -13,3 +13,13 @@ export const GlobalStyles = {
     gray400: '#999999',
   },
 }
+
+export const ScreenNames = {
+  allExpenseScreen: 'AllExpenses',
+  allCategoriesScreen: 'AllCategories',
+  expenseBottomScreen: 'ExpenseBottomTab',
+  manageExpenseScreen: 'ManageExpense',
+  manageCategoryScreen: 'ManageCategory',
+  categoryBottomScreen: 'CategoryBottomTab',
+}
+

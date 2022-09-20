@@ -1,7 +1,6 @@
 import { View, Text, StyleSheet, Pressable } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { GlobalStyles } from '../../constants/styles'
-import { ScreenNames } from '../../constants/screens'
+import { GlobalStyles, ScreenNames } from '../../constants'
 
 const ExpenseItem = ({ id, description, amount }) => {
   const navigation = useNavigation()

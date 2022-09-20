@@ -8,7 +8,7 @@ import ExpenseForm from '../components/ManageExpense/ExpenseForm'
 
 import { ExpensesContext } from '../store/expenses-context'
 import { addExpense, deleteExpense, updateExpense } from '../util/http'
-import { GlobalStyles } from '../constants/styles'
+import { GlobalStyles } from '../constants'
 
 
 const ManageExpense = ({ route, navigation }) => {

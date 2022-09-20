@@ -9,7 +9,7 @@ import CategoryChoice from '../CategoriesOutput/CategoryChoice'
 
 import { CategoriesContext } from '../../store/categories-context'
 import { getFormattedDate } from '../../util/date'
-import { GlobalStyles } from '../../constants/styles'
+import { GlobalStyles } from '../../constants'
 
 const ExpenseForm = ({ onSubmit, defaultValues }) => {
   const navigation = useNavigation()

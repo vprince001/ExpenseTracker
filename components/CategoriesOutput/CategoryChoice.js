@@ -1,6 +1,6 @@
 import { StyleSheet, View, Text } from 'react-native'
 import ChoiceItem from '../UI/ChoiceItem'
-import { GlobalStyles } from '../../constants/styles'
+import { GlobalStyles } from '../../constants'
 
 const CategoryChoice = ({ categories, currentCategory, onSelect, invalid }) => {
   return (

@@ -8,7 +8,7 @@ import CategoryForm from '../components/ManageCategory/CategoryForm'
 
 import { CategoriesContext } from '../store/categories-context'
 import { addCategory, updateCategory, deleteCategory } from '../util/http'
-import { GlobalStyles } from '../constants/styles'
+import { GlobalStyles } from '../constants'
 
 const ManageExpense = ({ route, navigation }) => {
   const [isSubmitting, setIsSubmitting] = useState(false)

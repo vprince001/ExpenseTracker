@@ -1,5 +1,5 @@
 import { Pressable, View, Text, StyleSheet } from 'react-native'
-import { GlobalStyles } from '../../constants/styles'
+import { GlobalStyles } from '../../constants'
 
 const ChoiceItem = ({ name, currentItem, onSelect, invalid, style }) => {
   const isSelected = name === currentItem

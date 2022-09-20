@@ -1,6 +1,6 @@
 import { View, Text, TextInput, StyleSheet } from 'react-native'
-import { GlobalStyles } from '../../constants/styles'
 import IconButton from './IconButton'
+import { GlobalStyles } from '../../constants'
 
 function Input({
   label,

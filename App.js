@@ -14,8 +14,7 @@ import AllCategories from './screens/AllCategories'
 import UserContextProvider from './store/user-context'
 import ExpensesContextProvider from './store/expenses-context'
 import CategoriesContextProvider from './store/categories-context'
-import { ScreenNames } from './constants/screens'
-import { GlobalStyles } from './constants/styles'
+import { ScreenNames, GlobalStyles } from './constants'
 
 const ExpensesStack = createNativeStackNavigator()
 const CategoriesStack = createNativeStackNavigator()
