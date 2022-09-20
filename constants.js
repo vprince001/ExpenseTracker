@@ -16,10 +16,11 @@ export const GlobalStyles = {
 
 export const ScreenNames = {
   allExpenseScreen: 'AllExpenses',
+  categoryExpensesScreen: 'categoryExpensesScreen',
   allCategoriesScreen: 'AllCategories',
-  expenseBottomScreen: 'ExpenseBottomTab',
   manageExpenseScreen: 'ManageExpense',
   manageCategoryScreen: 'ManageCategory',
+  expenseBottomScreen: 'ExpenseBottomTab',
   categoryBottomScreen: 'CategoryBottomTab',
 }
 
@@ -27,6 +28,7 @@ export const IconNames = {
   add: 'add',
   checkamrk: 'md-checkmark',
   clear: 'close-circle',
+  edit: 'create-outline',
   list: 'list',
   trash: 'trash',
   wallet: 'wallet',

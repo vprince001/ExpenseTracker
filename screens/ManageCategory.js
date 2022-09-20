@@ -10,7 +10,7 @@ import { CategoriesContext } from '../store/categories-context'
 import { addCategory, updateCategory, deleteCategory } from '../util/http'
 import { GlobalStyles, IconNames } from '../constants'
 
-const ManageExpense = ({ route, navigation }) => {
+const ManageCategory = ({ route, navigation }) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState()
 
@@ -85,7 +85,7 @@ const ManageExpense = ({ route, navigation }) => {
   )
 }
 
-export default ManageExpense
+export default ManageCategory
 
 const styles = StyleSheet.create({
   container: {

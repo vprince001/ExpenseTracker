@@ -6,14 +6,16 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import IconButton from './components/UI/IconButton'
-import ManageExpense from './screens/ManageExpense'
 import ManageCategory from './screens/ManageCategory'
-import AllExpenses from './screens/AllExpenses'
+import ManageExpense from './screens/ManageExpense'
 import AllCategories from './screens/AllCategories'
+import CategoryExpenses from './screens/CategoryExpenses'
+import AllExpenses from './screens/AllExpenses'
 
 import UserContextProvider from './store/user-context'
 import ExpensesContextProvider from './store/expenses-context'
 import CategoriesContextProvider from './store/categories-context'
+
 import { ScreenNames, GlobalStyles, IconNames } from './constants'
 
 const ExpensesStack = createNativeStackNavigator()
@@ -71,7 +73,27 @@ const CategoriesStackScreen = () => {
                 size={36}
                 color={GlobalStyles.colors.primary300}
                 onPress={() => {
-                  navigation.navigate('ManageCategory')
+                  navigation.navigate(ScreenNames.manageCategoryScreen)
+                }}
+              />
+            ),
+          }
+        }}
+      />
+      <CategoriesStack.Screen
+        name={ScreenNames.categoryExpensesScreen}
+        component={CategoryExpenses}
+        options={({ navigation }) => {
+          return {
+            title: 'Category Expenses',
+            headerTitleAlign: 'center',
+            headerRight: () => (
+              <IconButton
+                icon={IconNames.edit}
+                size={36}
+                color={GlobalStyles.colors.primary300}
+                onPress={() => {
+                  navigation.navigate(ScreenNames.manageCategoryScreen)
                 }}
               />
             ),

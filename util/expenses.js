@@ -1,5 +1,15 @@
 import { getFormattedDate, getShortMonthName } from './date'
 
+export const getCategoryExpenseLookup = (expenses) => {
+  return expenses.reduce((prevExpense, currExpense) => {
+    const categoryName = currExpense.category
+    const existingItems = prevExpense[categoryName]
+      ? prevExpense[categoryName]
+      : []
+    return { ...prevExpense, [categoryName]: [...existingItems, currExpense] }
+  }, {})
+}
+
 export const getMonthExpenseLookup = (expenses) => {
   return expenses.reduce((prevExpense, currExpense) => {
     const shortMonthName = getShortMonthName(currExpense.date)
@@ -39,9 +49,11 @@ export const getDateSectionExpenses = (dateExpenselookup) => {
 
   for (const date in dateExpenselookup) {
     const expenses = dateExpenselookup[date]
-    const sum = expenses.reduce((sum, currExpense) => {
-      return sum + currExpense.amount
-    }, 0).toFixed(2)
+    const sum = expenses
+      .reduce((sum, currExpense) => {
+        return sum + currExpense.amount
+      }, 0)
+      .toFixed(2)
 
     sectionListData.push({ title: date, sum, data: expenses })
   }

@@ -6,9 +6,7 @@ const CategoryItem = ({ id, description }) => {
   const navigation = useNavigation()
 
   const categoryPressHandler = () => {
-    navigation.navigate(ScreenNames.manageCategoryScreen, {
-      categoryId: id,
-    })
+    navigation.navigate(ScreenNames.categoryExpensesScreen, { id, description })
   }
 
   return (
