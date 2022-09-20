@@ -13,7 +13,9 @@ import { GlobalStyles } from '../../constants/styles'
 
 const ExpensesOutput = ({ expenses }) => {
   const userCtx = useContext(UserContext)
-  const [selectedMonth, setSelectedMonth] = useState(userCtx.userData.selectedMonth)
+  const [selectedMonth, setSelectedMonth] = useState(
+    userCtx.userData.selectedMonth
+  )
 
   let filteredExpenses = expenses
   const monthExpenseLookup = getMonthExpenseLookup(expenses)
@@ -33,7 +35,7 @@ const ExpensesOutput = ({ expenses }) => {
         userCtx.addUserData({ id, selectedMonth })
       } else {
         userCtx.updateUserData({ selectedMonth })
-        await updateUserData(userCtx.userData.id, {selectedMonth})
+        await updateUserData(userCtx.userData.id, { selectedMonth })
       }
     } catch (error) {}
   }

@@ -79,7 +79,7 @@ export const fetchUserData = async () => {
   let userData = response.data
   if (response.data) {
     const key = Object.keys(response.data)[0]
-    userData = response.data[key]
+    userData = {...response.data[key], id: key}
   }
 
   return userData

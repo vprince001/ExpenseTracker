@@ -3,7 +3,7 @@ import { createContext, useReducer } from 'react'
 export const UserContext = createContext({
   userData: {},
   addUserData: ({ id, selectedMonth }) => {},
-  setUserData: ({ selectedMonth }) => {},
+  setUserData: ({ id, selectedMonth }) => {},
   updateUserData: ({ selectedMonth }) => {},
 })
 
@@ -28,10 +28,7 @@ const UserContextProvider = ({ children }) => {
   }
 
   const setUserData = (userData) => {
-    dispatch({
-      type: 'SET',
-      payload: { ...userState, ...userData },
-    })
+    dispatch({ type: 'SET', payload: userData })
   }
 
   const updateUserData = (userData) => {
