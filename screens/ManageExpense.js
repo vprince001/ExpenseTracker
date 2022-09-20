@@ -8,8 +8,7 @@ import ExpenseForm from '../components/ManageExpense/ExpenseForm'
 
 import { ExpensesContext } from '../store/expenses-context'
 import { addExpense, deleteExpense, updateExpense } from '../util/http'
-import { GlobalStyles } from '../constants'
-
+import { GlobalStyles, IconNames } from '../constants'
 
 const ManageExpense = ({ route, navigation }) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -68,14 +67,11 @@ const ManageExpense = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
-      <ExpenseForm
-        onSubmit={confirmHandler}
-        defaultValues={selectedExpense}
-      />
+      <ExpenseForm onSubmit={confirmHandler} defaultValues={selectedExpense} />
       {isEditing && (
         <View style={styles.deleteContainer}>
           <IconButton
-            icon="trash"
+            icon={IconNames.trash}
             size={36}
             color={GlobalStyles.colors.error200}
             onPress={deleteExpenseHandler}

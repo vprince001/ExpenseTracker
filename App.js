@@ -14,7 +14,7 @@ import AllCategories from './screens/AllCategories'
 import UserContextProvider from './store/user-context'
 import ExpensesContextProvider from './store/expenses-context'
 import CategoriesContextProvider from './store/categories-context'
-import { ScreenNames, GlobalStyles } from './constants'
+import { ScreenNames, GlobalStyles, IconNames } from './constants'
 
 const ExpensesStack = createNativeStackNavigator()
 const CategoriesStack = createNativeStackNavigator()
@@ -32,7 +32,7 @@ const ExpensesStackScreen = () => {
             headerTitleAlign: 'center',
             headerRight: () => (
               <IconButton
-                icon={'add'}
+                icon={IconNames.add}
                 size={36}
                 color={GlobalStyles.colors.primary300}
                 onPress={() => {
@@ -67,7 +67,7 @@ const CategoriesStackScreen = () => {
             headerTitleAlign: 'center',
             headerRight: () => (
               <IconButton
-                icon={'add'}
+                icon={IconNames.add}
                 size={36}
                 color={GlobalStyles.colors.primary300}
                 onPress={() => {
@@ -111,7 +111,11 @@ const App = () => {
                   options={{
                     tabBarIcon: ({ color, size }) => {
                       return (
-                        <Ionicons name="wallet" size={size} color={color} />
+                        <Ionicons
+                          name={IconNames.wallet}
+                          size={size}
+                          color={color}
+                        />
                       )
                     },
                   }}
@@ -121,7 +125,11 @@ const App = () => {
                   component={CategoriesStackScreen}
                   options={{
                     tabBarIcon: ({ color, size }) => (
-                      <Ionicons name="list" size={size} color={color} />
+                      <Ionicons
+                        name={IconNames.list}
+                        size={size}
+                        color={color}
+                      />
                     ),
                   }}
                 />

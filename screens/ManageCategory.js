@@ -8,7 +8,7 @@ import CategoryForm from '../components/ManageCategory/CategoryForm'
 
 import { CategoriesContext } from '../store/categories-context'
 import { addCategory, updateCategory, deleteCategory } from '../util/http'
-import { GlobalStyles } from '../constants'
+import { GlobalStyles, IconNames } from '../constants'
 
 const ManageExpense = ({ route, navigation }) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -74,7 +74,7 @@ const ManageExpense = ({ route, navigation }) => {
       {isEditing && (
         <View style={styles.deleteContainer}>
           <IconButton
-            icon="trash"
+            icon={IconNames.trash}
             size={36}
             color={GlobalStyles.colors.error200}
             onPress={deleteExpenseHandler}

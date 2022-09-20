@@ -9,7 +9,7 @@ import CategoryChoice from '../CategoriesOutput/CategoryChoice'
 
 import { CategoriesContext } from '../../store/categories-context'
 import { getFormattedDate } from '../../util/date'
-import { GlobalStyles } from '../../constants'
+import { GlobalStyles, IconNames } from '../../constants'
 
 const ExpenseForm = ({ onSubmit, defaultValues }) => {
   const navigation = useNavigation()
@@ -88,7 +88,7 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
     navigation.setOptions({
       headerRight: () => (
         <IconButton
-          icon={'md-checkmark'}
+          icon={IconNames.checkamrk}
           size={36}
           color={GlobalStyles.colors.primary300}
           onPress={submitHandler}

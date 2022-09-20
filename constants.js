@@ -23,3 +23,10 @@ export const ScreenNames = {
   categoryBottomScreen: 'CategoryBottomTab',
 }
 
+export const IconNames = {
+  add: 'add',
+  checkamrk: 'md-checkmark',
+  list: 'list',
+  trash: 'trash',
+  wallet: 'wallet',
+}

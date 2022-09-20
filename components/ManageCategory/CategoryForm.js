@@ -5,7 +5,7 @@ import { View } from 'react-native'
 import Input from '../UI/Input'
 import IconButton from '../UI/IconButton'
 
-import { GlobalStyles } from '../../constants'
+import { GlobalStyles, IconNames } from '../../constants'
 
 const CategoryForm = ({ onSubmit, defaultValues }) => {
   const navigation = useNavigation()
@@ -50,7 +50,7 @@ const CategoryForm = ({ onSubmit, defaultValues }) => {
     navigation.setOptions({
       headerRight: () => (
         <IconButton
-          icon={'md-checkmark'}
+          icon={IconNames.checkamrk}
           size={36}
           color={GlobalStyles.colors.primary300}
           onPress={submitHandler}
