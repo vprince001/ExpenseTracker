@@ -3,7 +3,9 @@ import { getFormattedDate, getShortMonthName } from './date'
 export const getMonthExpenseLookup = (expenses) => {
   return expenses.reduce((prevExpense, currExpense) => {
     const shortMonthName = getShortMonthName(currExpense.date)
-    const existingItems = prevExpense[shortMonthName] ? prevExpense[shortMonthName] : []
+    const existingItems = prevExpense[shortMonthName]
+      ? prevExpense[shortMonthName]
+      : []
     return { ...prevExpense, [shortMonthName]: [...existingItems, currExpense] }
   }, {})
 }
@@ -21,8 +23,12 @@ export const sortDescending = (sectionListData) => {
     const startingIndexOfA = a.title.indexOf(',') - 2
     const startingIndexOfB = a.title.indexOf(',') - 2
 
-    const firstTitleDate = parseInt(a.title.substring(startingIndexOfA, startingIndexOfA + 2))
-    const secondTitleDate = parseInt(b.title.substring(startingIndexOfB, startingIndexOfB + 2))
+    const firstTitleDate = parseInt(
+      a.title.substring(startingIndexOfA, startingIndexOfA + 2)
+    )
+    const secondTitleDate = parseInt(
+      b.title.substring(startingIndexOfB, startingIndexOfB + 2)
+    )
     return secondTitleDate - firstTitleDate
   })
   return sortedSectionListData
@@ -30,8 +36,14 @@ export const sortDescending = (sectionListData) => {
 
 export const getDateSectionExpenses = (dateExpenselookup) => {
   const sectionListData = []
+
   for (const date in dateExpenselookup) {
-    sectionListData.push({ title: date, data: dateExpenselookup[date] })
+    const expenses = dateExpenselookup[date]
+    const sum = expenses.reduce((sum, currExpense) => {
+      return sum + currExpense.amount
+    }, 0).toFixed(2)
+
+    sectionListData.push({ title: date, sum, data: expenses })
   }
   return sectionListData
 }
