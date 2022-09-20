@@ -108,7 +108,7 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
           placeholder: 'Expense Name',
         }}
         buttonConfig={{
-          icon: 'close-circle',
+          icon: IconNames.clear,
           size: 36,
           color: GlobalStyles.colors.gray300,
           onPress: () => {
@@ -133,7 +133,7 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
             placeholder: '0.00',
           }}
           buttonConfig={{
-            icon: 'close-circle',
+            icon: IconNames.clear,
             size: 36,
             color: GlobalStyles.colors.gray300,
             onPress: () => {

@@ -26,6 +26,7 @@ export const ScreenNames = {
 export const IconNames = {
   add: 'add',
   checkamrk: 'md-checkmark',
+  clear: 'close-circle',
   list: 'list',
   trash: 'trash',
   wallet: 'wallet',

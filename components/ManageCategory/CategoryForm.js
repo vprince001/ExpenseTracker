@@ -70,9 +70,9 @@ const CategoryForm = ({ onSubmit, defaultValues }) => {
           placeholder: 'Category Name',
         }}
         buttonConfig={{
-          icon: 'close-circle',
+          icon: IconNames.clear,
           size: 36,
-          color: GlobalStyles.colors.gray200,
+          color: GlobalStyles.colors.gray300,
           onPress: () => {
             setInputs((curInputs) => {
               return {
