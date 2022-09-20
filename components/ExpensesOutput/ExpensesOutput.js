@@ -11,7 +11,7 @@ import { addUserData, updateUserData } from '../../util/http'
 import { sortShortMonthNames } from '../../util/date'
 import { GlobalStyles } from '../../constants'
 
-const ExpensesOutput = ({ expenses }) => {
+const ExpensesOutput = ({ expenses, fetchDataAndSetCtx }) => {
   const userCtx = useContext(UserContext)
   const [selectedMonth, setSelectedMonth] = useState(
     userCtx.userData.selectedMonth
@@ -50,7 +50,7 @@ const ExpensesOutput = ({ expenses }) => {
         />
       ) : null}
       <ExpensesSummary expenses={filteredExpenses} />
-      <ExpensesList expenses={filteredExpenses} />
+      <ExpensesList expenses={filteredExpenses} fetchDataAndSetCtx={fetchDataAndSetCtx} />
     </View>
   )
 }

@@ -5,6 +5,7 @@ import {
   getDateSectionExpenses,
   sortDescending,
 } from '../../util/expenses'
+import { useState } from 'react'
 
 const renderExpenseItem = (itemData) => {
   return <ExpenseItem {...itemData.item} />
@@ -19,16 +20,27 @@ const SectionHeader = ({ section: { title, sum } }) => {
   )
 }
 
-const ExpensesList = ({ expenses }) => {
+const ExpensesList = ({ expenses, fetchDataAndSetCtx }) => {
+  const [refreshing, setRefreshing] = useState(false)
+
   const dateExpenseLookup = getDateExpenseLookup(expenses)
   const dateSectionExpenses = getDateSectionExpenses(dateExpenseLookup)
   const sortedDateSectionExpenses = sortDescending(dateSectionExpenses)
+
+  const handleRefresh = async () => {
+    setRefreshing(true)
+    await fetchDataAndSetCtx()
+    setRefreshing(false)
+  }
+
   return (
     <SectionList
       sections={sortedDateSectionExpenses}
       keyExtractor={(item) => item.id}
       renderItem={renderExpenseItem}
       renderSectionHeader={SectionHeader}
+      refreshing={refreshing}
+      onRefresh={handleRefresh}
     />
   )
 }

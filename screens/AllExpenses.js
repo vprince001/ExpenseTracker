@@ -18,16 +18,20 @@ const AllExpenses = () => {
   const [isFetching, setIsFetching] = useState(true)
   const [error, setError] = useState()
 
+  const fetchDataAndSetCtx = async () => {
+    const expenses = await fetchExpenses()
+    expensesCtx.setExpenses(expenses)
+    const categories = await fetchCategories()
+    categoriesCtx.setCategories(categories)
+    const userData = await fetchUserData()
+    !!userData ? userCtx.setUserData(userData) : userCtx.setUserData('')
+  }
+
   useEffect(() => {
     const getExpenses = async () => {
       setIsFetching(true)
       try {
-        const expenses = await fetchExpenses()
-        expensesCtx.setExpenses(expenses)
-        const categories = await fetchCategories()
-        categoriesCtx.setCategories(categories)
-        const userData = await fetchUserData()
-        !!userData ? userCtx.setUserData(userData) : userCtx.setUserData('')
+        await fetchDataAndSetCtx()
       } catch (error) {
         setError('Could not fetch data!')
       }
@@ -45,7 +49,12 @@ const AllExpenses = () => {
     return <LoadingOverlay />
   }
 
-  return <ExpensesOutput expenses={expensesCtx.expenses} />
+  return (
+    <ExpensesOutput
+      expenses={expensesCtx.expenses}
+      fetchDataAndSetCtx={fetchDataAndSetCtx}
+    />
+  )
 }
 
 export default AllExpenses
