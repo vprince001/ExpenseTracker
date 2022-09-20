@@ -69,6 +69,19 @@ const CategoryForm = ({ onSubmit, defaultValues }) => {
           value: inputs.description.value,
           placeholder: 'Category Name',
         }}
+        buttonConfig={{
+          icon: 'close-circle',
+          size: 36,
+          color: GlobalStyles.colors.gray200,
+          onPress: () => {
+            setInputs((curInputs) => {
+              return {
+                ...curInputs,
+                description: { value: '', isValid: true },
+              }
+            })
+          },
+        }}
       />
     </View>
   )

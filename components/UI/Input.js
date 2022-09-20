@@ -1,11 +1,34 @@
 import { View, Text, TextInput, StyleSheet } from 'react-native'
 import { GlobalStyles } from '../../constants/styles'
+import IconButton from './IconButton'
 
-function Input({ label, invalid, inputDirection, textInputConfig }) {
+function Input({
+  label,
+  invalid,
+  inputDirection,
+  textInputConfig,
+  buttonConfig,
+}) {
+  const containerViewStyle = [
+    styles.container,
+    inputDirection === 'row' && styles.rowInput,
+  ]
   return (
-    <View style={[styles.inputContainer, inputDirection === 'row' && styles.rowInput]}>
-      <Text style={[styles.label, invalid && styles.invalidLabel]}>{label}</Text>
-      <TextInput style={[styles.input, invalid && styles.invalidInput]} {...textInputConfig} />
+    <View style={containerViewStyle}>
+      <Text style={[styles.label, invalid && styles.invalidLabel]}>
+        {label}
+      </Text>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={[styles.input, invalid && styles.invalidInput]}
+          {...textInputConfig}
+        />
+        {buttonConfig ? (
+          <View style={[styles.iconButtonView, invalid && styles.invalidInput]}>
+            <IconButton {...buttonConfig}/>
+          </View>
+        ) : null}
+      </View>
     </View>
   )
 }
@@ -13,28 +36,35 @@ function Input({ label, invalid, inputDirection, textInputConfig }) {
 export default Input
 
 const styles = StyleSheet.create({
-  inputContainer: {
+  container: {
     marginHorizontal: 4,
     marginTop: 4,
     marginBottom: 16,
   },
   rowInput: {
-    flex: 1
+    flex: 1,
   },
   label: {
     fontSize: 18,
     marginBottom: 8,
   },
+  invalidLabel: {
+    color: GlobalStyles.colors.error200,
+  },
+  inputContainer: {
+    flexDirection: 'row',
+  },
   input: {
     backgroundColor: GlobalStyles.colors.gray100,
     padding: 8,
-    borderRadius: 5,
     fontSize: 18,
-  },
-  invalidLabel: {
-    color: GlobalStyles.colors.error200
+    flexGrow: 1,
   },
   invalidInput: {
-    backgroundColor: GlobalStyles.colors.error100
-  }
+    backgroundColor: GlobalStyles.colors.error100,
+  },
+  iconButtonView: {
+    backgroundColor: GlobalStyles.colors.gray100,
+    justifyContent: 'center'
+  },
 })

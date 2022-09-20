@@ -107,17 +107,43 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
           value: inputs.description.value,
           placeholder: 'Expense Name',
         }}
+        buttonConfig={{
+          icon: 'close-circle',
+          size: 36,
+          color: GlobalStyles.colors.gray300,
+          onPress: () => {
+            setInputs((curInputs) => {
+              return {
+                ...curInputs,
+                description: { value: '', isValid: true },
+              }
+            })
+          },
+        }}
       />
       <View style={styles.amountNCalendarView}>
         <Input
           label="Amount"
           invalid={!inputs.amount.isValid}
-          inputDirection='row'
+          inputDirection="row"
           textInputConfig={{
             onChangeText: inputChangedHandler.bind(this, 'amount'),
             value: inputs.amount.value,
             keyboardType: 'decimal-pad',
             placeholder: '0.00',
+          }}
+          buttonConfig={{
+            icon: 'close-circle',
+            size: 36,
+            color: GlobalStyles.colors.gray300,
+            onPress: () => {
+              setInputs((curInputs) => {
+                return {
+                  ...curInputs,
+                  amount: { value: '', isValid: true },
+                }
+              })
+            },
           }}
         />
         <Pressable onPress={calendarVisibilityHandler}>
