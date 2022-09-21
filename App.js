@@ -12,10 +12,7 @@ import AllCategories from './screens/AllCategories'
 import CategoryExpenses from './screens/CategoryExpenses'
 import AllExpenses from './screens/AllExpenses'
 
-import UserContextProvider from './store/user-context'
-import ExpensesContextProvider from './store/expenses-context'
-import CategoriesContextProvider from './store/categories-context'
-
+import AppContextProvider from './store/app-context'
 import { ScreenNames, GlobalStyles, IconNames } from './constants'
 
 const ExpensesStack = createNativeStackNavigator()
@@ -116,50 +113,42 @@ const App = () => {
   return (
     <>
       <StatusBar style="dark" />
-      <UserContextProvider>
-        <ExpensesContextProvider>
-          <CategoriesContextProvider>
-            <NavigationContainer>
-              <Tab.Navigator
-                screenOptions={{
-                  headerShown: false,
-                  tabBarShowLabel: false,
-                  tabBarActiveTintColor: GlobalStyles.colors.primary300,
-                }}
-              >
-                <Tab.Screen
-                  name={ScreenNames.expenseBottomScreen}
-                  component={ExpensesStackScreen}
-                  options={{
-                    tabBarIcon: ({ color, size }) => {
-                      return (
-                        <Ionicons
-                          name={IconNames.wallet}
-                          size={size}
-                          color={color}
-                        />
-                      )
-                    },
-                  }}
-                />
-                <Tab.Screen
-                  name={ScreenNames.categoryBottomScreen}
-                  component={CategoriesStackScreen}
-                  options={{
-                    tabBarIcon: ({ color, size }) => (
-                      <Ionicons
-                        name={IconNames.list}
-                        size={size}
-                        color={color}
-                      />
-                    ),
-                  }}
-                />
-              </Tab.Navigator>
-            </NavigationContainer>
-          </CategoriesContextProvider>
-        </ExpensesContextProvider>
-      </UserContextProvider>
+      <AppContextProvider>
+        <NavigationContainer>
+          <Tab.Navigator
+            screenOptions={{
+              headerShown: false,
+              tabBarShowLabel: false,
+              tabBarActiveTintColor: GlobalStyles.colors.primary300,
+            }}
+          >
+            <Tab.Screen
+              name={ScreenNames.expenseBottomScreen}
+              component={ExpensesStackScreen}
+              options={{
+                tabBarIcon: ({ color, size }) => {
+                  return (
+                    <Ionicons
+                      name={IconNames.wallet}
+                      size={size}
+                      color={color}
+                    />
+                  )
+                },
+              }}
+            />
+            <Tab.Screen
+              name={ScreenNames.categoryBottomScreen}
+              component={CategoriesStackScreen}
+              options={{
+                tabBarIcon: ({ color, size }) => (
+                  <Ionicons name={IconNames.list} size={size} color={color} />
+                ),
+              }}
+            />
+          </Tab.Navigator>
+        </NavigationContainer>
+      </AppContextProvider>
     </>
   )
 }
