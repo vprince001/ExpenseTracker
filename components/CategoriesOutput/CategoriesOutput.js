@@ -2,10 +2,13 @@ import { StyleSheet, View } from 'react-native'
 import CategoryList from './CategoryList'
 import { GlobalStyles } from '../../constants'
 
-const CategoriesOutput = ({ categories }) => {
+const CategoriesOutput = ({ categories, fetchCategoriesAndSetCtx }) => {
   return (
     <View style={styles.container}>
-      <CategoryList categories={categories} />
+      <CategoryList
+        categories={categories}
+        fetchCategoriesAndSetCtx={fetchCategoriesAndSetCtx}
+      />
     </View>
   )
 }

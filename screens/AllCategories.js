@@ -12,12 +12,16 @@ const AllCategories = () => {
 
   const categoriesCtx = useContext(CategoriesContext)
 
+  const fetchCategoriesAndSetCtx = async () => {
+    const categories = await fetchCategories()
+    categoriesCtx.setCategories(categories)
+  }
+
   useEffect(() => {
     const getCategories = async () => {
       setIsFetching(true)
       try {
-        const categories = await fetchCategories()
-        categoriesCtx.setCategories(categories)
+        await fetchCategoriesAndSetCtx()
       } catch (error) {
         setError('Could not fetch categories!')
       }
@@ -35,7 +39,12 @@ const AllCategories = () => {
     return <LoadingOverlay />
   }
 
-  return <CategoriesOutput categories={categoriesCtx.categories} />
+  return (
+    <CategoriesOutput
+      categories={categoriesCtx.categories}
+      fetchCategoriesAndSetCtx={fetchCategoriesAndSetCtx}
+    />
+  )
 }
 
 export default AllCategories
