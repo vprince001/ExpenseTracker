@@ -9,40 +9,45 @@ export const ExpensesContext = createContext({
 })
 
 const expensesReducer = (state, action) => {
-  switch (action.type) {
-    case 'ADD':
-      return [{ ...action.payload }, ...state]
+  const expenses = state.expenses
 
+  switch (action.type) {
     case 'SET':
-      const inverted = action.payload.reverse()
-      return inverted
+      return { ...state, expenses: action.payload.reverse() }
+
+    case 'ADD':
+      return { ...state, expenses: [{ ...action.payload }, ...expenses] }
 
     case 'UPDATE':
-      const updatableExpenseIndex = state.findIndex(
+      const updatableExpenseIndex = expenses.findIndex(
         (expense) => expense.id === action.payload.id
       )
-      const updatableExpense = state[updatableExpenseIndex]
+      const updatableExpense = expenses[updatableExpenseIndex]
       const updatedExpense = { ...updatableExpense, ...action.payload.data }
-      const updatedExpenses = [...state]
+      const updatedExpenses = [...expenses]
       updatedExpenses[updatableExpenseIndex] = updatedExpense
-      return updatedExpenses
+      return { ...state, expenses: updatedExpenses }
 
     case 'DELETE':
-      return state.filter((expense) => expense.id !== action.payload.id)
+      const expensesAfterDelete = expenses.filter(
+        (expense) => expense.id !== action.payload.id
+      )
+      return { ...state, expenses: expensesAfterDelete }
+
     default:
       return state
   }
 }
 
 const ExpensesContextProvider = ({ children }) => {
-  const [expensesState, dispatch] = useReducer(expensesReducer, [])
-
-  const addExpense = (expenseData) => {
-    dispatch({ type: 'ADD', payload: expenseData })
-  }
+  const [expensesState, dispatch] = useReducer(expensesReducer, {})
 
   const setExpenses = (expenses) => {
     dispatch({ type: 'SET', payload: expenses })
+  }
+
+  const addExpense = (expenseData) => {
+    dispatch({ type: 'ADD', payload: expenseData })
   }
 
   const updateExpense = (id, expenseData) => {
@@ -54,9 +59,9 @@ const ExpensesContextProvider = ({ children }) => {
   }
 
   const value = {
-    expenses: expensesState,
-    addExpense,
+    expenses: expensesState.expenses,
     setExpenses,
+    addExpense,
     updateExpense,
     deleteExpense,
   }
