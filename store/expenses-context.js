@@ -9,45 +9,40 @@ export const ExpensesContext = createContext({
 })
 
 const expensesReducer = (state, action) => {
-  const expenses = state.expenses
-
   switch (action.type) {
-    case 'SET':
-      return { ...state, expenses: action.payload.reverse() }
-
     case 'ADD':
-      return { ...state, expenses: [{ ...action.payload }, ...expenses] }
+      return [{ ...action.payload }, ...state]
+
+    case 'SET':
+      const inverted = action.payload.reverse()
+      return inverted
 
     case 'UPDATE':
-      const updatableExpenseIndex = expenses.findIndex(
+      const updatableExpenseIndex = state.findIndex(
         (expense) => expense.id === action.payload.id
       )
-      const updatableExpense = expenses[updatableExpenseIndex]
+      const updatableExpense = state[updatableExpenseIndex]
       const updatedExpense = { ...updatableExpense, ...action.payload.data }
-      const updatedExpenses = [...expenses]
+      const updatedExpenses = [...state]
       updatedExpenses[updatableExpenseIndex] = updatedExpense
-      return { ...state, expenses: updatedExpenses }
+      return updatedExpenses
 
     case 'DELETE':
-      const expensesAfterDelete = expenses.filter(
-        (expense) => expense.id !== action.payload.id
-      )
-      return { ...state, expenses: expensesAfterDelete }
-
+      return state.filter((expense) => expense.id !== action.payload.id)
     default:
       return state
   }
 }
 
 const ExpensesContextProvider = ({ children }) => {
-  const [expensesState, dispatch] = useReducer(expensesReducer, {})
-
-  const setExpenses = (expenses) => {
-    dispatch({ type: 'SET', payload: expenses })
-  }
+  const [expensesState, dispatch] = useReducer(expensesReducer, [])
 
   const addExpense = (expenseData) => {
     dispatch({ type: 'ADD', payload: expenseData })
+  }
+
+  const setExpenses = (expenses) => {
+    dispatch({ type: 'SET', payload: expenses })
   }
 
   const updateExpense = (id, expenseData) => {
@@ -59,9 +54,9 @@ const ExpensesContextProvider = ({ children }) => {
   }
 
   const value = {
-    expenses: expensesState.expenses,
-    setExpenses,
+    expenses: expensesState,
     addExpense,
+    setExpenses,
     updateExpense,
     deleteExpense,
   }
