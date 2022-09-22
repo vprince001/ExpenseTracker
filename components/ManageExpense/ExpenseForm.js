@@ -25,7 +25,7 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
       isValid: true,
     },
     category: {
-      value: defaultValues ? defaultValues.category : '',
+      value: defaultValues ? defaultValues.category : {},
       isValid: true,
     },
   })
@@ -58,12 +58,12 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
       description: inputs.description.value.trim(),
       amount: +inputs.amount.value,
       date: new Date(date),
-      category: inputs.category.value.trim(),
+      category: inputs.category.value,
     }
 
     const descriptionIsValid = expenseData.description.length > 0
     const amountIsValid = !isNaN(expenseData.amount) && expenseData.amount > 0
-    const categoryIsValid = expenseData.category.length > 0
+    const categoryIsValid = expenseData.category.description
 
     if (!descriptionIsValid || !amountIsValid || !categoryIsValid) {
       setInputs((curInputs) => {

@@ -6,15 +6,16 @@ const CategoryChoice = ({ categories, currentCategory, onSelect, invalid }) => {
   return (
     <>
       <Text style={[styles.label, invalid && styles.invalidLabel]}>
-        Category
+        Choose Category
       </Text>
       <View style={styles.container}>
         {categories.map((listItem) => {
           return (
             <ChoiceItem
               key={listItem.id}
-              name={listItem.description}
-              currentItem={currentCategory}
+              item={listItem}
+              itemName={listItem.description}
+              isSelected={listItem.id === currentCategory.id}
               onSelect={onSelect}
               invalid={invalid}
               style={{ fontSize: 18 }}
