@@ -12,9 +12,10 @@ const MonthChoice = ({ months, currentMonth, onSelect }) => {
           return (
             <ChoiceItem
               key={listItem}
-              name={listItem}
-              currentItem={currentMonth}
+              item={listItem}
+              itemName={listItem}
               onSelect={onSelect}
+              isSelected={currentMonth === listItem}
             />
           )
         })}
