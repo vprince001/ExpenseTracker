@@ -6,8 +6,10 @@ import LoadingOverlay from '../components/UI/LoadingOverlay'
 import ErrorOverlay from '../components/UI/ErrorOverlay'
 import CategoryForm from '../components/ManageCategory/CategoryForm'
 
+import { ExpensesContext } from '../store/expenses-context'
 import { CategoriesContext } from '../store/categories-context'
-import { addCategory, updateCategory, deleteCategory } from '../util/http'
+
+import { addCategory, updateCategory, deleteCategory, updateExpenses } from '../util/http'
 import { GlobalStyles, IconNames } from '../constants'
 
 const ManageCategory = ({ route, navigation }) => {
@@ -15,6 +17,7 @@ const ManageCategory = ({ route, navigation }) => {
   const [error, setError] = useState()
 
   const categoriesCtx = useContext(CategoriesContext)
+  const expenseCtx = useContext(ExpensesContext)
   const editedCategoryId = route.params?.categoryId
   const isEditing = !!editedCategoryId
 
@@ -34,6 +37,8 @@ const ManageCategory = ({ route, navigation }) => {
       if (isEditing) {
         categoriesCtx.updateCategory(editedCategoryId, categoryData)
         await updateCategory(editedCategoryId, categoryData)
+        expenseCtx.updateExpenses(editedCategoryId, categoryData)
+        updateExpenses(editedCategoryId, categoryData, expenseCtx.expenses)
       } else {
         const id = await addCategory(categoryData)
         categoriesCtx.addCategory({ ...categoryData, id })

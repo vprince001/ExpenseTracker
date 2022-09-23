@@ -30,6 +30,16 @@ export const updateExpense = (id, expenseData) => {
   return axios.put(DB_BASE_URL + `/expenses/${id}.json`, expenseData)
 }
 
+export const updateExpenses = (categoryId, categoryData, expenses) => {
+  expenses.forEach(async expense => {
+    const { id: expenseId, ...rest} = expense
+    if (categoryId === rest.category.id) {
+      const updatedExpenseData = { ...rest, category: { ...categoryData, id: categoryId } }
+      await updateExpense(expenseId, updatedExpenseData)
+    }
+  })
+}
+
 export const deleteExpense = (id) => {
   return axios.delete(DB_BASE_URL + `/expenses/${id}.json`)
 }

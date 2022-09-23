@@ -2,7 +2,7 @@ import { getFormattedDate, getShortMonthName } from './date'
 
 export const getCategoryExpenseLookup = (expenses) => {
   return expenses.reduce((prevExpense, currExpense) => {
-    const categoryName = currExpense.category
+    const categoryName = currExpense.category.description
     const existingItems = prevExpense[categoryName]
       ? prevExpense[categoryName]
       : []

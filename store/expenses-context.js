@@ -5,6 +5,7 @@ export const ExpensesContext = createContext({
   addExpense: ({ description, amount, category, date }) => {},
   setExpenses: (expenses) => {},
   updateExpense: (id, { description, amount, category, date }) => {},
+  updateExpenses: ({ categoryId, categoryData }) => {},
   deleteExpense: (id) => {},
 })
 
@@ -27,8 +28,19 @@ const expensesReducer = (state, action) => {
       updatedExpenses[updatableExpenseIndex] = updatedExpense
       return updatedExpenses
 
+    case 'UPDATE_EXPENSES':
+      return state.map((expense) => {
+        const { categoryId, categoryData } = action.payload
+
+        if (expense.category.id === categoryId) {
+          return { ...expense, category: { ...categoryData, id: categoryId } }
+        }
+        return expense
+      })
+
     case 'DELETE':
       return state.filter((expense) => expense.id !== action.payload.id)
+
     default:
       return state
   }
@@ -49,6 +61,13 @@ const ExpensesContextProvider = ({ children }) => {
     dispatch({ type: 'UPDATE', payload: { id, data: expenseData } })
   }
 
+  const updateExpenses = (categoryId, categoryData) => {
+    dispatch({
+      type: 'UPDATE_EXPENSES',
+      payload: { categoryId, categoryData },
+    })
+  }
+
   const deleteExpense = (id) => {
     dispatch({ type: 'DELETE', payload: { id } })
   }
@@ -58,6 +77,7 @@ const ExpensesContextProvider = ({ children }) => {
     addExpense,
     setExpenses,
     updateExpense,
+    updateExpenses,
     deleteExpense,
   }
 
