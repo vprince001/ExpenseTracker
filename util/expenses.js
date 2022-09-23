@@ -1,30 +1,30 @@
 import { getFormattedDate, getShortMonthName } from './date'
 
 export const getCategoryExpenseLookup = (expenses) => {
-  return expenses.reduce((prevExpense, currExpense) => {
+  return expenses.reduce((lookup, currExpense) => {
     const categoryName = currExpense.category.description
-    const existingItems = prevExpense[categoryName]
-      ? prevExpense[categoryName]
+    const existingItems = lookup[categoryName]
+      ? lookup[categoryName]
       : []
-    return { ...prevExpense, [categoryName]: [...existingItems, currExpense] }
+    return { ...lookup, [categoryName]: [...existingItems, currExpense] }
   }, {})
 }
 
 export const getMonthExpenseLookup = (expenses) => {
-  return expenses.reduce((prevExpense, currExpense) => {
+  return expenses.reduce((lookup, currExpense) => {
     const shortMonthName = getShortMonthName(currExpense.date)
-    const existingItems = prevExpense[shortMonthName]
-      ? prevExpense[shortMonthName]
+    const existingItems = lookup[shortMonthName]
+      ? lookup[shortMonthName]
       : []
-    return { ...prevExpense, [shortMonthName]: [...existingItems, currExpense] }
+    return { ...lookup, [shortMonthName]: [...existingItems, currExpense] }
   }, {})
 }
 
 export const getDateExpenseLookup = (expenses) => {
-  return expenses.reduce((prevExpense, currExpense) => {
+  return expenses.reduce((lookup, currExpense) => {
     const date = getFormattedDate(new Date(currExpense.date))
-    const existingItems = prevExpense[date] ? prevExpense[date] : []
-    return { ...prevExpense, [date]: [...existingItems, currExpense] }
+    const existingItems = lookup[date] ? lookup[date] : []
+    return { ...lookup, [date]: [...existingItems, currExpense] }
   }, {})
 }
 

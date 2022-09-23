@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 
 import Input from '../UI/Input'
 import IconButton from '../UI/IconButton'
 
 import { GlobalStyles, IconNames } from '../../constants'
 
-const CategoryForm = ({ onSubmit, defaultValues }) => {
+const CategoryForm = ({ onSubmit, defaultValues, categories }) => {
   const navigation = useNavigation()
+  const [showErrorMessage, setShowErrorMessage] = useState(false)
   const [inputs, setInputs] = useState({
     description: {
       value: defaultValues ? defaultValues.description : '',
@@ -17,6 +18,7 @@ const CategoryForm = ({ onSubmit, defaultValues }) => {
   })
 
   const inputChangedHandler = (inputIdentifier, enteredValue) => {
+    setShowErrorMessage(false)
     setInputs((curInputs) => {
       return {
         ...curInputs,
@@ -43,6 +45,19 @@ const CategoryForm = ({ onSubmit, defaultValues }) => {
       })
       return
     }
+
+    const categoryWithSameName = categories.filter(
+      (category) =>
+        category.description.toLowerCase() ===
+        categoryData.description.toLowerCase()
+    )
+
+    const categoryExists = categoryWithSameName.length > 0
+    if (categoryExists) {
+      setShowErrorMessage(true)
+      return
+    }
+
     onSubmit(categoryData)
   }
 
@@ -83,8 +98,26 @@ const CategoryForm = ({ onSubmit, defaultValues }) => {
           },
         }}
       />
+      {showErrorMessage ? (
+        <View style={styles.errorMsgContainer}>
+          <Text style={styles.errorMsgText}>
+            Category With Same Name Already Exists
+          </Text>
+        </View>
+      ) : null}
     </View>
   )
 }
 
 export default CategoryForm
+
+const styles = StyleSheet.create({
+  errorMsgContainer: {
+    alignItems: 'center',
+  },
+  errorMsgText: {
+    fontSize: 16,
+    color: GlobalStyles.colors.error200,
+    fontWeight: 'bold',
+  },
+})

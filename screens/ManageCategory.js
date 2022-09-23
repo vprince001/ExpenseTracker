@@ -77,6 +77,7 @@ const ManageCategory = ({ route, navigation }) => {
       <CategoryForm
         onSubmit={confirmHandler}
         defaultValues={selectedCategory}
+        categories={categoriesCtx.categories}
       />
       <ConfirmationModal
         modalVisible={modalVisible}
