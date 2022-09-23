@@ -4,6 +4,7 @@ import { View, StyleSheet } from 'react-native'
 import IconButton from '../components/UI/IconButton'
 import LoadingOverlay from '../components/UI/LoadingOverlay'
 import ErrorOverlay from '../components/UI/ErrorOverlay'
+import ConfirmationModal from '../components/UI/ConfirmationModal'
 import ExpenseForm from '../components/ManageExpense/ExpenseForm'
 
 import { ExpensesContext } from '../store/expenses-context'
@@ -12,6 +13,7 @@ import { GlobalStyles, IconNames } from '../constants'
 
 const ManageExpense = ({ route, navigation }) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [modalVisible, setModalVisible] = useState(false)
   const [error, setError] = useState()
 
   const expensesCtx = useContext(ExpensesContext)
@@ -68,13 +70,18 @@ const ManageExpense = ({ route, navigation }) => {
   return (
     <View style={styles.container}>
       <ExpenseForm onSubmit={confirmHandler} defaultValues={selectedExpense} />
+      <ConfirmationModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        onConfirmation={deleteExpenseHandler}
+      />
       {isEditing && (
         <View style={styles.deleteContainer}>
           <IconButton
             icon={IconNames.trash}
             size={36}
             color={GlobalStyles.colors.error200}
-            onPress={deleteExpenseHandler}
+            onPress={() => setModalVisible(true)}
           />
         </View>
       )}
