@@ -39,7 +39,7 @@ const expensesReducer = (state, action) => {
       })
 
     case 'DELETE':
-      return state.filter((expense) => expense.id !== action.payload.id)
+      return state.filter((expense) => expense.id !== action.payload)
 
     default:
       return state
@@ -57,8 +57,8 @@ const ExpensesContextProvider = ({ children }) => {
     dispatch({ type: 'SET', payload: expenses })
   }
 
-  const updateExpense = (id, expenseData) => {
-    dispatch({ type: 'UPDATE', payload: { id, data: expenseData } })
+  const updateExpense = (id, categoryData) => {
+    dispatch({ type: 'UPDATE', payload: { id, data: categoryData } })
   }
 
   const updateExpenses = (categoryId, categoryData) => {
@@ -69,7 +69,7 @@ const ExpensesContextProvider = ({ children }) => {
   }
 
   const deleteExpense = (id) => {
-    dispatch({ type: 'DELETE', payload: { id } })
+    dispatch({ type: 'DELETE', payload: id })
   }
 
   const value = {

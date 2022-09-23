@@ -2,7 +2,7 @@ import { createContext, useReducer } from 'react'
 
 export const CategoriesContext = createContext({
   categories: [],
-  addCategory: ({ description }) => {},
+  addCategory: ({ id, description }) => {},
   setCategories: (categories) => {},
   updateCategory: (id, { description }) => {},
   deleteCategory: (id) => {},
@@ -37,8 +37,8 @@ const categoriesReducer = (state, action) => {
 const CategoriesContextProvider = ({ children }) => {
   const [categoriesState, dispatch] = useReducer(categoriesReducer, [])
 
-  const addCategory = (categoryData) => {
-    dispatch({ type: 'ADD', payload: categoryData })
+  const addCategory = (category) => {
+    dispatch({ type: 'ADD', payload: category })
   }
 
   const setCategories = (categories) => {
