@@ -4,6 +4,7 @@ import { View, StyleSheet } from 'react-native'
 import IconButton from '../components/UI/IconButton'
 import LoadingOverlay from '../components/UI/LoadingOverlay'
 import ErrorOverlay from '../components/UI/ErrorOverlay'
+import ConfirmationModal from '../components/UI/ConfirmationModal'
 import CategoryForm from '../components/ManageCategory/CategoryForm'
 
 import { ExpensesContext } from '../store/expenses-context'
@@ -14,6 +15,7 @@ import { GlobalStyles, IconNames } from '../constants'
 
 const ManageCategory = ({ route, navigation }) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [modalVisible, setModalVisible] = useState(false)
   const [error, setError] = useState()
 
   const categoriesCtx = useContext(CategoriesContext)
@@ -76,13 +78,18 @@ const ManageCategory = ({ route, navigation }) => {
         onSubmit={confirmHandler}
         defaultValues={selectedCategory}
       />
+      <ConfirmationModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        onConfirmation={deleteExpenseHandler}
+      />
       {isEditing && (
         <View style={styles.deleteContainer}>
           <IconButton
             icon={IconNames.trash}
             size={36}
             color={GlobalStyles.colors.error200}
-            onPress={deleteExpenseHandler}
+            onPress={() => setModalVisible(true)}
           />
         </View>
       )}
