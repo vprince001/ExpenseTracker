@@ -38,7 +38,7 @@ const ManageCategory = ({ route, navigation }) => {
         const id = await addCategory(categoryData)
         categoriesCtx.addCategory({ ...categoryData, id })
       }
-      navigation.goBack()
+      navigation.popToTop()
     } catch (error) {
       setError('Could not save data - please try again later!')
       setIsSubmitting(false)
@@ -50,7 +50,7 @@ const ManageCategory = ({ route, navigation }) => {
     try {
       await deleteCategory(editedCategoryId)
       categoriesCtx.deleteCategory(editedCategoryId)
-      navigation.goBack()
+      navigation.popToTop()
     } catch (error) {
       setError('Could not delete category - please try again later!')
       setIsSubmitting(false)

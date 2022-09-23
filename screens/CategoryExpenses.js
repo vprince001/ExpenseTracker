@@ -36,7 +36,7 @@ const CategoryExpenses = ({ route, navigation }) => {
     ? categoryExpenseLookup[categoryName]
     : []
 
-  const navigateToManageExpenseScreen = () => {
+  const navigateToManageCategoryScreen = () => {
     navigation.navigate(ScreenNames.manageCategoryScreen, {
       categoryId: id,
     })
@@ -50,7 +50,7 @@ const CategoryExpenses = ({ route, navigation }) => {
           icon={IconNames.edit}
           size={36}
           color={GlobalStyles.colors.primary300}
-          onPress={navigateToManageExpenseScreen}
+          onPress={navigateToManageCategoryScreen}
         />
       ),
     })
