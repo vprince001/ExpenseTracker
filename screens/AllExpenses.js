@@ -32,8 +32,8 @@ const AllExpenses = () => {
       setIsFetching(true)
       try {
         await fetchDataAndSetCtx()
-      } catch (error) {
-        setError('Could not fetch data!')
+      } catch ({ message }) {
+        setError(message)
       }
       setIsFetching(false)
     }
@@ -42,7 +42,14 @@ const AllExpenses = () => {
   }, [])
 
   if (error && !isFetching) {
-    return <ErrorOverlay message={error} />
+    return (
+      <ErrorOverlay
+        message={error}
+        fetchDataAndSetCtx={fetchDataAndSetCtx}
+        setError={setError}
+        setIsFetching={setIsFetching}
+      />
+    )
   }
 
   if (isFetching) {

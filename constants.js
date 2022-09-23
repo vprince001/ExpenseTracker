@@ -30,6 +30,7 @@ export const IconNames = {
   clear: 'close-circle',
   edit: 'create-outline',
   list: 'list',
+  reload: 'reload-circle-outline',
   trash: 'trash',
   wallet: 'wallet',
 }

@@ -22,8 +22,8 @@ const AllCategories = () => {
       setIsFetching(true)
       try {
         await fetchCategoriesAndSetCtx()
-      } catch (error) {
-        setError('Could not fetch categories!')
+      } catch ({ message }) {
+        setError(message)
       }
       setIsFetching(false)
     }
@@ -32,7 +32,14 @@ const AllCategories = () => {
   }, [])
 
   if (error && !isFetching) {
-    return <ErrorOverlay message={error} />
+    return (
+      <ErrorOverlay
+        message={error}
+        fetchDataAndSetCtx={fetchCategoriesAndSetCtx}
+        setError={setError}
+        setIsFetching={setIsFetching}
+      />
+    )
   }
 
   if (isFetching) {
