@@ -4,12 +4,18 @@ import { StyleSheet, Text, View } from 'react-native'
 
 import Input from '../UI/Input'
 import IconButton from '../UI/IconButton'
+import CategoryImageSelection from '../ImagesOutput/CategoryImageSelection'
+import ImageModal from '../ImagesOutput/ImageModal'
 
 import { GlobalStyles, IconNames } from '../../constants'
 
 const CategoryForm = ({ onSubmit, defaultValues, categories }) => {
   const navigation = useNavigation()
   const [showErrorMessage, setShowErrorMessage] = useState(false)
+  const [selectedImage, setSelectedImage] = useState()
+  const [imagePath, setImagePath] = useState()
+  const [showImages, setShowImages] = useState(false)
+
   const [inputs, setInputs] = useState({
     description: {
       value: defaultValues ? defaultValues.description : '',
@@ -102,6 +108,20 @@ const CategoryForm = ({ onSubmit, defaultValues, categories }) => {
         <Text style={styles.errorMsgText}>
           Category With Same Name Already Exists
         </Text>
+      ) : null}
+      <CategoryImageSelection
+        isImageSelected={!!selectedImage}
+        path={imagePath}
+        onPress={setShowImages}
+      />
+      {showImages ? (
+        <ImageModal
+          visible={showImages}
+          closeModal={() => setShowImages(false)}
+          selectedImage={selectedImage}
+          setSelectedImage={setSelectedImage}
+          setPath={setImagePath}
+        />
       ) : null}
     </View>
   )

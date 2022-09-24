@@ -10,9 +10,6 @@ import CategoryForm from '../components/ManageForms/CategoryForm'
 import { ExpensesContext } from '../store/expenses-context'
 import { CategoriesContext } from '../store/categories-context'
 
-import CategoryImageSelection from '../components/ImagesOutput/CategoryImageSelection'
-import ImageModal from '../components/ImagesOutput/ImageModal'
-
 import {
   addCategory,
   updateCategory,
@@ -24,9 +21,6 @@ import { GlobalStyles, IconNames } from '../constants'
 const ManageCategory = ({ route, navigation }) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [modalVisible, setModalVisible] = useState(false)
-  const [selectedImage, setSelectedImage] = useState()
-  const [showImages, setShowImages] = useState(false)
-  const [imagePath, setImagePath] = useState()
   const [error, setError] = useState()
 
   const categoriesCtx = useContext(CategoriesContext)
@@ -90,20 +84,6 @@ const ManageCategory = ({ route, navigation }) => {
         defaultValues={selectedCategory}
         categories={categoriesCtx.categories}
       />
-      <CategoryImageSelection
-        isImageSelected={!!selectedImage}
-        path={imagePath}
-        onPress={setShowImages}
-      />
-      {showImages ? (
-        <ImageModal
-          visible={showImages}
-          closeModal={() => setShowImages(false)}
-          selectedImage={selectedImage}
-          setSelectedImage={setSelectedImage}
-          setPath={setImagePath}
-        />
-      ) : null}
       {isEditing && (
         <View style={styles.deleteContainer}>
           <IconButton
