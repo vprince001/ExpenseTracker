@@ -99,11 +99,9 @@ const CategoryForm = ({ onSubmit, defaultValues, categories }) => {
         }}
       />
       {showErrorMessage ? (
-        <View style={styles.errorMsgContainer}>
-          <Text style={styles.errorMsgText}>
-            Category With Same Name Already Exists
-          </Text>
-        </View>
+        <Text style={styles.errorMsgText}>
+          Category With Same Name Already Exists
+        </Text>
       ) : null}
     </View>
   )
@@ -112,12 +110,11 @@ const CategoryForm = ({ onSubmit, defaultValues, categories }) => {
 export default CategoryForm
 
 const styles = StyleSheet.create({
-  errorMsgContainer: {
-    alignItems: 'center',
-  },
   errorMsgText: {
     fontSize: 16,
     color: GlobalStyles.colors.error200,
     fontWeight: 'bold',
+    marginBottom: 16,
+    alignSelf: 'center',
   },
 })
