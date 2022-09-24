@@ -36,7 +36,7 @@ export const IconNames = {
   wallet: 'wallet',
 }
 
-export const ImagePaths = [
+export const CategoryImages = [
   {id:'./assets/categoryIcons/apple.png', path: require('./assets/categoryIcons/apple.png')},
   {id: './assets/categoryIcons/bank.png', path: require('./assets/categoryIcons/bank.png')},
   {id: './assets/categoryIcons/broccoli.png', path: require('./assets/categoryIcons/broccoli.png')},

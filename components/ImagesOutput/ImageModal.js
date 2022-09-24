@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 
 import CategoryImage from './CategoryImage'
-import { GlobalStyles, ImagePaths } from '../../constants'
+import { GlobalStyles, CategoryImages } from '../../constants'
 
 const ImageModal = ({
   visible,
@@ -42,7 +42,7 @@ const ImageModal = ({
       <View style={styles.container}>
         <View style={styles.modalView}>
           <FlatList
-            data={ImagePaths}
+            data={CategoryImages}
             renderItem={renderImage}
             keyExtractor={(item) => item.id}
             numColumns={3}

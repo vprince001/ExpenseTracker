@@ -5,7 +5,7 @@ import IconButton from '../components/UI/IconButton'
 import LoadingOverlay from '../components/UI/LoadingOverlay'
 import ErrorOverlay from '../components/UI/ErrorOverlay'
 import ConfirmationModal from '../components/UI/ConfirmationModal'
-import CategoryForm from '../components/ManageCategory/CategoryForm'
+import CategoryForm from '../components/ManageForms/CategoryForm'
 
 import { ExpensesContext } from '../store/expenses-context'
 import { CategoriesContext } from '../store/categories-context'

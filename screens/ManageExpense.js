@@ -5,7 +5,7 @@ import IconButton from '../components/UI/IconButton'
 import LoadingOverlay from '../components/UI/LoadingOverlay'
 import ErrorOverlay from '../components/UI/ErrorOverlay'
 import ConfirmationModal from '../components/UI/ConfirmationModal'
-import ExpenseForm from '../components/ManageExpense/ExpenseForm'
+import ExpenseForm from '../components/ManageForms/ExpenseForm'
 
 import { ExpensesContext } from '../store/expenses-context'
 import { addExpense, deleteExpense, updateExpense } from '../util/http'
