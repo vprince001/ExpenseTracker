@@ -29,8 +29,26 @@ export const IconNames = {
   checkamrk: 'md-checkmark',
   clear: 'close-circle',
   edit: 'create-outline',
+  imagePicker: 'image-outline',
   list: 'list',
   reload: 'reload-circle-outline',
   trash: 'trash',
   wallet: 'wallet',
 }
+
+export const ImagePaths = [
+  {id:'./assets/categoryIcons/apple.png', path: require('./assets/categoryIcons/apple.png')},
+  {id: './assets/categoryIcons/bank.png', path: require('./assets/categoryIcons/bank.png')},
+  {id: './assets/categoryIcons/broccoli.png', path: require('./assets/categoryIcons/broccoli.png')},
+  {id: './assets/categoryIcons/cosmetics.png', path: require('./assets/categoryIcons/cosmetics.png')},
+  {id: './assets/categoryIcons/cow.png', path: require('./assets/categoryIcons/cow.png')},
+  {id: './assets/categoryIcons/first-aid-kit.png', path: require('./assets/categoryIcons/first-aid-kit.png')},
+  {id: './assets/categoryIcons/grocery-cart.png', path: require('./assets/categoryIcons/grocery-cart.png')},
+  {id: './assets/categoryIcons/hamburger.png', path: require('./assets/categoryIcons/hamburger.png')},
+  {id: './assets/categoryIcons/hindu.png', path: require('./assets/categoryIcons/hindu.png')},
+  {id: './assets/categoryIcons/idea.png', path: require('./assets/categoryIcons/idea.png')},
+  {id: './assets/categoryIcons/male-clothes.png', path: require('./assets/categoryIcons/male-clothes.png')},
+  {id: './assets/categoryIcons/motorcycle.png', path: require('./assets/categoryIcons/motorcycle.png')},
+  {id: './assets/categoryIcons/question-mark.png', path: require('./assets/categoryIcons/question-mark.png')},
+  {id: './assets/categoryIcons/taxi.png', path: require('./assets/categoryIcons/taxi.png')},
+]
