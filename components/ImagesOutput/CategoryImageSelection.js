@@ -1,16 +1,22 @@
+import { useState } from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { GlobalStyles, IconNames } from '../../constants'
-import IconButton from '../UI/IconButton'
 
-const CategoryImageSelection = ({ isImageSelected, path, onPress }) => {
-  const label = isImageSelected ? 'Change Image' : 'Select Image'
-  const pressHandler = () => onPress(true)
+import IconButton from '../UI/IconButton'
+import ImageModal from './ImageModal'
+
+import { GlobalStyles, IconNames } from '../../constants'
+
+const CategoryImageSelection = ({ path, setPath, invalid }) => {
+  const [showImages, setShowImages] = useState()
+  const label = path ? 'Change Image' : 'Select Image'
 
   return (
     <View>
-      <Text style={styles.label}>{label}</Text>
-      {isImageSelected ? (
-        <TouchableOpacity onPress={pressHandler}>
+      <Text style={[styles.label, invalid && styles.invalidLabel]}>
+        {label}
+      </Text>
+      {path ? (
+        <TouchableOpacity onPress={() => setShowImages(true)}>
           <Image source={path} style={styles.image} />
         </TouchableOpacity>
       ) : (
@@ -18,9 +24,17 @@ const CategoryImageSelection = ({ isImageSelected, path, onPress }) => {
           icon={IconNames.imagePicker}
           size={100}
           color={GlobalStyles.colors.primary300}
-          onPress={pressHandler}
+          onPress={() => setShowImages(true)}
         />
       )}
+      {showImages ? (
+        <ImageModal
+          visible={showImages}
+          closeModal={() => setShowImages(false)}
+          selectedImage={path}
+          setPath={setPath}
+        />
+      ) : null}
     </View>
   )
 }
@@ -29,5 +43,6 @@ export default CategoryImageSelection
 
 const styles = StyleSheet.create({
   label: { fontSize: 18 },
+  invalidLabel: { color: GlobalStyles.colors.error200 },
   image: { height: 100, width: 100, marginTop: 10 },
 })

@@ -1,15 +1,10 @@
 import { Image, StyleSheet, TouchableOpacity } from 'react-native'
 import { GlobalStyles } from '../../constants'
 
-const CategoryImage = ({ id, path, isSelectedImage, onPress, setPath }) => {
-  const pressHandler = () => {
-    onPress(id)
-    setPath(path)
-  }
-
+const CategoryImage = ({ path, setPath, isSelectedImage }) => {
   return (
     <TouchableOpacity
-      onPress={pressHandler}
+      onPress={() => setPath(path)}
       style={[styles.container, isSelectedImage && styles.selectedImage]}
     >
       <Image source={path} style={styles.image} />

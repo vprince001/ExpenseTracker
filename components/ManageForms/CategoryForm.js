@@ -5,20 +5,20 @@ import { StyleSheet, Text, View } from 'react-native'
 import Input from '../UI/Input'
 import IconButton from '../UI/IconButton'
 import CategoryImageSelection from '../ImagesOutput/CategoryImageSelection'
-import ImageModal from '../ImagesOutput/ImageModal'
 
 import { GlobalStyles, IconNames } from '../../constants'
 
 const CategoryForm = ({ onSubmit, defaultValues, categories }) => {
   const navigation = useNavigation()
   const [showErrorMessage, setShowErrorMessage] = useState(false)
-  const [selectedImage, setSelectedImage] = useState()
-  const [imagePath, setImagePath] = useState()
-  const [showImages, setShowImages] = useState(false)
 
   const [inputs, setInputs] = useState({
     description: {
       value: defaultValues ? defaultValues.description : '',
+      isValid: true,
+    },
+    image: {
+      value: defaultValues ? defaultValues.image : '',
       isValid: true,
     },
   })
@@ -36,16 +36,22 @@ const CategoryForm = ({ onSubmit, defaultValues, categories }) => {
   const submitHandler = () => {
     const categoryData = {
       description: inputs.description.value.trim(),
+      image: inputs.image.value,
     }
 
     const descriptionIsValid = categoryData.description.length > 0
+    const imageIsSelected = !!categoryData.image
 
-    if (!descriptionIsValid) {
+    if (!descriptionIsValid || !imageIsSelected) {
       setInputs((curInputs) => {
         return {
           description: {
             value: curInputs.description.value,
             isValid: descriptionIsValid,
+          },
+          image: {
+            value: curInputs.image.value,
+            isValid: imageIsSelected,
           },
         }
       })
@@ -110,19 +116,10 @@ const CategoryForm = ({ onSubmit, defaultValues, categories }) => {
         </Text>
       ) : null}
       <CategoryImageSelection
-        isImageSelected={!!selectedImage}
-        path={imagePath}
-        onPress={setShowImages}
+        path={inputs.image.value}
+        setPath={inputChangedHandler.bind(this, 'image')}
+        invalid={!inputs.image.isValid}
       />
-      {showImages ? (
-        <ImageModal
-          visible={showImages}
-          closeModal={() => setShowImages(false)}
-          selectedImage={selectedImage}
-          setSelectedImage={setSelectedImage}
-          setPath={setImagePath}
-        />
-      ) : null}
     </View>
   )
 }

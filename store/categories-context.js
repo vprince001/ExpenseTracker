@@ -2,7 +2,7 @@ import { createContext, useReducer } from 'react'
 
 export const CategoriesContext = createContext({
   categories: [],
-  addCategory: ({ id, description }) => {},
+  addCategory: ({ id, description, image }) => {},
   setCategories: (categories) => {},
   updateCategory: (id, { description }) => {},
   deleteCategory: (id) => {},

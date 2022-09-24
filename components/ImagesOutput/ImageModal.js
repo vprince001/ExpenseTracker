@@ -11,23 +11,15 @@ import {
 import CategoryImage from './CategoryImage'
 import { GlobalStyles, CategoryImages } from '../../constants'
 
-const ImageModal = ({
-  visible,
-  closeModal,
-  selectedImage,
-  setSelectedImage,
-  setPath,
-}) => {
+const ImageModal = ({ visible, closeModal, selectedImage, setPath }) => {
   const renderImage = (itemData) => {
-    const { id, path } = itemData.item
+    const { path } = itemData.item
 
     return (
       <CategoryImage
-        id={id}
         path={path}
-        isSelectedImage={selectedImage === id}
-        onPress={setSelectedImage}
         setPath={setPath}
+        isSelectedImage={selectedImage === path}
       />
     )
   }
