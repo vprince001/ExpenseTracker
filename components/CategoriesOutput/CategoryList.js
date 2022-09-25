@@ -23,6 +23,7 @@ const CategoryList = ({ categories, fetchCategoriesAndSetCtx }) => {
       keyExtractor={(item) => item.id}
       refreshing={refreshing}
       onRefresh={handleRefresh}
+      numColumns={3}
     />
   )
 }

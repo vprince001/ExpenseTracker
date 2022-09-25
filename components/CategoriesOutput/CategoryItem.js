@@ -1,8 +1,8 @@
-import { View, Text, StyleSheet, Pressable } from 'react-native'
+import { View, Text, StyleSheet, Pressable, Image } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { ScreenNames, GlobalStyles } from '../../constants'
+import { ScreenNames } from '../../constants'
 
-const CategoryItem = ({ id, description }) => {
+const CategoryItem = ({ id, description, image }) => {
   const navigation = useNavigation()
 
   const categoryPressHandler = () => {
@@ -15,9 +15,9 @@ const CategoryItem = ({ id, description }) => {
       style={({ pressed }) => pressed && styles.pressed}
     >
       <View style={styles.categoryItem}>
+        <Image source={image} style={styles.image} />
         <Text style={styles.text}>{description}</Text>
       </View>
-      <View style={styles.seperator} />
     </Pressable>
   )
 }
@@ -29,17 +29,17 @@ const styles = StyleSheet.create({
     opacity: 0.35,
   },
   categoryItem: {
-    padding: 12,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    alignItems: 'center',
+    maxWidth: 120,
+  },
+  image: {
+    height: 100,
+    width: 100,
   },
   text: {
     fontSize: 16,
-    fontWeight: 'bold',
-  },
-  seperator: {
-    marginVertical: 4,
-    borderBottomColor: GlobalStyles.colors.gray200,
-    borderBottomWidth: 2,
+    textAlign: 'center',
   },
 })
