@@ -62,6 +62,7 @@ export const fetchCategories = async () => {
     const categoryObj = {
       id: key,
       description: response.data[key].description,
+      image: response.data[key].image,
     }
     categories.push(categoryObj)
   }
