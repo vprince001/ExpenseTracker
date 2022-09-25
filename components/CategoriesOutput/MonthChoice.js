@@ -4,15 +4,14 @@ import ChoiceItem from '../UI/ChoiceItem'
 const MonthChoice = ({ months, currentMonth, onSelect }) => {
   return (
     <View style={styles.container}>
-      <Text style={[styles.label]}>
-        Select a Month
-      </Text>
+      <Text style={[styles.label]}>Select a Month</Text>
       <View style={styles.choiceContainer}>
         {months.map((listItem) => {
           return (
             <ChoiceItem
               key={listItem}
               item={listItem}
+              name={listItem}
               itemName={listItem}
               onSelect={onSelect}
               isSelected={currentMonth === listItem}

@@ -1,9 +1,10 @@
-import { Pressable, View, Text, StyleSheet } from 'react-native'
+import { Pressable, View, Text, StyleSheet, Image } from 'react-native'
 import { GlobalStyles } from '../../constants'
 
 const ChoiceItem = ({
+  name,
+  image,
   item,
-  itemName,
   onSelect,
   invalid,
   isSelected,
@@ -18,6 +19,7 @@ const ChoiceItem = ({
           invalid && styles.invalidItem,
         ]}
       >
+        {image && <Image source={image} style={styles.image} />}
         <Text
           style={[
             styles.item,
@@ -25,7 +27,7 @@ const ChoiceItem = ({
             isSelected && styles.selectedItemText,
           ]}
         >
-          {itemName}
+          {name}
         </Text>
       </View>
     </Pressable>
@@ -37,15 +39,21 @@ export default ChoiceItem
 const styles = StyleSheet.create({
   container: {
     margin: 4,
-    borderRadius: 20,
+    borderRadius: 50,
+    flexDirection: 'row',
     backgroundColor: GlobalStyles.colors.gray200,
+    alignItems: 'center',
+    paddingVertical: 8,
+    paddingHorizontal: 12,
   },
   item: {
-    paddingTop: 8,
-    paddingBottom: 8,
-    paddingLeft: 12,
-    paddingRight: 12,
     fontSize: 15,
+  },
+  image: {
+    height: 30,
+    width: 30,
+    paddingTop: 8,
+    marginRight: 5,
   },
   selectedItem: {
     backgroundColor: GlobalStyles.colors.primary300,

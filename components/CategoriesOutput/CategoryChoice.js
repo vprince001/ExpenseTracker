@@ -14,11 +14,12 @@ const CategoryChoice = ({ categories, currentCategory, onSelect, invalid }) => {
             <ChoiceItem
               key={listItem.id}
               item={listItem}
-              itemName={listItem.description}
+              name={listItem.description}
+              image={listItem.image}
               isSelected={listItem.id === currentCategory.id}
               onSelect={onSelect}
               invalid={invalid}
-              style={{ fontSize: 18 }}
+              style={{ fontSize: 16 }}
             />
           )
         })}
