@@ -38,6 +38,7 @@ const ImageModal = ({ visible, closeModal, selectedImage, setPath }) => {
             renderItem={renderImage}
             keyExtractor={(item) => item.id}
             numColumns={3}
+            keyboardShouldPersistTaps={'handled'}
           />
           <Pressable style={styles.button} onPress={closeModal}>
             <Text style={styles.textStyle}>Close</Text>
