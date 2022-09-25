@@ -1,8 +1,8 @@
-import { View, Text, StyleSheet, Pressable } from 'react-native'
+import { View, Text, StyleSheet, Pressable, Image } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { GlobalStyles, ScreenNames } from '../../constants'
 
-const ExpenseItem = ({ id, description, amount }) => {
+const ExpenseItem = ({ id, description, amount, category }) => {
   const navigation = useNavigation()
 
   const expensePressHandler = () => {
@@ -17,7 +17,10 @@ const ExpenseItem = ({ id, description, amount }) => {
       style={({ pressed }) => pressed && styles.pressed}
     >
       <View style={styles.expenseItem}>
-        <Text style={styles.text}>{description}</Text>
+        <View style={styles.imageAndTextView}>
+          <Image source={category.image} style={styles.image} />
+          <Text style={styles.text}>{description}</Text>
+        </View>
         <Text style={styles.text}>{amount.toFixed(2)}</Text>
       </View>
       <View style={styles.seperator} />
@@ -32,15 +35,24 @@ const styles = StyleSheet.create({
     opacity: 0.35,
   },
   expenseItem: {
-    padding: 12,
-    paddingTop: 8,
-    paddingBottom: 8,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  imageAndTextView: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  image: {
+    height: 30,
+    width: 30,
+    marginRight: 10,
   },
   text: {
     fontSize: 16,
-    fontWeight: '500'
+    fontWeight: '500',
   },
   seperator: {
     marginVertical: 4,
