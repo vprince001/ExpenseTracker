@@ -9,10 +9,14 @@ import CategoriesStackScreen from './screens/CategoriesStack'
 
 import AppContextProvider from './store/app-context'
 import { ScreenNames, GlobalStyles, IconNames } from './constants'
+import { initializeApp } from 'firebase/app';
+import firebaseConfig from './firebase-config'
 
 const Tab = createBottomTabNavigator()
 
 const App = () => {
+  initializeApp(firebaseConfig)
+
   return (
     <>
       <StatusBar style="dark" />

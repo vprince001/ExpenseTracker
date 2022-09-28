@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { DB_BASE_URL } from '@env'
+import { getDatabase, ref, get, child } from 'firebase/database'
 
 export const addExpense = async (expenseData) => {
   const response = await axios.post(DB_BASE_URL + '/expenses.json', expenseData)
@@ -8,21 +9,27 @@ export const addExpense = async (expenseData) => {
 }
 
 export const fetchExpenses = async () => {
-  const response = await axios.get(DB_BASE_URL + '/expenses.json')
-
   const expenses = []
+  const dbRef = ref(getDatabase())
+  const expensesRef = child(dbRef, 'expenses')
 
-  for (const key in response.data) {
-    const expenseObj = {
-      id: key,
-      description: response.data[key].description,
-      amount: response.data[key].amount,
-      category: response.data[key].category,
-      date: response.data[key].date,
+  await get(expensesRef).then((snapshot) => {
+    if (snapshot.exists()) {
+      const data = snapshot.val()
+      for (const key in data) {
+        const expenseObj = {
+          id: key,
+          description: data[key].description,
+          amount: data[key].amount,
+          category: data[key].category,
+          date: data[key].date,
+        }
+        expenses.push(expenseObj)
+      }
+    } else {
+      console.log('No Data Available')
     }
-    expenses.push(expenseObj)
-  }
-
+  })
   return expenses
 }
 
