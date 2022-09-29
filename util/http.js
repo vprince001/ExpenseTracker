@@ -36,7 +36,8 @@ export const fetchExpenses = async () => {
 }
 
 export const updateExpense = (id, expenseData) => {
-  return axios.put(DB_BASE_URL + `/expenses/${id}.json`, expenseData)
+  const db = getDatabase()
+  set(ref(db, 'expenses/' + id), expenseData)
 }
 
 export const updateExpenses = (categoryId, categoryData, expenses) => {
