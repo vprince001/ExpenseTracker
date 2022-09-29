@@ -49,11 +49,14 @@ export const updateExpense = (id, expenseData) => {
 }
 
 export const updateExpenses = (categoryId, categoryData, expenses) => {
-  expenses.forEach(async expense => {
-    const { id: expenseId, ...rest} = expense
+  expenses.forEach((expense) => {
+    const { id: expenseId, ...rest } = expense
     if (categoryId === rest.category.id) {
-      const updatedExpenseData = { ...rest, category: { ...categoryData, id: categoryId } }
-      await updateExpense(expenseId, updatedExpenseData)
+      const updatedExpenseData = {
+        ...rest,
+        category: { ...categoryData, id: categoryId },
+      }
+      updateExpense(expenseId, updatedExpenseData)
     }
   })
 }
