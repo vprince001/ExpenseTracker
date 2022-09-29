@@ -36,16 +36,13 @@ export const fetchExpenses = async () => {
         }
         expenses.push(expenseObj)
       }
-    } else {
-      console.log('No Data Available')
     }
   })
   return expenses
 }
 
 export const updateExpense = (id, expenseData) => {
-  const db = getDatabase()
-  set(ref(db, 'expenses/' + id), expenseData)
+  set(ref(getDatabase(), 'expenses/' + id), expenseData)
 }
 
 export const updateExpenses = (categoryId, categoryData, expenses) => {
@@ -62,42 +59,44 @@ export const updateExpenses = (categoryId, categoryData, expenses) => {
 }
 
 export const deleteExpense = (id) => {
-  const db = getDatabase()
-  remove(ref(db, 'expenses/' + id))
+  remove(ref(getDatabase(), 'expenses/' + id))
 }
 
 export const addCategory = async (categoryData) => {
-  const response = await axios.post(
-    DB_BASE_URL + '/categories.json',
-    categoryData
-  )
-  const categoryId = response.data.name
-  return categoryId
+  const db = getDatabase()
+  const newCategoryId = push(child(ref(db), 'categories')).key
+
+  set(ref(db, 'categories/' + newCategoryId), categoryData)
+  return newCategoryId
 }
 
 export const fetchCategories = async () => {
-  const response = await axios.get(DB_BASE_URL + '/categories.json')
-
   const categories = []
+  const dbRef = ref(getDatabase())
+  const categoriesRef = child(dbRef, 'categories')
 
-  for (const key in response.data) {
-    const categoryObj = {
-      id: key,
-      description: response.data[key].description,
-      image: response.data[key].image,
+  await get(categoriesRef).then((snapshot) => {
+    if (snapshot.exists()) {
+      const data = snapshot.val()
+      for (const key in data) {
+        const categoriesObj = {
+          id: key,
+          description: data[key].description,
+          image: data[key].image,
+        }
+        categories.push(categoriesObj)
+      }
     }
-    categories.push(categoryObj)
-  }
-
+  })
   return categories
 }
 
 export const updateCategory = (id, categoryData) => {
-  return axios.put(DB_BASE_URL + `/categories/${id}.json`, categoryData)
+  set(ref(getDatabase(), 'categories/' + id), categoryData)
 }
 
 export const deleteCategory = (id) => {
-  return axios.delete(DB_BASE_URL + `/categories/${id}.json`)
+  remove(ref(getDatabase(), 'categories/' + id))
 }
 
 export const addUserData = async (userData) => {
