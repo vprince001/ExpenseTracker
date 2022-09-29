@@ -1,6 +1,14 @@
 import axios from 'axios'
 import { DB_BASE_URL } from '@env'
-import { getDatabase, ref, get, set, child, push } from 'firebase/database'
+import {
+  getDatabase,
+  ref,
+  get,
+  set,
+  child,
+  push,
+  remove,
+} from 'firebase/database'
 
 export const addExpense = async (expenseData) => {
   const db = getDatabase()
@@ -51,7 +59,8 @@ export const updateExpenses = (categoryId, categoryData, expenses) => {
 }
 
 export const deleteExpense = (id) => {
-  return axios.delete(DB_BASE_URL + `/expenses/${id}.json`)
+  const db = getDatabase()
+  remove(ref(db, 'expenses/' + id))
 }
 
 export const addCategory = async (categoryData) => {
