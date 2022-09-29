@@ -27,15 +27,15 @@ const ExpensesOutput = ({ expenses, fetchDataAndSetCtx }) => {
 
   const shortMonthNames = Object.keys(monthExpenseLookup)
 
-  const monthSelectionHandler = async (selectedMonth) => {
+  const monthSelectionHandler = (selectedMonth) => {
     try {
       setSelectedMonth(selectedMonth)
       if (!userCtx.userData.selectedMonth) {
-        const id = await addUserData({ selectedMonth })
+        const id = addUserData({ selectedMonth })
         userCtx.addUserData({ id, selectedMonth })
       } else {
         userCtx.updateUserData({ selectedMonth })
-        await updateUserData(userCtx.userData.id, { selectedMonth })
+        updateUserData(userCtx.userData.id, { selectedMonth })
       }
     } catch (error) {}
   }
@@ -50,7 +50,10 @@ const ExpensesOutput = ({ expenses, fetchDataAndSetCtx }) => {
         />
       ) : null}
       <ExpensesSummary expenses={filteredExpenses} />
-      <ExpensesList expenses={filteredExpenses} fetchDataAndSetCtx={fetchDataAndSetCtx} />
+      <ExpensesList
+        expenses={filteredExpenses}
+        fetchDataAndSetCtx={fetchDataAndSetCtx}
+      />
     </View>
   )
 }

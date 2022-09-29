@@ -30,14 +30,14 @@ const ManageExpense = ({ route, navigation }) => {
     })
   }, [navigation, isEditing])
 
-  const confirmHandler = async (expenseData) => {
+  const confirmHandler = (expenseData) => {
     setIsSubmitting(true)
     try {
       if (isEditing) {
         expensesCtx.updateExpense(editedExpenseId, expenseData)
-        await updateExpense(editedExpenseId, expenseData)
+        updateExpense(editedExpenseId, expenseData)
       } else {
-        const id = await addExpense(expenseData)
+        const id = addExpense(expenseData)
         expensesCtx.addExpense({ ...expenseData, id })
       }
       navigation.goBack()
@@ -47,10 +47,10 @@ const ManageExpense = ({ route, navigation }) => {
     }
   }
 
-  const deleteExpenseHandler = async () => {
+  const deleteExpenseHandler = () => {
     setIsSubmitting(true)
     try {
-      await deleteExpense(editedExpenseId)
+      deleteExpense(editedExpenseId)
       expensesCtx.deleteExpense(editedExpenseId)
       navigation.goBack()
     } catch (error) {

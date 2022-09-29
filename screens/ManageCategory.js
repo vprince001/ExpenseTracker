@@ -38,16 +38,16 @@ const ManageCategory = ({ route, navigation }) => {
     })
   }, [navigation, isEditing])
 
-  const confirmHandler = async (categoryData) => {
+  const confirmHandler = (categoryData) => {
     setIsSubmitting(true)
     try {
       if (isEditing) {
         categoriesCtx.updateCategory(editedCategoryId, categoryData)
-        await updateCategory(editedCategoryId, categoryData)
+        updateCategory(editedCategoryId, categoryData)
         expenseCtx.updateExpenses(editedCategoryId, categoryData)
         updateExpenses(editedCategoryId, categoryData, expenseCtx.expenses)
       } else {
-        const id = await addCategory(categoryData)
+        const id = addCategory(categoryData)
         categoriesCtx.addCategory({ ...categoryData, id })
       }
       navigation.popToTop()
@@ -57,10 +57,10 @@ const ManageCategory = ({ route, navigation }) => {
     }
   }
 
-  const deleteExpenseHandler = async () => {
+  const deleteExpenseHandler = () => {
     setIsSubmitting(true)
     try {
-      await deleteCategory(editedCategoryId)
+      deleteCategory(editedCategoryId)
       categoriesCtx.deleteCategory(editedCategoryId)
       navigation.popToTop()
     } catch (error) {

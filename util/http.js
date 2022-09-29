@@ -10,7 +10,7 @@ import {
   remove,
 } from 'firebase/database'
 
-export const addExpense = async (expenseData) => {
+export const addExpense = (expenseData) => {
   const db = getDatabase()
   const newExpenseId = push(child(ref(db), 'expenses')).key
 
@@ -62,7 +62,7 @@ export const deleteExpense = (id) => {
   remove(ref(getDatabase(), 'expenses/' + id))
 }
 
-export const addCategory = async (categoryData) => {
+export const addCategory = (categoryData) => {
   const db = getDatabase()
   const newCategoryId = push(child(ref(db), 'categories')).key
 
@@ -99,24 +99,29 @@ export const deleteCategory = (id) => {
   remove(ref(getDatabase(), 'categories/' + id))
 }
 
-export const addUserData = async (userData) => {
-  const response = await axios.post(DB_BASE_URL + '/userData.json', userData)
-  const userId = response.data.name
-  return userId
+export const addUserData = (userData) => {
+  const db = getDatabase()
+  const newUserDataId = push(child(ref(db), 'userData')).key
+
+  set(ref(db, 'userData/' + newUserDataId), userData)
+  return newUserDataId
 }
 
 export const fetchUserData = async () => {
-  const response = await axios.get(DB_BASE_URL + '/userData.json')
+  let userData = {}
+  const dbRef = ref(getDatabase())
+  const userDataRef = child(dbRef, 'userData')
 
-  let userData = response.data
-  if (response.data) {
-    const key = Object.keys(response.data)[0]
-    userData = {...response.data[key], id: key}
-  }
-
+  await get(userDataRef).then((snapshot) => {
+    if (snapshot.exists()) {
+      const data = snapshot.val()
+      const key = Object.keys(data)[0]
+      userData = { ...data[key], id: key }
+    }
+  })
   return userData
 }
 
 export const updateUserData = (id, userData) => {
-  return axios.put(DB_BASE_URL + `/userData/${id}.json`, userData)
+  set(ref(getDatabase(), 'userData/' + id), userData)
 }
