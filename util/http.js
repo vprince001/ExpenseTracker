@@ -1,11 +1,13 @@
 import axios from 'axios'
 import { DB_BASE_URL } from '@env'
-import { getDatabase, ref, get, child } from 'firebase/database'
+import { getDatabase, ref, get, set, child, push } from 'firebase/database'
 
 export const addExpense = async (expenseData) => {
-  const response = await axios.post(DB_BASE_URL + '/expenses.json', expenseData)
-  const expenseId = response.data.name
-  return expenseId
+  const db = getDatabase()
+  const newExpenseId = push(child(ref(db), 'expenses')).key
+
+  set(ref(db, 'expenses/' + newExpenseId), expenseData)
+  return newExpenseId
 }
 
 export const fetchExpenses = async () => {

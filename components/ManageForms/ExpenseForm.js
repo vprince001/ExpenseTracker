@@ -57,7 +57,7 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
     const expenseData = {
       description: inputs.description.value.trim(),
       amount: +inputs.amount.value,
-      date: new Date(date),
+      date: new Date(date).getTime(),
       category: inputs.category.value,
     }
 
