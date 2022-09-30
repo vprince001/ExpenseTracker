@@ -8,7 +8,7 @@ const CategoryChoice = ({ categories, currentCategory, onSelect, invalid }) => {
       <Text style={[styles.label, invalid && styles.invalidLabel]}>
         Choose Category
       </Text>
-      <ScrollView>
+      <ScrollView keyboardShouldPersistTaps={'handled'}>
         <View style={styles.container}>
           {categories.map((listItem) => {
             return (
