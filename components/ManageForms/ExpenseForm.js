@@ -98,7 +98,7 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
   })
 
   return (
-    <View>
+    <View style={{flex: 1}}>
       <Input
         label="Description"
         invalid={!inputs.description.isValid}

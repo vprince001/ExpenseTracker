@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View, Text, ScrollView } from 'react-native'
 import ChoiceItem from '../UI/ChoiceItem'
 import { GlobalStyles } from '../../constants'
 
@@ -8,22 +8,24 @@ const CategoryChoice = ({ categories, currentCategory, onSelect, invalid }) => {
       <Text style={[styles.label, invalid && styles.invalidLabel]}>
         Choose Category
       </Text>
-      <View style={styles.container}>
-        {categories.map((listItem) => {
-          return (
-            <ChoiceItem
-              key={listItem.id}
-              item={listItem}
-              name={listItem.description}
-              image={listItem.image}
-              isSelected={listItem.id === currentCategory.id}
-              onSelect={onSelect}
-              invalid={invalid}
-              style={{ fontSize: 16 }}
-            />
-          )
-        })}
-      </View>
+      <ScrollView>
+        <View style={styles.container}>
+          {categories.map((listItem) => {
+            return (
+              <ChoiceItem
+                key={listItem.id}
+                item={listItem}
+                name={listItem.description}
+                image={listItem.image}
+                isSelected={listItem.id === currentCategory.id}
+                onSelect={onSelect}
+                invalid={invalid}
+                style={{ fontSize: 16 }}
+              />
+            )
+          })}
+        </View>
+      </ScrollView>
     </>
   )
 }
