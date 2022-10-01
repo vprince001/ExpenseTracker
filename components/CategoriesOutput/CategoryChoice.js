@@ -11,6 +11,7 @@ const CategoryChoice = ({ categories, currentCategory, onSelect, invalid }) => {
       <ScrollView
         keyboardShouldPersistTaps="handled"
         keyboardDismissMode="on-drag"
+        persistentScrollbar
       >
         <View style={styles.container}>
           {categories.map((listItem) => {
