@@ -14,14 +14,14 @@ const CategoryChoice = ({ categories, currentCategory, onSelect, invalid }) => {
         persistentScrollbar
       >
         <View style={styles.container}>
-          {categories.map((listItem) => {
+          {categories.map((category) => {
             return (
               <ChoiceItem
-                key={listItem.id}
-                item={listItem}
-                name={listItem.description}
-                image={listItem.image}
-                isSelected={listItem.id === currentCategory.id}
+                key={category.id}
+                item={category}
+                name={category.description}
+                image={category.image}
+                isSelected={category.id === currentCategory.id}
                 onSelect={onSelect}
                 invalid={invalid}
                 style={{ fontSize: 16 }}
