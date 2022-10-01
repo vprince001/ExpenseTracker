@@ -62,10 +62,9 @@ const CategoryForm = ({ onSubmit, defaultValues, categories }) => {
       (category) =>
         category.description.toLowerCase() ===
         categoryData.description.toLowerCase()
-    )
+    )[0]
 
-    const categoryExists = categoryWithSameName.length > 0
-    if (categoryExists) {
+    if (categoryWithSameName && categoryWithSameName.id !== defaultValues?.id) {
       setShowErrorMessage(true)
       return
     }
