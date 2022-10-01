@@ -1,11 +1,7 @@
 import { useState } from 'react'
-import { FlatList } from 'react-native'
+import { ScrollView, StyleSheet, View, RefreshControl } from 'react-native'
 
 import CategoryItem from './CategoryItem'
-
-const renderCategoryItem = (itemData) => {
-  return <CategoryItem {...itemData.item} />
-}
 
 const CategoryList = ({ categories, fetchCategoriesAndSetCtx }) => {
   const [refreshing, setRefreshing] = useState(false)
@@ -17,15 +13,26 @@ const CategoryList = ({ categories, fetchCategoriesAndSetCtx }) => {
   }
 
   return (
-    <FlatList
-      data={categories}
-      renderItem={renderCategoryItem}
-      keyExtractor={(item) => item.id}
-      refreshing={refreshing}
-      onRefresh={handleRefresh}
-      numColumns={3}
-    />
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+      }
+    >
+      <View style={styles.container}>
+        {categories.map((category) => (
+          <CategoryItem key={category.id} {...category} />
+        ))}
+      </View>
+    </ScrollView>
   )
 }
 
 export default CategoryList
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center'
+  },
+})
