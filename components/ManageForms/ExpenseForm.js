@@ -84,7 +84,22 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
     onSubmit(expenseData)
   }
 
+  const setDefaultCategory = () => {
+    if (
+      categoriesCtx.categories.length === 1 &&
+      Object.keys(inputs.category.value).length === 0
+    ) {
+      setInputs((curInputs) => {
+        return {
+          ...curInputs,
+          category: { value: categoriesCtx.categories[0], isValid: true },
+        }
+      })
+    }
+  }
+
   useEffect(() => {
+    setDefaultCategory()
     navigation.setOptions({
       headerRight: () => (
         <IconButton
@@ -98,7 +113,7 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
   })
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <Input
         label="Description"
         invalid={!inputs.description.isValid}
