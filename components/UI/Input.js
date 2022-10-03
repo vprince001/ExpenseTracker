@@ -23,7 +23,7 @@ function Input({
           style={[styles.input, invalid && styles.invalidInput]}
           {...textInputConfig}
         />
-        {buttonConfig ? (
+        {buttonConfig && textInputConfig.value ? (
           <View style={[styles.iconButtonView, invalid && styles.invalidInput]}>
             <IconButton {...buttonConfig}/>
           </View>
