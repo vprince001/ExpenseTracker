@@ -19,7 +19,9 @@ const ExpenseItem = ({ id, description, amount, category }) => {
       <View style={styles.expenseItem}>
         <View style={styles.imageAndTextView}>
           <Image source={category.image} style={styles.image} />
-          <Text style={styles.text}>{description}</Text>
+          <Text ellipsizeMode="tail" numberOfLines={1} style={styles.text}>
+            {description}
+          </Text>
         </View>
         <Text style={styles.text}>{amount.toFixed(2)}</Text>
       </View>
@@ -43,7 +45,8 @@ const styles = StyleSheet.create({
   },
   imageAndTextView: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    maxWidth: 240,
   },
   image: {
     height: 30,
