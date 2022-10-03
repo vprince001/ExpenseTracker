@@ -98,6 +98,20 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
     }
   }
 
+  const getClearButtonConfig = (attribute) => ({
+    icon: IconNames.clear,
+    size: 36,
+    color: GlobalStyles.colors.gray300,
+    onPress: () => {
+      setInputs((curInputs) => {
+        return {
+          ...curInputs,
+          [attribute]: { value: '', isValid: true },
+        }
+      })
+    },
+  })
+
   useEffect(() => {
     setDefaultCategory()
     navigation.setOptions({
@@ -122,19 +136,7 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
           value: inputs.description.value,
           placeholder: 'Expense Name',
         }}
-        buttonConfig={{
-          icon: IconNames.clear,
-          size: 36,
-          color: GlobalStyles.colors.gray300,
-          onPress: () => {
-            setInputs((curInputs) => {
-              return {
-                ...curInputs,
-                description: { value: '', isValid: true },
-              }
-            })
-          },
-        }}
+        buttonConfig={getClearButtonConfig('description')}
       />
       <View style={styles.amountNCalendarView}>
         <Input
@@ -147,19 +149,7 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
             keyboardType: 'decimal-pad',
             placeholder: '0.00',
           }}
-          buttonConfig={{
-            icon: IconNames.clear,
-            size: 36,
-            color: GlobalStyles.colors.gray300,
-            onPress: () => {
-              setInputs((curInputs) => {
-                return {
-                  ...curInputs,
-                  amount: { value: '', isValid: true },
-                }
-              })
-            },
-          }}
+          buttonConfig={getClearButtonConfig('amount')}
         />
         <Pressable onPress={calendarVisibilityHandler}>
           <Input

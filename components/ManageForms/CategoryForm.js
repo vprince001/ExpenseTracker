@@ -72,6 +72,20 @@ const CategoryForm = ({ onSubmit, defaultValues, categories }) => {
     onSubmit(categoryData)
   }
 
+  const getClearButtonConfig = (attribute) => ({
+    icon: IconNames.clear,
+    size: 36,
+    color: GlobalStyles.colors.gray300,
+    onPress: () => {
+      setInputs((curInputs) => {
+        return {
+          ...curInputs,
+          [attribute]: { value: '', isValid: true },
+        }
+      })
+    },
+  })
+
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -95,19 +109,7 @@ const CategoryForm = ({ onSubmit, defaultValues, categories }) => {
           value: inputs.description.value,
           placeholder: 'Category Name',
         }}
-        buttonConfig={{
-          icon: IconNames.clear,
-          size: 36,
-          color: GlobalStyles.colors.gray300,
-          onPress: () => {
-            setInputs((curInputs) => {
-              return {
-                ...curInputs,
-                description: { value: '', isValid: true },
-              }
-            })
-          },
-        }}
+        buttonConfig={getClearButtonConfig('description')}
       />
       {showErrorMessage ? (
         <Text style={styles.errorMsgText}>
