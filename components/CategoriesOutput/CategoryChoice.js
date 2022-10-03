@@ -4,7 +4,7 @@ import { GlobalStyles } from '../../constants'
 
 const CategoryChoice = ({ categories, currentCategory, onSelect, invalid }) => {
   return (
-    <>
+    <View style={styles.container}>
       <Text style={[styles.label, invalid && styles.invalidLabel]}>
         Choose Category
       </Text>
@@ -13,7 +13,7 @@ const CategoryChoice = ({ categories, currentCategory, onSelect, invalid }) => {
         keyboardDismissMode="on-drag"
         persistentScrollbar
       >
-        <View style={styles.container}>
+        <View style={styles.categories}>
           {categories.map((category) => {
             return (
               <ChoiceItem
@@ -30,7 +30,7 @@ const CategoryChoice = ({ categories, currentCategory, onSelect, invalid }) => {
           })}
         </View>
       </ScrollView>
-    </>
+    </View>
   )
 }
 
@@ -38,6 +38,10 @@ export default CategoryChoice
 
 const styles = StyleSheet.create({
   container: {
+    margin: 4,
+    flex: 1,
+  },
+  categories: {
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
