@@ -135,6 +135,8 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
           onChangeText: inputChangedHandler.bind(this, 'description'),
           value: inputs.description.value,
           placeholder: 'Expense Name',
+          multiline: true,
+          maxLength: 130,
         }}
         buttonConfig={getClearButtonConfig('description')}
       />
@@ -148,6 +150,8 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
             value: inputs.amount.value,
             keyboardType: 'decimal-pad',
             placeholder: '0.00',
+            multiline: true,
+            maxLength: 8,
           }}
           buttonConfig={getClearButtonConfig('amount')}
         />

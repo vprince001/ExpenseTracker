@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
     padding: 8,
     fontSize: 18,
     flexGrow: 1,
+    maxWidth: 285,
   },
   invalidInput: {
     backgroundColor: GlobalStyles.colors.error100,
