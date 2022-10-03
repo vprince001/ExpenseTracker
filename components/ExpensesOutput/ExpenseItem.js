@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   imageAndTextView: {
     flexDirection: 'row',
     alignItems: 'center',
-    maxWidth: 240,
+    maxWidth: 230,
   },
   image: {
     height: 30,
