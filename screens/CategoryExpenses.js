@@ -1,13 +1,13 @@
 import { useContext, useEffect } from 'react'
-import { StyleSheet } from 'react-native'
 
 import IconButton from '../components/UI/IconButton'
+import CategoryExpensesOutput from '../components/CategoryExpensesOutput/CategoryExpensesOutput'
 
 import { UserContext } from '../store/user-context'
 import { ExpensesContext } from '../store/expenses-context'
 
+import { ellipsize } from '../util/helperFunctions'
 import { GlobalStyles, IconNames, ScreenNames } from '../constants'
-import CategoryExpensesOutput from '../components/CategoryExpensesOutput/CategoryExpensesOutput'
 
 const CategoryExpenses = ({ route, navigation }) => {
   const { id: categoryId, description: categoryName } = route.params
@@ -23,7 +23,7 @@ const CategoryExpenses = ({ route, navigation }) => {
 
   useEffect(() => {
     navigation.setOptions({
-      title: categoryName,
+      title: ellipsize(categoryName, 22),
       headerRight: () => (
         <IconButton
           icon={IconNames.edit}
