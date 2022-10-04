@@ -16,7 +16,9 @@ const CategoryItem = ({ id, description, image }) => {
     >
       <View style={styles.categoryItem}>
         <Image source={image} style={styles.image} />
-        <Text style={styles.text}>{description}</Text>
+        <Text ellipsizeMode="tail" numberOfLines={3} style={styles.text}>
+          {description}
+        </Text>
       </View>
     </Pressable>
   )
