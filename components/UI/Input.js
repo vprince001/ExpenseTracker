@@ -25,7 +25,7 @@ function Input({
         />
         {buttonConfig && textInputConfig.value ? (
           <View style={[styles.iconButtonView, invalid && styles.invalidInput]}>
-            <IconButton {...buttonConfig}/>
+            <IconButton {...buttonConfig} />
           </View>
         ) : null}
       </View>
@@ -53,6 +53,8 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     flexDirection: 'row',
+    backgroundColor: GlobalStyles.colors.gray100,
+    borderRadius: 10,
   },
   input: {
     backgroundColor: GlobalStyles.colors.gray100,
@@ -60,12 +62,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
     flexGrow: 1,
     maxWidth: 285,
+    borderRadius: 10,
   },
   invalidInput: {
     backgroundColor: GlobalStyles.colors.error100,
   },
   iconButtonView: {
     backgroundColor: GlobalStyles.colors.gray100,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    borderRadius: 10,
   },
 })
