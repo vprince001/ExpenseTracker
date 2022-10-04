@@ -1,5 +1,6 @@
 import { Pressable, View, Text, StyleSheet, Image } from 'react-native'
 import { GlobalStyles } from '../../constants'
+import { ellipsize} from '../../util/helperFunctions'
 
 const ChoiceItem = ({
   name,
@@ -27,7 +28,7 @@ const ChoiceItem = ({
             isSelected && styles.selectedItemText,
           ]}
         >
-          {name}
+          {ellipsize(name, 28)}
         </Text>
       </View>
     </Pressable>
@@ -45,6 +46,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 8,
     paddingHorizontal: 12,
+    maxWidth: 300
   },
   item: {
     fontSize: 15,
