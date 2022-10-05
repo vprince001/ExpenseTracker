@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { View, Pressable, StyleSheet, Keyboard } from 'react-native'
+import { View, Pressable, StyleSheet, Keyboard, Text } from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker'
 
 import Input from '../UI/Input'
@@ -15,6 +15,8 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
   const navigation = useNavigation()
   const categoriesCtx = useContext(CategoriesContext)
   const [showCalendar, setShowCalendar] = useState(false)
+  const [showErrorMessage, setShowErrorMessage] = useState(false)
+
   const [inputs, setInputs] = useState({
     description: {
       value: defaultValues ? defaultValues.description : '',
@@ -42,6 +44,16 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
     })
   }
 
+  const amountInputChangedHandler = (enteredValue) => {
+    setShowErrorMessage(+enteredValue >= 100000)
+    setInputs((curInputs) => {
+      return {
+        ...curInputs,
+        amount: { value: enteredValue, isValid: true },
+      }
+    })
+  }
+
   const dateHandler = (event, date) => {
     setShowCalendar(false)
     setDate(date)
@@ -62,7 +74,10 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
     }
 
     const descriptionIsValid = expenseData.description.length > 0
-    const amountIsValid = !isNaN(expenseData.amount) && expenseData.amount > 0
+    const amountIsValid =
+      !isNaN(expenseData.amount) &&
+      expenseData.amount > 0 &&
+      expenseData.amount < 100000
     const categoryIsValid = expenseData.category.description
 
     if (!descriptionIsValid || !amountIsValid || !categoryIsValid) {
@@ -140,33 +155,23 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
         }}
         buttonConfig={getClearButtonConfig('description')}
       />
-      <View style={styles.amountNCalendarView}>
-        <Input
-          label="Amount"
-          invalid={!inputs.amount.isValid}
-          inputDirection="row"
-          textInputConfig={{
-            onChangeText: inputChangedHandler.bind(this, 'amount'),
-            value: inputs.amount.value,
-            keyboardType: 'decimal-pad',
-            placeholder: '0.00',
-            multiline: true,
-            maxLength: 8,
-          }}
-          buttonConfig={getClearButtonConfig('amount')}
-        />
-        <Pressable onPress={calendarVisibilityHandler}>
-          <Input
-            label="Date"
-            textInputConfig={{
-              value: getFormattedDate(date),
-              editable: false,
-              color: GlobalStyles.colors.black,
-            }}
-          />
-        </Pressable>
-      </View>
-      {showCalendar && <DateTimePicker value={date} onChange={dateHandler} />}
+      <Input
+        label="Amount"
+        invalid={!inputs.amount.isValid}
+        textInputConfig={{
+          onChangeText: amountInputChangedHandler,
+          value: inputs.amount.value,
+          keyboardType: 'decimal-pad',
+          placeholder: '0.00',
+          maxLength: 8,
+        }}
+        buttonConfig={getClearButtonConfig('amount')}
+      />
+      {showErrorMessage ? (
+        <Text style={styles.errorMsgText}>
+          Amount should be less then 100000
+        </Text>
+      ) : null}
       <CategoryChoice
         categories={categoriesCtx.categories}
         invalid={!inputs.category.isValid}
@@ -181,6 +186,17 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
           Keyboard.dismiss()
         }}
       />
+      <Pressable onPress={calendarVisibilityHandler}>
+        <Input
+          label="Date"
+          textInputConfig={{
+            value: getFormattedDate(date),
+            editable: false,
+            color: GlobalStyles.colors.black,
+          }}
+        />
+      </Pressable>
+      {showCalendar && <DateTimePicker value={date} onChange={dateHandler} />}
     </View>
   )
 }
@@ -188,8 +204,11 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
 export default ExpenseForm
 
 const styles = StyleSheet.create({
-  amountNCalendarView: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  errorMsgText: {
+    fontSize: 16,
+    color: GlobalStyles.colors.error200,
+    fontWeight: 'bold',
+    marginBottom: 16,
+    alignSelf: 'center',
   },
 })
