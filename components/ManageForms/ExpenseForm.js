@@ -15,7 +15,7 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
   const navigation = useNavigation()
   const categoriesCtx = useContext(CategoriesContext)
   const [showCalendar, setShowCalendar] = useState(false)
-  const [showErrorMessage, setShowErrorMessage] = useState(false)
+  const [amountExceeded, setAmountExceeded] = useState(false)
 
   const [inputs, setInputs] = useState({
     description: {
@@ -45,11 +45,12 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
   }
 
   const amountInputChangedHandler = (enteredValue) => {
-    setShowErrorMessage(+enteredValue >= 100000)
+    const isBelowThreshold = +enteredValue < 100000
+    setAmountExceeded(!isBelowThreshold)
     setInputs((curInputs) => {
       return {
         ...curInputs,
-        amount: { value: enteredValue, isValid: true },
+        amount: { value: enteredValue, isValid: isBelowThreshold },
       }
     })
   }
@@ -65,6 +66,16 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
     Keyboard.dismiss()
   }
 
+  const validateFields = (expenseData) => {
+    const descriptionIsValid = expenseData.description.length > 0
+    const amountIsValid =
+      !isNaN(expenseData.amount) &&
+      expenseData.amount > 0 &&
+      expenseData.amount < 100000
+    const categoryIsValid = expenseData.category.description
+    return { descriptionIsValid, amountIsValid, categoryIsValid }
+  }
+
   const submitHandler = () => {
     const expenseData = {
       description: inputs.description.value.trim(),
@@ -73,12 +84,8 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
       category: inputs.category.value,
     }
 
-    const descriptionIsValid = expenseData.description.length > 0
-    const amountIsValid =
-      !isNaN(expenseData.amount) &&
-      expenseData.amount > 0 &&
-      expenseData.amount < 100000
-    const categoryIsValid = expenseData.category.description
+    const { descriptionIsValid, amountIsValid, categoryIsValid } =
+      validateFields(expenseData)
 
     if (!descriptionIsValid || !amountIsValid || !categoryIsValid) {
       setInputs((curInputs) => {
@@ -167,7 +174,7 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
         }}
         buttonConfig={getClearButtonConfig('amount')}
       />
-      {showErrorMessage ? (
+      {amountExceeded ? (
         <Text style={styles.errorMsgText}>
           Amount should be less then 100000
         </Text>
