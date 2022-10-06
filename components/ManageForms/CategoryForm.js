@@ -118,9 +118,7 @@ const CategoryForm = ({ onSubmit, defaultValues, categories }) => {
         buttonConfig={getClearButtonConfig('description')}
       />
       {categoryExists ? (
-        <Text style={styles.errorMsgText}>
-          Category With Same Name Already Exists
-        </Text>
+        <Text style={styles.errorMsgText}>Category Already Exists</Text>
       ) : null}
       <CategoryImageSelection
         path={inputs.image.value}
