@@ -120,18 +120,20 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
     }
   }
 
-  const getClearButtonConfig = (attribute) => ({
+  const clearInputField = (attribute) => {
+    setInputs((curInputs) => {
+      return {
+        ...curInputs,
+        [attribute]: { value: '', isValid: true },
+      }
+    })
+  }
+
+  const getClearButtonConfig = (onPress) => ({
     icon: IconNames.clear,
     size: 36,
     color: GlobalStyles.colors.gray300,
-    onPress: () => {
-      setInputs((curInputs) => {
-        return {
-          ...curInputs,
-          [attribute]: { value: '', isValid: true },
-        }
-      })
-    },
+    onPress,
   })
 
   useEffect(() => {
@@ -160,7 +162,9 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
           multiline: true,
           maxLength: 130,
         }}
-        buttonConfig={getClearButtonConfig('description')}
+        buttonConfig={getClearButtonConfig(() =>
+          clearInputField('description')
+        )}
       />
       <Input
         label="Amount"
@@ -172,7 +176,10 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
           placeholder: '0.00',
           maxLength: 8,
         }}
-        buttonConfig={getClearButtonConfig('amount')}
+        buttonConfig={getClearButtonConfig(() => {
+          clearInputField('amount')
+          setAmountExceeded(false)
+        })}
       />
       {amountExceeded ? (
         <Text style={styles.errorMsgText}>
