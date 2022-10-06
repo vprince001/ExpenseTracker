@@ -10,7 +10,7 @@ import { GlobalStyles, IconNames } from '../../constants'
 
 const CategoryForm = ({ onSubmit, defaultValues, categories }) => {
   const navigation = useNavigation()
-  const [showErrorMessage, setShowErrorMessage] = useState(false)
+  const [categoryExists, setCategoryExists] = useState(false)
 
   const [inputs, setInputs] = useState({
     description: {
@@ -24,7 +24,7 @@ const CategoryForm = ({ onSubmit, defaultValues, categories }) => {
   })
 
   const inputChangedHandler = (inputIdentifier, enteredValue) => {
-    setShowErrorMessage(false)
+    setCategoryExists(false)
     setInputs((curInputs) => {
       return {
         ...curInputs,
@@ -65,7 +65,13 @@ const CategoryForm = ({ onSubmit, defaultValues, categories }) => {
     )[0]
 
     if (categoryWithSameName && categoryWithSameName.id !== defaultValues?.id) {
-      setShowErrorMessage(true)
+      setCategoryExists(true)
+      setInputs((curInputs) => {
+        return {
+          ...curInputs,
+          description: { ...curInputs.description, isValid: categoryExists },
+        }
+      })
       return
     }
 
@@ -111,7 +117,7 @@ const CategoryForm = ({ onSubmit, defaultValues, categories }) => {
         }}
         buttonConfig={getClearButtonConfig('description')}
       />
-      {showErrorMessage ? (
+      {categoryExists ? (
         <Text style={styles.errorMsgText}>
           Category With Same Name Already Exists
         </Text>
