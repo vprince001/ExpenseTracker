@@ -176,7 +176,7 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
       />
       {amountExceeded ? (
         <Text style={styles.errorMsgText}>
-          Amount should be less then 100000
+          The amount should be less then 1,00,000
         </Text>
       ) : null}
       <CategoryChoice
