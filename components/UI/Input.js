@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { View, Text, TextInput, StyleSheet } from 'react-native'
 import IconButton from './IconButton'
 import { GlobalStyles } from '../../constants'
@@ -9,17 +10,27 @@ function Input({
   textInputConfig,
   buttonConfig,
 }) {
+  const [focused, setFocused] = useState(false)
   const containerViewStyle = [
     styles.container,
     inputDirection === 'row' && styles.rowInput,
   ]
+
   return (
     <View style={containerViewStyle}>
       <Text style={[styles.label, invalid && styles.invalidLabel]}>
         {label}
       </Text>
-      <View style={[styles.inputContainer, invalid && styles.invalidInput]}>
+      <View
+        style={[
+          styles.inputContainer,
+          focused && styles.focusedInput,
+          invalid && styles.invalidInput,
+        ]}
+      >
         <TextInput
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
           style={[styles.input, invalid && styles.invalidInput]}
           {...textInputConfig}
         />
@@ -56,12 +67,16 @@ const styles = StyleSheet.create({
     backgroundColor: GlobalStyles.colors.gray100,
     borderRadius: 10,
   },
+  focusedInput: {
+    borderColor: GlobalStyles.colors.primary300,
+    borderWidth: 1,
+  },
   input: {
     backgroundColor: GlobalStyles.colors.gray100,
     padding: 8,
     fontSize: 18,
     flexGrow: 1,
-    maxWidth: 285,
+    maxWidth: 282,
     borderRadius: 10,
   },
   invalidInput: {
