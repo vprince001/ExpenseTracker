@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { View, Text, TextInput, StyleSheet } from 'react-native'
+import { View, Text, TextInput, StyleSheet, Dimensions } from 'react-native'
 import IconButton from './IconButton'
 import { GlobalStyles } from '../../constants'
 
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     padding: 8,
     fontSize: 18,
     flexGrow: 1,
-    maxWidth: 282,
+    maxWidth: Dimensions.get('window').width - 80,
     borderRadius: 10,
   },
   invalidInput: {
