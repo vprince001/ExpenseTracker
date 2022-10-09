@@ -7,9 +7,11 @@ const CategoryExpenseItem = ({ date, description, amount }) => {
   return (
     <>
       <View style={styles.container}>
-        <View>
+        <View style={styles.dateAndDesc}>
           <Text style={styles.date}>{dateToDisplay}</Text>
-          <Text style={styles.text}>{description}</Text>
+          <Text ellipsizeMode="tail" numberOfLines={1} style={styles.desc}>
+            {description}
+          </Text>
         </View>
         <Text style={styles.amount}>{amount.toFixed(2)}</Text>
       </View>
@@ -28,10 +30,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+  dateAndDesc: {
+    maxWidth: '85%',
+  },
   date: {
     fontSize: 14,
   },
-  text: {
+  desc: {
     fontSize: 16,
     fontWeight: '500',
   },
