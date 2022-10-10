@@ -173,7 +173,7 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
           onChangeText: amountInputChangedHandler,
           value: inputs.amount.value,
           keyboardType: 'decimal-pad',
-          placeholder: '0.00',
+          placeholder: '0.01 - 99999.99',
           maxLength: 8,
         }}
         buttonConfig={getClearButtonConfig(() => {
