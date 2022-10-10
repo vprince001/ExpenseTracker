@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Dimensions } from 'react-native'
 import { GlobalStyles } from '../../constants'
 import { getFormattedDate } from '../../util/date'
 
@@ -9,7 +9,7 @@ const CategoryExpenseItem = ({ date, description, amount }) => {
       <View style={styles.container}>
         <View style={styles.dateAndDesc}>
           <Text style={styles.date}>{dateToDisplay}</Text>
-          <Text ellipsizeMode="tail" numberOfLines={1} style={styles.desc}>
+          <Text style={styles.desc}>
             {description}
           </Text>
         </View>
@@ -30,15 +30,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  dateAndDesc: {
-    maxWidth: '85%',
-  },
   date: {
     fontSize: 14,
   },
   desc: {
     fontSize: 16,
     fontWeight: '500',
+    maxWidth: Dimensions.get('window').width - 80
   },
   amount: {
     fontSize: 18,
