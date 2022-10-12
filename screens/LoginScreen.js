@@ -1,18 +1,22 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 
 import LoadingOverlay from '../components/UI/LoadingOverlay'
 import AuthContent from '../components/Auth/AuthContent'
 
+import { AuthContext } from '../store/auth-context'
 import { login } from '../util/http'
 import { GlobalStyles } from '../constants'
 
 const LoginScreen = () => {
   const [isAuthenticating, setIsAuthenticating] = useState(false)
 
+  const authCtx = useContext(AuthContext)
+
   const loginHandler = async ({ email, password }) => {
     setIsAuthenticating(true)
-    await login(email, password)
+    const token = await login(email, password)
+    authCtx.authenticate(token)
     setIsAuthenticating(false)
   }
 

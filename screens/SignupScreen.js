@@ -1,18 +1,22 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 
 import LoadingOverlay from '../components/UI/LoadingOverlay'
 import AuthContent from '../components/Auth/AuthContent'
 
+import { AuthContext } from '../store/auth-context'
 import { createUser } from '../util/http'
 import { GlobalStyles } from '../constants'
 
 const SignupScreen = () => {
   const [isAuthenticating, setIsAuthenticating] = useState(false)
 
+  const authCtx = useContext(AuthContext)
+
   const signupHandler = async ({ email, password }) => {
     setIsAuthenticating(true)
-    await createUser(email, password)
+    const token = await createUser(email, password)
+    authCtx.authenticate(token)
     setIsAuthenticating(false)
   }
 

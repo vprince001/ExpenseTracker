@@ -1,5 +1,6 @@
 import { createContext } from 'react'
 
+import AuthContextProvider from './auth-context'
 import UserContextProvider from './user-context'
 import ExpensesContextProvider from './expenses-context'
 import CategoriesContextProvider from './categories-context'
@@ -11,11 +12,13 @@ const AppContextProvider = ({ children }) => {
 
   return (
     <AppContext.Provider value={appInitialState}>
-      <UserContextProvider>
-        <ExpensesContextProvider>
-          <CategoriesContextProvider>{children}</CategoriesContextProvider>
-        </ExpensesContextProvider>
-      </UserContextProvider>
+      <AuthContextProvider>
+        <UserContextProvider>
+          <ExpensesContextProvider>
+            <CategoriesContextProvider>{children}</CategoriesContextProvider>
+          </ExpensesContextProvider>
+        </UserContextProvider>
+      </AuthContextProvider>
     </AppContext.Provider>
   )
 }
