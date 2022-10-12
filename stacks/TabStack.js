@@ -1,18 +1,16 @@
+
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Ionicons } from '@expo/vector-icons'
 
-import { NavigationContainer } from '@react-navigation/native'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import ExpensesStackScreen from '../screens/ExpensesStack'
+import CategoriesStackScreen from '../screens/CategoriesStack'
 
-import ExpensesStackScreen from './screens/ExpensesStack'
-import CategoriesStackScreen from './screens/CategoriesStack'
-
-import { ScreenNames, GlobalStyles, IconNames } from './constants'
+import { ScreenNames, GlobalStyles, IconNames } from '../constants'
 
 const Tab = createBottomTabNavigator()
 
-const Navigation = () => {
+const TabStack = () => {
   return (
-    <NavigationContainer>
       <Tab.Navigator
         screenOptions={{
           headerShown: false,
@@ -41,8 +39,7 @@ const Navigation = () => {
           }}
         />
       </Tab.Navigator>
-    </NavigationContainer>
   )
 }
 
-export default Navigation
+export default TabStack

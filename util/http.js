@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { DB_BASE_URL } from '@env'
+import { AUTHENTICATION_API_KEY } from '@env'
 import {
   getDatabase,
   ref,
@@ -124,4 +124,15 @@ export const fetchUserData = async () => {
 
 export const updateUserData = (id, userData) => {
   set(ref(getDatabase(), 'userData/' + id), userData)
+}
+
+export const createUser = async (email, password) => {
+  await axios.post(
+    `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${AUTHENTICATION_API_KEY}`,
+    {
+      email,
+      password,
+      returnSecureToken: true,
+    }
+  )
 }

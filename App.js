@@ -1,8 +1,20 @@
 import { initializeApp } from 'firebase/app'
-import firebaseConfig from './firebase-config'
+import { NavigationContainer } from '@react-navigation/native'
+
 import { StatusBar } from 'expo-status-bar'
-import Navigation from './Navigation'
+import TabStack from './stacks/TabStack'
+import AuthStack from './stacks/AuthStack'
 import AppContextProvider from './store/app-context'
+import firebaseConfig from './firebase-config'
+1
+const Navigation = () => {
+  const isUserLoggedIn = true
+  return (
+    <NavigationContainer>
+      {isUserLoggedIn ? <TabStack /> : <AuthStack/>}
+    </NavigationContainer>
+  )
+}
 
 const App = () => {
   initializeApp(firebaseConfig)
