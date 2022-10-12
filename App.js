@@ -8,7 +8,7 @@ import AppContextProvider from './store/app-context'
 import firebaseConfig from './firebase-config'
 1
 const Navigation = () => {
-  const isUserLoggedIn = true
+  const isUserLoggedIn = false
   return (
     <NavigationContainer>
       {isUserLoggedIn ? <TabStack /> : <AuthStack/>}

@@ -1,19 +1,19 @@
 import { StyleSheet, View } from 'react-native'
 import AuthForm from '../ManageForms/AuthForm'
 
-const AuthContent = ({ onAuthenticate }) => {
+const AuthContent = ({ onAuthenticate, isLogin }) => {
   const submitHandler = (credentials) => {
     let { email, password } = credentials
 
     email = email.trim()
     password = password.trim()
 
-    onAuthenticate({email, password})
+    onAuthenticate({ email, password })
   }
 
   return (
     <View style={styles.authContent}>
-      <AuthForm onSubmit={submitHandler} />
+      <AuthForm onSubmit={submitHandler} isLogin={isLogin} />
     </View>
   )
 }

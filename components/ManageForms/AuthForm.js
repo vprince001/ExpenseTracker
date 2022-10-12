@@ -4,7 +4,7 @@ import { View } from 'react-native'
 import Button from '../UI/Button'
 import Input from '../UI/Input'
 
-const AuthForm = ({ onSubmit }) => {
+const AuthForm = ({ onSubmit, isLogin }) => {
   const [enteredEmail, setEnteredEmail] = useState('')
   const [enteredConfirmEmail, setEnteredConfirmEmail] = useState('')
   const [enteredPassword, setEnteredPassword] = useState('')
@@ -47,15 +47,17 @@ const AuthForm = ({ onSubmit }) => {
           placeholder: 'abc@gmail.com',
         }}
       />
-      <Input
-        label="Confirm Email Address"
-        textInputConfig={{
-          onChangeText: updateInputValueHandler.bind(this, 'confirmEmail'),
-          value: enteredConfirmEmail,
-          keyboardType: 'email-address',
-          placeholder: 'abc@gmail.com',
-        }}
-      />
+      {!isLogin ? (
+        <Input
+          label="Confirm Email Address"
+          textInputConfig={{
+            onChangeText: updateInputValueHandler.bind(this, 'confirmEmail'),
+            value: enteredConfirmEmail,
+            keyboardType: 'email-address',
+            placeholder: 'abc@gmail.com',
+          }}
+        />
+      ) : null}
       <Input
         label="Password"
         textInputConfig={{
@@ -63,14 +65,16 @@ const AuthForm = ({ onSubmit }) => {
           value: enteredPassword,
         }}
       />
-      <Input
-        label="Confirm Password"
-        textInputConfig={{
-          onChangeText: updateInputValueHandler.bind(this, 'confirmPassword'),
-          value: enteredConfirmPassword,
-        }}
-      />
-      <Button onPress={submitHandler}>{'Sign Up'}</Button>
+      {!isLogin ? (
+        <Input
+          label="Confirm Password"
+          textInputConfig={{
+            onChangeText: updateInputValueHandler.bind(this, 'confirmPassword'),
+            value: enteredConfirmPassword,
+          }}
+        />
+      ) : null}
+      <Button onPress={submitHandler}>{isLogin ? 'Login' : 'Sign Up'}</Button>
     </View>
   )
 }
