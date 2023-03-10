@@ -9,6 +9,7 @@ import {
   push,
   remove,
 } from 'firebase/database'
+import {generateDatabaseId} from "./helperFunctions";
 
 export const addExpense = (expenseData) => {
   const db = getDatabase()
@@ -126,6 +127,19 @@ export const updateUserData = (id, userData) => {
   set(ref(getDatabase(), 'userData/' + id), userData)
 }
 
+export const addDefaultDb = (db, userid) => {
+  const newDatabaseId = push(child(ref(db), `users/${userid}/databases`)).key
+  set(ref(db, `users/${userid}/databases/` + newDatabaseId), generateDatabaseId())
+}
+
+export const addUser = (email) => {
+  const db = getDatabase()
+  const newUserId = push(child(ref(db), 'users')).key
+  set(ref(db, 'users/' + newUserId), {email})
+  addDefaultDb(db, newUserId)
+  return newUserId
+}
+
 const authenticate = async (mode, email, password) => {
   const url = `https://identitytoolkit.googleapis.com/v1/accounts:${mode}?key=${AUTHENTICATION_API_KEY}`
 
@@ -133,8 +147,22 @@ const authenticate = async (mode, email, password) => {
     email,
     password,
     returnSecureToken: true,
+  }).catch(error => {
+    if (error.response) {
+      // Request made and server responded
+      console.log('error data', error.response.data);
+      console.log('error status', error.response.status);
+      console.log('error headers', error.response.headers);
+    } else if (error.request) {
+      // The request was made but no response was received
+      console.log('error request', error.request);
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.log('error message', error.message);
+    }
   })
 
+  addUser(email)
   return response.data.idToken
 }
 
