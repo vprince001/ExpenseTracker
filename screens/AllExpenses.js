@@ -9,8 +9,10 @@ import { ExpensesContext } from '../store/expenses-context'
 import { CategoriesContext } from '../store/categories-context'
 
 import { fetchExpenses, fetchCategories, fetchUserData } from '../util/http'
+import {UserDataContext} from "../store/user-data-context";
 
 const AllExpenses = () => {
+  const userDataCtx = useContext(UserDataContext)
   const expensesCtx = useContext(ExpensesContext)
   const categoriesCtx = useContext(CategoriesContext)
   const userCtx = useContext(UserContext)
@@ -19,7 +21,7 @@ const AllExpenses = () => {
   const [error, setError] = useState()
 
   const fetchDataAndSetCtx = async () => {
-    const expenses = await fetchExpenses()
+    const expenses = await fetchExpenses(userDataCtx.userData.defaultDatabaseId)
     expensesCtx.setExpenses(expenses)
     const categories = await fetchCategories()
     categoriesCtx.setCategories(categories)

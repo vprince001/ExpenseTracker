@@ -4,6 +4,7 @@ import AuthContextProvider from './auth-context'
 import UserContextProvider from './user-context'
 import ExpensesContextProvider from './expenses-context'
 import CategoriesContextProvider from './categories-context'
+import UserDataContextProvider from "./user-data-context";
 
 export const AppContext = createContext()
 
@@ -14,9 +15,11 @@ const AppContextProvider = ({ children }) => {
     <AppContext.Provider value={appInitialState}>
       <AuthContextProvider>
         <UserContextProvider>
-          <ExpensesContextProvider>
-            <CategoriesContextProvider>{children}</CategoriesContextProvider>
-          </ExpensesContextProvider>
+          <UserDataContextProvider>
+              <ExpensesContextProvider>
+                  <CategoriesContextProvider>{children}</CategoriesContextProvider>
+              </ExpensesContextProvider>
+          </UserDataContextProvider>
         </UserContextProvider>
       </AuthContextProvider>
     </AppContext.Provider>

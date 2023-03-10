@@ -11,29 +11,30 @@ import {
 } from 'firebase/database'
 import {generateDatabaseId} from "./helperFunctions";
 
-export const addExpense = (expenseData) => {
+export const addExpense = (expenseData, databaseId) => {
   const db = getDatabase()
-  const newExpenseId = push(child(ref(db), 'expenses')).key
+  const newExpenseId = push(child(ref(db), `${databaseId}/expenses`)).key
 
-  set(ref(db, 'expenses/' + newExpenseId), expenseData)
+  set(ref(db, `${databaseId}/expenses/` + newExpenseId), expenseData)
   return newExpenseId
 }
 
-export const fetchExpenses = async () => {
+export const fetchExpenses = async (databaseId) => {
   const expenses = []
   const dbRef = ref(getDatabase())
-  const expensesRef = child(dbRef, 'expenses')
-
-  await get(expensesRef).then((snapshot) => {
-    if (snapshot.exists()) {
+  const databaseRef = child(dbRef, `${databaseId}`)
+  await get(databaseRef).then((snapshot) => {
+    if(snapshot.exists()) {
       const data = snapshot.val()
-      for (const key in data) {
+      const snapshotExpenses = data.expenses
+      for (const key in snapshotExpenses) {
+        const snapshotExpense = snapshotExpenses[key]
         const expenseObj = {
           id: key,
-          description: data[key].description,
-          amount: data[key].amount,
-          category: data[key].category,
-          date: data[key].date,
+          description: snapshotExpense.description,
+          amount: snapshotExpense.amount,
+          category: snapshotExpense.category,
+          date: snapshotExpense.date,
         }
         expenses.push(expenseObj)
       }
@@ -42,11 +43,11 @@ export const fetchExpenses = async () => {
   return expenses
 }
 
-export const updateExpense = (id, expenseData) => {
-  set(ref(getDatabase(), 'expenses/' + id), expenseData)
+export const updateExpense = (id, expenseData, databaseId) => {
+  set(ref(getDatabase(), `${databaseId}/expenses/` + id), expenseData)
 }
 
-export const updateExpenses = (categoryId, categoryData, expenses) => {
+export const updateExpenses = (categoryId, categoryData, expenses, databaseId) => {
   expenses.forEach((expense) => {
     const { id: expenseId, ...rest } = expense
     if (categoryId === rest.category.id) {
@@ -54,13 +55,13 @@ export const updateExpenses = (categoryId, categoryData, expenses) => {
         ...rest,
         category: { ...categoryData, id: categoryId },
       }
-      updateExpense(expenseId, updatedExpenseData)
+      updateExpense(expenseId, updatedExpenseData, databaseId)
     }
   })
 }
 
-export const deleteExpense = (id) => {
-  remove(ref(getDatabase(), 'expenses/' + id))
+export const deleteExpense = (id, databaseId) => {
+  remove(ref(getDatabase(), `${databaseId}/expenses/` + id))
 }
 
 export const addCategory = (categoryData) => {
@@ -127,21 +128,22 @@ export const updateUserData = (id, userData) => {
   set(ref(getDatabase(), 'userData/' + id), userData)
 }
 
-export const addDefaultDb = (db, userid) => {
-  const newDatabaseId = push(child(ref(db), `users/${userid}/databases`)).key
-  set(ref(db, `users/${userid}/databases/` + newDatabaseId), generateDatabaseId())
+export const addDefaultDb = (db, userId) => {
+  const defaultDatabaseId = generateDatabaseId().toString()
+  const newDatabaseId = push(child(ref(db), `users/${userId}/databases`)).key
+  set(ref(db, `users/${userId}/databases/` + newDatabaseId), defaultDatabaseId)
+  return defaultDatabaseId
 }
 
 export const addUser = (email) => {
   const db = getDatabase()
   const newUserId = push(child(ref(db), 'users')).key
   set(ref(db, 'users/' + newUserId), {email})
-  addDefaultDb(db, newUserId)
-  return newUserId
+  return addDefaultDb(db, newUserId)
 }
 
-const authenticate = async (mode, email, password) => {
-  const url = `https://identitytoolkit.googleapis.com/v1/accounts:${mode}?key=${AUTHENTICATION_API_KEY}`
+export const createUser = async (email, password) => {
+  const url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${AUTHENTICATION_API_KEY}`
 
   const response = await axios.post(url, {
     email,
@@ -162,14 +164,35 @@ const authenticate = async (mode, email, password) => {
     }
   })
 
-  addUser(email)
-  return response.data.idToken
+  return {token: response.data.idToken, defaultDatabaseId: addUser(email)}
 }
 
-export const createUser = (email, password) => {
-  return authenticate('signUp', email, password)
+const getDefaultDatabaseId = async (email) => {
+  const dbRef = ref(getDatabase())
+  const usersRef = child(dbRef, 'users')
+  let defaultDBId = ''
+
+  await get(usersRef).then((snapshot) => {
+    if (snapshot.exists()) {
+      const users = snapshot.val()
+      Object.values(users).forEach(user => {
+        if(user.email === email) {
+          defaultDBId = Object.values(user.databases)[0]
+        }
+      })
+    }
+  })
+  return defaultDBId
 }
 
-export const login = (email, password) => {
-  return authenticate('signInWithPassword', email, password)
+export const login = async (email, password) => {
+  const url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${AUTHENTICATION_API_KEY}`
+
+  const response = await axios.post(url, {
+    email,
+    password,
+    returnSecureToken: true,
+  })
+
+  return {token: response.data.idToken, defaultDatabaseId: await getDefaultDatabaseId(email)}
 }

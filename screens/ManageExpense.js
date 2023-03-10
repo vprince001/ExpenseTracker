@@ -8,6 +8,7 @@ import ConfirmationModal from '../components/UI/ConfirmationModal'
 import ExpenseForm from '../components/ManageForms/ExpenseForm'
 
 import { ExpensesContext } from '../store/expenses-context'
+import { UserDataContext } from "../store/user-data-context";
 import { addExpense, deleteExpense, updateExpense } from '../util/http'
 import { GlobalStyles, IconNames } from '../constants'
 
@@ -17,6 +18,7 @@ const ManageExpense = ({ route, navigation }) => {
   const [error, setError] = useState()
 
   const expensesCtx = useContext(ExpensesContext)
+  const userDataCtx = useContext(UserDataContext)
   const editedExpenseId = route.params?.expenseId
   const isEditing = !!editedExpenseId
 
@@ -35,9 +37,9 @@ const ManageExpense = ({ route, navigation }) => {
     try {
       if (isEditing) {
         expensesCtx.updateExpense(editedExpenseId, expenseData)
-        updateExpense(editedExpenseId, expenseData)
+        updateExpense(editedExpenseId, expenseData, userDataCtx.userData.defaultDatabaseId)
       } else {
-        const id = addExpense(expenseData)
+        const id = addExpense(expenseData, userDataCtx.userData.defaultDatabaseId)
         expensesCtx.addExpense({ ...expenseData, id })
       }
       navigation.goBack()
@@ -50,7 +52,7 @@ const ManageExpense = ({ route, navigation }) => {
   const deleteExpenseHandler = () => {
     setIsSubmitting(true)
     try {
-      deleteExpense(editedExpenseId)
+      deleteExpense(editedExpenseId, userDataCtx.userData.defaultDatabaseId)
       expensesCtx.deleteExpense(editedExpenseId)
       navigation.goBack()
     } catch (error) {
