@@ -11,10 +11,10 @@ import AppContextProvider from './store/app-context'
 import { AuthContext } from './store/auth-context'
 import firebaseConfig from './firebase-config'
 
-const Navigation = ({ isAthenticated }) => {
+const Navigation = ({ isAuthenticated }) => {
   return (
     <NavigationContainer>
-      {isAthenticated ? <TabStack /> : <AuthStack />}
+      {isAuthenticated ? <TabStack /> : <AuthStack />}
     </NavigationContainer>
   )
 }
@@ -39,7 +39,7 @@ const Root = () => {
     return null
   }
 
-  return <Navigation isAthenticated={authCtx.isAthenticated} />
+  return <Navigation isAuthenticated={authCtx.isAuthenticated} />
 }
 
 const App = () => {
