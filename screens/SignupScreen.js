@@ -5,7 +5,7 @@ import LoadingOverlay from '../components/UI/LoadingOverlay'
 import AuthContent from '../components/Auth/AuthContent'
 
 import { AuthContext } from '../store/auth-context'
-import { UserDataContext } from "../store/user-data-context";
+import { UserContext } from "../store/user-context";
 import { createUser } from '../util/http'
 import { GlobalStyles } from '../constants'
 
@@ -13,12 +13,12 @@ const SignupScreen = () => {
   const [isAuthenticating, setIsAuthenticating] = useState(false)
 
   const authCtx = useContext(AuthContext)
-  const userDataCtx = useContext(UserDataContext)
+  const userCtx = useContext(UserContext)
 
   const signupHandler = async ({ email, password }) => {
     setIsAuthenticating(true)
     const {token, defaultDatabaseId} = await createUser(email, password)
-    userDataCtx.setUserData({email, defaultDatabaseId})
+    userCtx.addUser({email, defaultDatabaseId})
     authCtx.authenticate(token)
     setIsAuthenticating(false)
   }
