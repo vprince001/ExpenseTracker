@@ -101,45 +101,45 @@ export const deleteCategory = (id) => {
   remove(ref(getDatabase(), 'categories/' + id))
 }
 
-export const addUserData = (userData) => {
+export const addAppData = (appData) => {
   const db = getDatabase()
-  const newUserDataId = push(child(ref(db), 'userData')).key
+  const newAppDataId = push(child(ref(db), 'appData')).key
 
-  set(ref(db, 'userData/' + newUserDataId), userData)
-  return newUserDataId
+  set(ref(db, 'appData/' + newAppDataId), appData)
+  return newAppDataId
 }
 
-export const fetchUserData = async () => {
-  let userData = {}
+export const fetchAppData = async () => {
+  let appData = {}
   const dbRef = ref(getDatabase())
-  const userDataRef = child(dbRef, 'userData')
+  const appDataRef = child(dbRef, 'appData')
 
-  await get(userDataRef).then((snapshot) => {
+  await get(appDataRef).then((snapshot) => {
     if (snapshot.exists()) {
       const data = snapshot.val()
       const key = Object.keys(data)[0]
-      userData = { ...data[key], id: key }
+      appData = { ...data[key], id: key }
     }
   })
-  return userData
+  return appData
 }
 
-export const updateUserData = (id, userData) => {
-  set(ref(getDatabase(), 'userData/' + id), userData)
+export const updateAppData = (id, appData) => {
+  set(ref(getDatabase(), 'appData/' + id), appData)
 }
 
-export const addDefaultDb = (db, userId) => {
+export const addDefaultDb = (db, userKey) => {
   const defaultDatabaseId = generateDatabaseId().toString()
-  const newDatabaseId = push(child(ref(db), `users/${userId}/databases`)).key
-  set(ref(db, `users/${userId}/databases/` + newDatabaseId), defaultDatabaseId)
+  const newDatabaseId = push(child(ref(db), `users/${userKey}/databases`)).key
+  set(ref(db, `users/${userKey}/databases/` + newDatabaseId), defaultDatabaseId)
   return defaultDatabaseId
 }
 
 export const addUser = (email) => {
   const db = getDatabase()
-  const newUserId = push(child(ref(db), 'users')).key
-  set(ref(db, 'users/' + newUserId), {email})
-  return addDefaultDb(db, newUserId)
+  const newUserKey = push(child(ref(db), 'users')).key
+  set(ref(db, 'users/' + newUserKey), {email})
+  return addDefaultDb(db, newUserKey)
 }
 
 export const createUser = async (email, password) => {

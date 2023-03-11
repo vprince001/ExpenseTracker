@@ -3,7 +3,7 @@ import { useContext, useEffect } from 'react'
 import IconButton from '../components/UI/IconButton'
 import CategoryExpensesOutput from '../components/CategoryExpensesOutput/CategoryExpensesOutput'
 
-import { UserContext } from '../store/user-context'
+import { AppDataContext } from '../store/app-data-context'
 import { ExpensesContext } from '../store/expenses-context'
 
 import { ellipsize } from '../util/helperFunctions'
@@ -13,7 +13,7 @@ const CategoryExpenses = ({ route, navigation }) => {
   const { id: categoryId, description: categoryName } = route.params
 
   const expensesCtx = useContext(ExpensesContext)
-  const userCtx = useContext(UserContext)
+  const appDataCtx = useContext(AppDataContext)
 
   const navigateToManageCategoryScreen = () => {
     navigation.navigate(ScreenNames.manageCategoryScreen, {
@@ -39,7 +39,7 @@ const CategoryExpenses = ({ route, navigation }) => {
     <CategoryExpensesOutput
       categoryName={categoryName}
       expenses={expensesCtx.expenses}
-      selectedMonth={userCtx.userData.selectedMonth}
+      selectedMonth={appDataCtx.appData.selectedMonth}
     />
   )
 }

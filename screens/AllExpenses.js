@@ -4,18 +4,18 @@ import LoadingOverlay from '../components/UI/LoadingOverlay'
 import ErrorOverlay from '../components/UI/ErrorOverlay'
 import ExpensesOutput from '../components/ExpensesOutput/ExpensesOutput'
 
-import { UserContext } from '../store/user-context'
+import { AppDataContext } from '../store/app-data-context'
 import { ExpensesContext } from '../store/expenses-context'
 import { CategoriesContext } from '../store/categories-context'
 
-import { fetchExpenses, fetchCategories, fetchUserData } from '../util/http'
+import { fetchExpenses, fetchCategories, fetchAppData } from '../util/http'
 import {UserDataContext} from "../store/user-data-context";
 
 const AllExpenses = () => {
   const userDataCtx = useContext(UserDataContext)
   const expensesCtx = useContext(ExpensesContext)
   const categoriesCtx = useContext(CategoriesContext)
-  const userCtx = useContext(UserContext)
+  const appDataCtx = useContext(AppDataContext)
 
   const [isFetching, setIsFetching] = useState(true)
   const [error, setError] = useState()
@@ -25,8 +25,8 @@ const AllExpenses = () => {
     expensesCtx.setExpenses(expenses)
     const categories = await fetchCategories()
     categoriesCtx.setCategories(categories)
-    const userData = await fetchUserData()
-    !!userData ? userCtx.setUserData(userData) : userCtx.setUserData('')
+    const appData = await fetchAppData()
+    !!appData ? appDataCtx.setAppData(appData) : appDataCtx.setAppData('')
   }
 
   useEffect(() => {

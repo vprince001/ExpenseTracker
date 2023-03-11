@@ -5,16 +5,16 @@ import MonthChoice from '../CategoriesOutput/MonthChoice'
 import ExpensesList from './ExpenseList'
 import ExpensesSummary from './ExpensesSummary'
 
-import { UserContext } from '../../store/user-context'
+import { AppDataContext } from '../../store/app-data-context'
 import { getMonthExpenseLookup } from '../../util/expenses'
-import { addUserData, updateUserData } from '../../util/http'
+import { addAppData, updateAppData } from '../../util/http'
 import { sortShortMonthNames } from '../../util/date'
 import { GlobalStyles } from '../../constants'
 
 const ExpensesOutput = ({ expenses, fetchDataAndSetCtx }) => {
-  const userCtx = useContext(UserContext)
+  const appDataCtx = useContext(AppDataContext)
   const [selectedMonth, setSelectedMonth] = useState(
-    userCtx.userData.selectedMonth
+    appDataCtx.appData.selectedMonth
   )
 
   let filteredExpenses = expenses
@@ -30,12 +30,12 @@ const ExpensesOutput = ({ expenses, fetchDataAndSetCtx }) => {
   const monthSelectionHandler = (selectedMonth) => {
     try {
       setSelectedMonth(selectedMonth)
-      if (!userCtx.userData.selectedMonth) {
-        const id = addUserData({ selectedMonth })
-        userCtx.addUserData({ id, selectedMonth })
+      if (!appDataCtx.appData.selectedMonth) {
+        const id = addAppData({ selectedMonth })
+        appDataCtx.addAppData({ id, selectedMonth })
       } else {
-        userCtx.updateUserData({ selectedMonth })
-        updateUserData(userCtx.userData.id, { selectedMonth })
+        appDataCtx.updateAppData({ selectedMonth })
+        updateAppData(appDataCtx.appData.id, { selectedMonth })
       }
     } catch (error) {}
   }
