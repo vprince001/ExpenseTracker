@@ -13,10 +13,10 @@ const AuthForm = ({ onSubmit, isLogin }) => {
   const updateInputValueHandler = (inputType, enteredValue) => {
     switch (inputType) {
       case 'email':
-        setEnteredEmail(enteredValue)
+        setEnteredEmail(enteredValue.trim().toLowerCase())
         break
       case 'confirmEmail':
-        setEnteredConfirmEmail(enteredValue)
+        setEnteredConfirmEmail(enteredValue.trim().toLowerCase())
         break
       case 'password':
         setEnteredPassword(enteredValue)
@@ -29,10 +29,10 @@ const AuthForm = ({ onSubmit, isLogin }) => {
 
   const submitHandler = () => {
     onSubmit({
-      email: enteredEmail,
-      confirmEmail: enteredConfirmEmail,
-      password: enteredPassword,
-      confirmPassword: enteredConfirmPassword,
+      email: enteredEmail.trim().toLowerCase(),
+      confirmEmail: enteredConfirmEmail.trim().toLowerCase(),
+      password: enteredPassword.trim().toLowerCase(),
+      confirmPassword: enteredConfirmPassword.trim().toLowerCase(),
     })
   }
 
