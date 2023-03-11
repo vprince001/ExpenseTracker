@@ -36,7 +36,7 @@ const AppDataContextProvider = ({ children }) => {
   }
 
   const value = {
-    appDataState,
+    appData: appDataState,
     addAppData,
     setAppData,
     updateAppData,
