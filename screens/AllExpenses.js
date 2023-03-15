@@ -23,7 +23,7 @@ const AllExpenses = () => {
   const fetchDataAndSetCtx = async () => {
     const expenses = await fetchExpenses(userCtx.user.defaultDatabaseId)
     expensesCtx.setExpenses(expenses)
-    const categories = await fetchCategories()
+    const categories = await fetchCategories(userCtx.user.defaultDatabaseId)
     categoriesCtx.setCategories(categories)
     const appData = await fetchAppData()
     !!appData ? appDataCtx.setAppData(appData) : appDataCtx.setAppData('')

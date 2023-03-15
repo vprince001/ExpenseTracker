@@ -64,41 +64,41 @@ export const deleteExpense = (id, databaseId) => {
   remove(ref(getDatabase(), `${databaseId}/expenses/` + id))
 }
 
-export const addCategory = (categoryData) => {
+export const addCategory = (categoryData, databaseId) => {
   const db = getDatabase()
-  const newCategoryId = push(child(ref(db), 'categories')).key
+  const newCategoryKey = push(child(ref(db), `${databaseId}/categories`)).key
 
-  set(ref(db, 'categories/' + newCategoryId), categoryData)
-  return newCategoryId
+  set(ref(db, `${databaseId}/categories/` + newCategoryKey), categoryData)
+  return newCategoryKey
 }
 
-export const fetchCategories = async () => {
+export const fetchCategories = async databaseId => {
   const categories = []
   const dbRef = ref(getDatabase())
-  const categoriesRef = child(dbRef, 'categories')
+  const databaseRef = child(dbRef, `${databaseId}/categories`)
 
-  await get(categoriesRef).then((snapshot) => {
+  await get(databaseRef).then((snapshot) => {
     if (snapshot.exists()) {
-      const data = snapshot.val()
-      for (const key in data) {
-        const categoriesObj = {
+      Object.entries(snapshot.val()).forEach(snapshotCategory => {
+        const [key, category] = snapshotCategory
+        const categoryObj = {
           id: key,
-          description: data[key].description,
-          image: data[key].image,
+          description: category.description,
+          image: category.image,
         }
-        categories.push(categoriesObj)
-      }
+        categories.push(categoryObj)
+      })
     }
   })
   return categories
 }
 
-export const updateCategory = (id, categoryData) => {
-  set(ref(getDatabase(), 'categories/' + id), categoryData)
+export const updateCategory = (id, categoryData, databaseId) => {
+  set(ref(getDatabase(), `${databaseId}/categories/` + id), categoryData)
 }
 
-export const deleteCategory = (id) => {
-  remove(ref(getDatabase(), 'categories/' + id))
+export const deleteCategory = (id, databaseId) => {
+  remove(ref(getDatabase(), `${databaseId}/categories/` + id))
 }
 
 export const addAppData = (appData) => {

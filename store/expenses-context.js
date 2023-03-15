@@ -5,7 +5,7 @@ export const ExpensesContext = createContext({
   addExpense: ({ description, amount, category, date }) => {},
   setExpenses: (expenses) => {},
   updateExpense: (id, { description, amount, category, date }) => {},
-  updateExpenses: ({ categoryId, categoryData }) => {},
+  updateExpenses: (categoryId, categoryData) => {},
   deleteExpense: (id) => {},
 })
 

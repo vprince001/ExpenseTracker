@@ -9,6 +9,7 @@ import CategoryForm from '../components/ManageForms/CategoryForm'
 
 import { ExpensesContext } from '../store/expenses-context'
 import { CategoriesContext } from '../store/categories-context'
+import { UserContext } from "../store/user-context";
 
 import {
   addCategory,
@@ -21,8 +22,9 @@ import { GlobalStyles, IconNames } from '../constants'
 const ManageCategory = ({ route, navigation }) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [modalVisible, setModalVisible] = useState(false)
-  const [error, setError] = useState()
+  const [error, setError] = useState(null)
 
+  const userCtx = useContext(UserContext)
   const categoriesCtx = useContext(CategoriesContext)
   const expenseCtx = useContext(ExpensesContext)
   const editedCategoryId = route.params?.categoryId
@@ -43,11 +45,11 @@ const ManageCategory = ({ route, navigation }) => {
     try {
       if (isEditing) {
         categoriesCtx.updateCategory(editedCategoryId, categoryData)
-        updateCategory(editedCategoryId, categoryData)
+        updateCategory(editedCategoryId, categoryData, userCtx.user.defaultDatabaseId)
         expenseCtx.updateExpenses(editedCategoryId, categoryData)
         updateExpenses(editedCategoryId, categoryData, expenseCtx.expenses)
       } else {
-        const id = addCategory(categoryData)
+        const id = addCategory(categoryData, userCtx.user.defaultDatabaseId)
         categoriesCtx.addCategory({ ...categoryData, id })
       }
       navigation.popToTop()
@@ -60,7 +62,7 @@ const ManageCategory = ({ route, navigation }) => {
   const deleteExpenseHandler = () => {
     setIsSubmitting(true)
     try {
-      deleteCategory(editedCategoryId)
+      deleteCategory(editedCategoryId, userCtx.user.defaultDatabaseId)
       categoriesCtx.deleteCategory(editedCategoryId)
       navigation.popToTop()
     } catch (error) {
