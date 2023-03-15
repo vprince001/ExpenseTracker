@@ -20,24 +20,21 @@ export const addExpense = (expenseData, databaseId) => {
 }
 
 export const fetchExpenses = async (databaseId) => {
-  const expenses = []
+  let expenses = []
   const dbRef = ref(getDatabase())
-  const databaseRef = child(dbRef, `databases/${databaseId}`)
+  const databaseRef = child(dbRef, `databases/${databaseId}/expenses`)
   await get(databaseRef).then((snapshot) => {
     if(snapshot.exists()) {
-      const data = snapshot.val()
-      const snapshotExpenses = data.expenses
-      for (const key in snapshotExpenses) {
-        const snapshotExpense = snapshotExpenses[key]
-        const expenseObj = {
+      expenses = Object.entries(snapshot.val()).map(snapshotExpense => {
+        const [key, expense] = snapshotExpense
+        return {
           id: key,
-          description: snapshotExpense.description,
-          amount: snapshotExpense.amount,
-          category: snapshotExpense.category,
-          date: snapshotExpense.date,
+          description: expense.description,
+          amount: expense.amount,
+          category: expense.category,
+          date: expense.date,
         }
-        expenses.push(expenseObj)
-      }
+      })
     }
   })
   return expenses
@@ -73,20 +70,19 @@ export const addCategory = (categoryData, databaseId) => {
 }
 
 export const fetchCategories = async databaseId => {
-  const categories = []
+  let categories = []
   const dbRef = ref(getDatabase())
   const databaseRef = child(dbRef, `databases/${databaseId}/categories`)
 
   await get(databaseRef).then((snapshot) => {
     if (snapshot.exists()) {
-      Object.entries(snapshot.val()).forEach(snapshotCategory => {
+      categories = Object.entries(snapshot.val()).map(snapshotCategory => {
         const [key, category] = snapshotCategory
-        const categoryObj = {
+        return {
           id: key,
           description: category.description,
           image: category.image,
         }
-        categories.push(categoryObj)
       })
     }
   })
@@ -130,12 +126,12 @@ export const updateAppData = (id, appData) => {
 
 export const addDefaultDb = (db, userKey) => {
   const defaultDatabaseId = generateDatabaseId().toString()
-  const newDatabaseId = push(child(ref(db), `users/${userKey}/databases`)).key
-  set(ref(db, `users/${userKey}/databases/` + newDatabaseId), defaultDatabaseId)
+  const newDatabaseKey = push(child(ref(db), `users/${userKey}/databases`)).key
+  set(ref(db, `users/${userKey}/databases/` + newDatabaseKey), defaultDatabaseId)
   return defaultDatabaseId
 }
 
-export const addUser = (email) => {
+export const addUser = email => {
   const db = getDatabase()
   const newUserKey = push(child(ref(db), 'users')).key
   set(ref(db, 'users/' + newUserKey), {email})
@@ -172,10 +168,9 @@ const getDefaultDatabaseId = async (email) => {
   const usersRef = child(dbRef, 'users')
   let defaultDBId = ''
 
-  await get(usersRef).then((snapshot) => {
+  await get(usersRef).then(snapshot => {
     if (snapshot.exists()) {
-      const users = snapshot.val()
-      Object.values(users).forEach(user => {
+      Object.values(snapshot.val()).forEach(user => {
         if(user.email === email) {
           defaultDBId = Object.values(user.databases)[0]
         }

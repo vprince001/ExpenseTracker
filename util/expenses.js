@@ -45,17 +45,9 @@ export const sortDescending = (sectionListData) => {
 }
 
 export const getDateSectionExpenses = (dateExpenselookup) => {
-  const sectionListData = []
-
-  for (const date in dateExpenselookup) {
-    const expenses = dateExpenselookup[date]
-    const sum = expenses
-      .reduce((sum, currExpense) => {
-        return sum + currExpense.amount
-      }, 0)
-      .toFixed(2)
-
-    sectionListData.push({ title: date, sum, data: expenses })
-  }
-  return sectionListData
+  return Object.entries(dateExpenselookup).map(dateExpenses => {
+    const [date, expenses] = dateExpenses
+    const sum = expenses.reduce((sum, currExpense) => sum + currExpense.amount, 0).toFixed(2)
+    return { title: date, sum, data: expenses }
+  })
 }
