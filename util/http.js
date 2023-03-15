@@ -15,14 +15,14 @@ export const addExpense = (expenseData, databaseId) => {
   const db = getDatabase()
   const newExpenseId = push(child(ref(db), `${databaseId}/expenses`)).key
 
-  set(ref(db, `${databaseId}/expenses/` + newExpenseId), expenseData)
+  set(ref(db, `databases/${databaseId}/expenses/` + newExpenseId), expenseData)
   return newExpenseId
 }
 
 export const fetchExpenses = async (databaseId) => {
   const expenses = []
   const dbRef = ref(getDatabase())
-  const databaseRef = child(dbRef, `${databaseId}`)
+  const databaseRef = child(dbRef, `databases/${databaseId}`)
   await get(databaseRef).then((snapshot) => {
     if(snapshot.exists()) {
       const data = snapshot.val()
@@ -44,7 +44,7 @@ export const fetchExpenses = async (databaseId) => {
 }
 
 export const updateExpense = (id, expenseData, databaseId) => {
-  set(ref(getDatabase(), `${databaseId}/expenses/` + id), expenseData)
+  set(ref(getDatabase(), `databases/${databaseId}/expenses/` + id), expenseData)
 }
 
 export const updateExpenses = (categoryId, categoryData, expenses, databaseId) => {
@@ -61,21 +61,21 @@ export const updateExpenses = (categoryId, categoryData, expenses, databaseId) =
 }
 
 export const deleteExpense = (id, databaseId) => {
-  remove(ref(getDatabase(), `${databaseId}/expenses/` + id))
+  remove(ref(getDatabase(), `databases/${databaseId}/expenses/` + id))
 }
 
 export const addCategory = (categoryData, databaseId) => {
   const db = getDatabase()
-  const newCategoryKey = push(child(ref(db), `${databaseId}/categories`)).key
+  const newCategoryKey = push(child(ref(db), `databases/${databaseId}/categories`)).key
 
-  set(ref(db, `${databaseId}/categories/` + newCategoryKey), categoryData)
+  set(ref(db, `databases/${databaseId}/categories/` + newCategoryKey), categoryData)
   return newCategoryKey
 }
 
 export const fetchCategories = async databaseId => {
   const categories = []
   const dbRef = ref(getDatabase())
-  const databaseRef = child(dbRef, `${databaseId}/categories`)
+  const databaseRef = child(dbRef, `databases/${databaseId}/categories`)
 
   await get(databaseRef).then((snapshot) => {
     if (snapshot.exists()) {
@@ -94,11 +94,11 @@ export const fetchCategories = async databaseId => {
 }
 
 export const updateCategory = (id, categoryData, databaseId) => {
-  set(ref(getDatabase(), `${databaseId}/categories/` + id), categoryData)
+  set(ref(getDatabase(), `databases/${databaseId}/categories/` + id), categoryData)
 }
 
 export const deleteCategory = (id, databaseId) => {
-  remove(ref(getDatabase(), `${databaseId}/categories/` + id))
+  remove(ref(getDatabase(), `databases/${databaseId}/categories/` + id))
 }
 
 export const addAppData = (appData) => {
