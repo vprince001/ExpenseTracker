@@ -31,7 +31,7 @@ export const fetchExpenses = async (databaseId) => {
           id: key,
           description: expense.description,
           amount: expense.amount,
-          category: expense.category,
+          categoryId: expense.categoryId,
           date: expense.date,
         }
       })

@@ -26,8 +26,8 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
       value: defaultValues ? defaultValues.amount.toString() : '',
       isValid: true,
     },
-    category: {
-      value: defaultValues ? defaultValues.category : {},
+    categoryId: {
+      value: defaultValues ? defaultValues.categoryId : '',
       isValid: true,
     },
   })
@@ -66,13 +66,13 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
     Keyboard.dismiss()
   }
 
-  const validateFields = (expenseData) => {
-    const descriptionIsValid = expenseData.description.length > 0
+  const validateFields = expense => {
+    const descriptionIsValid = expense.description.length > 0
     const amountIsValid =
-      !isNaN(expenseData.amount) &&
-      expenseData.amount > 0 &&
-      expenseData.amount < 100000
-    const categoryIsValid = expenseData.category.description
+      !isNaN(expense.amount) &&
+      expense.amount > 0 &&
+      expense.amount < 100000
+    const categoryIsValid = expense.categoryId
     return { descriptionIsValid, amountIsValid, categoryIsValid }
   }
 
@@ -81,7 +81,7 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
       description: inputs.description.value.trim(),
       amount: +inputs.amount.value,
       date: new Date(date).getTime(),
-      category: inputs.category.value,
+      categoryId: inputs.categoryId.value,
     }
 
     const { descriptionIsValid, amountIsValid, categoryIsValid } =
@@ -96,7 +96,7 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
           },
           amount: { value: curInputs.amount.value, isValid: amountIsValid },
           category: {
-            value: curInputs.category.value,
+            value: curInputs.categoryId.value,
             isValid: categoryIsValid,
           },
         }
@@ -109,12 +109,12 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
   const setDefaultCategory = () => {
     if (
       categoriesCtx.categories.length === 1 &&
-      Object.keys(inputs.category.value).length === 0
+      Object.keys(inputs.categoryId.value).length === 0
     ) {
       setInputs((curInputs) => {
         return {
           ...curInputs,
-          category: { value: categoriesCtx.categories[0], isValid: true },
+          categoryId: { value: categoriesCtx.categories[0], isValid: true },
         }
       })
     }
@@ -188,15 +188,10 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
       ) : null}
       <CategoryChoice
         categories={categoriesCtx.categories}
-        invalid={!inputs.category.isValid}
-        currentCategory={inputs.category.value}
+        invalid={!inputs.categoryId.isValid}
+        currentCategoryId={inputs.categoryId.value}
         onSelect={(currentCategory) => {
-          setInputs((curInputs) => {
-            return {
-              ...curInputs,
-              category: { value: currentCategory, isValid: true },
-            }
-          })
+          setInputs(curInputs => ({...curInputs, categoryId: { value: currentCategory.id, isValid: true }}))
           Keyboard.dismiss()
         }}
       />

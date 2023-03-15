@@ -11,11 +11,10 @@ export const CategoriesContext = createContext({
 const categoriesReducer = (state, action) => {
   switch (action.type) {
     case 'ADD':
-      return [{ ...action.payload }, ...state]
+      return [action.payload, ...state]
 
     case 'SET':
-      const inverted = action.payload.reverse()
-      return inverted
+      return action.payload.reverse()
 
     case 'UPDATE':
       const updatableCategoryIndex = state.findIndex(

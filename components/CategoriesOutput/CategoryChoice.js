@@ -2,7 +2,7 @@ import { StyleSheet, View, Text, ScrollView } from 'react-native'
 import ChoiceItem from '../UI/ChoiceItem'
 import { GlobalStyles } from '../../constants'
 
-const CategoryChoice = ({ categories, currentCategory, onSelect, invalid }) => {
+const CategoryChoice = ({ categories, currentCategoryId, onSelect, invalid }) => {
   return (
     <View style={styles.container}>
       <Text style={[styles.label, invalid && styles.invalidLabel]}>
@@ -21,7 +21,7 @@ const CategoryChoice = ({ categories, currentCategory, onSelect, invalid }) => {
                 item={category}
                 name={category.description}
                 image={category.image}
-                isSelected={category.id === currentCategory.id}
+                isSelected={category.id === currentCategoryId}
                 onSelect={onSelect}
                 invalid={invalid}
                 style={{ fontSize: 16 }}

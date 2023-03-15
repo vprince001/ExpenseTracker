@@ -5,11 +5,9 @@ import {
   getDateSectionExpenses,
   sortDescending,
 } from '../../util/expenses'
-import { useState } from 'react'
+import {useContext, useState} from 'react'
+import {CategoriesContext} from "../../store/categories-context";
 
-const renderExpenseItem = (itemData) => {
-  return <ExpenseItem {...itemData.item} />
-}
 
 const SectionHeader = ({ section: { title, sum } }) => {
   return (
@@ -22,7 +20,7 @@ const SectionHeader = ({ section: { title, sum } }) => {
 
 const ExpensesList = ({ expenses, fetchDataAndSetCtx }) => {
   const [refreshing, setRefreshing] = useState(false)
-
+  const categoriesCtx = useContext(CategoriesContext)
   const dateExpenseLookup = getDateExpenseLookup(expenses)
   const dateSectionExpenses = getDateSectionExpenses(dateExpenseLookup)
   const sortedDateSectionExpenses = sortDescending(dateSectionExpenses)
@@ -31,6 +29,12 @@ const ExpensesList = ({ expenses, fetchDataAndSetCtx }) => {
     setRefreshing(true)
     await fetchDataAndSetCtx()
     setRefreshing(false)
+  }
+
+  const renderExpenseItem = (itemData) => {
+    const { id, description, amount, categoryId } = itemData.item
+    const expenseCategory = categoriesCtx.categories.find(contextCategory => contextCategory.id === categoryId)
+    return <ExpenseItem id={id} description={description} amount={amount} category={expenseCategory} />
   }
 
   return (
