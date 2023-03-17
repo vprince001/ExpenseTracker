@@ -19,7 +19,7 @@ export const addExpense = (expenseData, databaseId) => {
   return newExpenseId
 }
 
-export const fetchExpenses = async (databaseId) => {
+export const fetchExpenses = async databaseId => {
   let expenses = []
   const dbRef = ref(getDatabase())
   const databaseRef = child(dbRef, `databases/${databaseId}/expenses`)

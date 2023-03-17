@@ -30,7 +30,7 @@ export const ScreenNames = {
 
 export const IconNames = {
   add: 'add',
-  checkamrk: 'md-checkmark',
+  checkmark: 'md-checkmark',
   clear: 'close-circle',
   edit: 'create-outline',
   imagePicker: 'image-outline',

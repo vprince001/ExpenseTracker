@@ -141,7 +141,7 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
     navigation.setOptions({
       headerRight: () => (
         <IconButton
-          icon={IconNames.checkamrk}
+          icon={IconNames.checkmark}
           size={36}
           color={GlobalStyles.colors.primary600}
           onPress={submitHandler}

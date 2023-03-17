@@ -7,7 +7,7 @@ import ImageModal from './ImageModal'
 import { GlobalStyles, IconNames } from '../../constants'
 
 const CategoryImageSelection = ({ path, setPath, invalid }) => {
-  const [showImages, setShowImages] = useState()
+  const [showImages, setShowImages] = useState(false)
   const label = path ? 'Change Image' : 'Select Image'
 
   return (
