@@ -19,16 +19,6 @@ const CategoriesStackScreen = () => {
           return {
             title: 'Categories',
             headerTitleAlign: 'center',
-            headerRight: () => (
-              <IconButton
-                icon={IconNames.add}
-                size={36}
-                color={GlobalStyles.colors.primary300}
-                onPress={() => {
-                  navigation.navigate(ScreenNames.manageCategoryScreen)
-                }}
-              />
-            ),
           }
         }}
       />

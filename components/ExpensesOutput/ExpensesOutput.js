@@ -9,9 +9,12 @@ import { AppDataContext } from '../../store/app-data-context'
 import { getMonthExpenseLookup } from '../../util/expenses'
 import { addAppData, updateAppData } from '../../util/http'
 import { sortShortMonthNames } from '../../util/date'
-import { GlobalStyles } from '../../constants'
+import {GlobalStyles, ScreenNames} from '../../constants'
+import IconButton from "../UI/IconButton";
+import {useNavigation} from "@react-navigation/native";
 
 const ExpensesOutput = ({ expenses, fetchDataAndSetCtx }) => {
+  const navigation = useNavigation()
   const appDataCtx = useContext(AppDataContext)
   const [selectedMonth, setSelectedMonth] = useState(
     appDataCtx.appData.selectedMonth
@@ -54,6 +57,16 @@ const ExpensesOutput = ({ expenses, fetchDataAndSetCtx }) => {
         expenses={filteredExpenses}
         fetchDataAndSetCtx={fetchDataAndSetCtx}
       />
+      <View style={styles.addButton}>
+        <IconButton
+          icon={"add-circle"}
+          size={60}
+          color={GlobalStyles.colors.primary600}
+          onPress={() => {
+              navigation.navigate(ScreenNames.manageExpenseScreen)
+          }}
+        />
+      </View>
     </View>
   )
 }
@@ -65,4 +78,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: GlobalStyles.colors.white,
   },
+  addButton: {
+    position: "absolute",
+    bottom: 0,
+    right: 0,
+  }
 })

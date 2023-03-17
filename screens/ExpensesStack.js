@@ -14,20 +14,10 @@ const ExpensesStackScreen = () => {
       <ExpensesStack.Screen
         name={ScreenNames.allExpenseScreen}
         component={AllExpenses}
-        options={({ navigation }) => {
+        options={() => {
           return {
             title: 'Expenses',
-            headerTitleAlign: 'center',
-            headerRight: () => (
-              <IconButton
-                icon={IconNames.add}
-                size={36}
-                color={GlobalStyles.colors.primary300}
-                onPress={() => {
-                  navigation.navigate(ScreenNames.manageExpenseScreen)
-                }}
-              />
-            ),
+            headerTitleAlign: 'center'
           }
         }}
       />
