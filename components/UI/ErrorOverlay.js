@@ -27,7 +27,7 @@ const ErrorOverlay = ({
       <IconButton
         icon={IconNames.reload}
         size={36}
-        color={GlobalStyles.colors.primary300}
+        color={GlobalStyles.colors.primary600}
         onPress={() => reload()}
       />
     </View>

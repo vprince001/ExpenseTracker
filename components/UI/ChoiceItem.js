@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   selectedItem: {
-    backgroundColor: GlobalStyles.colors.primary300,
+    backgroundColor: GlobalStyles.colors.primary600,
   },
   selectedItemText: {
     color: GlobalStyles.colors.white,

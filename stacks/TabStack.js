@@ -15,7 +15,7 @@ const TabStack = () => {
         screenOptions={{
           headerShown: false,
           tabBarShowLabel: false,
-          tabBarActiveTintColor: GlobalStyles.colors.primary300,
+          tabBarActiveTintColor: GlobalStyles.colors.primary600,
         }}
       >
         <Tab.Screen

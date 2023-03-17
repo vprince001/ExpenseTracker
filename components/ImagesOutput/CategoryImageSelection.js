@@ -23,7 +23,7 @@ const CategoryImageSelection = ({ path, setPath, invalid }) => {
         <IconButton
           icon={IconNames.imagePicker}
           size={100}
-          color={GlobalStyles.colors.primary300}
+          color={GlobalStyles.colors.primary600}
           onPress={() => setShowImages(true)}
         />
       )}

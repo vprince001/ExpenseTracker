@@ -22,6 +22,6 @@ const styles = StyleSheet.create({
   selectedImage: {
     borderRadius: 50,
     borderWidth: 1,
-    borderColor: GlobalStyles.colors.primary300,
+    borderColor: GlobalStyles.colors.primary600,
   },
 })

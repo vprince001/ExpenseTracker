@@ -143,7 +143,7 @@ const ExpenseForm = ({ onSubmit, defaultValues }) => {
         <IconButton
           icon={IconNames.checkamrk}
           size={36}
-          color={GlobalStyles.colors.primary300}
+          color={GlobalStyles.colors.primary600}
           onPress={submitHandler}
         />
       ),

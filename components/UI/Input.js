@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   focusedInput: {
-    borderColor: GlobalStyles.colors.primary300,
+    borderColor: GlobalStyles.colors.primary600,
     borderWidth: 1,
   },
   input: {

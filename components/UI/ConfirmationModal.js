@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     color: GlobalStyles.colors.error200,
   },
   cancelTextStyle: {
-    color: GlobalStyles.colors.primary300,
+    color: GlobalStyles.colors.primary600,
   },
 })
 

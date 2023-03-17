@@ -98,7 +98,7 @@ const CategoryForm = ({ onSubmit, defaultValues, categories }) => {
         <IconButton
           icon={IconNames.checkamrk}
           size={36}
-          color={GlobalStyles.colors.primary300}
+          color={GlobalStyles.colors.primary600}
           onPress={submitHandler}
         />
       ),

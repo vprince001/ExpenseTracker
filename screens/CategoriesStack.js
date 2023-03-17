@@ -43,7 +43,7 @@ const CategoriesStackScreen = () => {
               <IconButton
                 icon={IconNames.edit}
                 size={36}
-                color={GlobalStyles.colors.primary300}
+                color={GlobalStyles.colors.primary600}
                 onPress={() => {
                   navigation.navigate(ScreenNames.manageCategoryScreen)
                 }}
